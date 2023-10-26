@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'ereferralonline'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_27CEA5364141438185AB181E91C4B613 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_006E71017A574D708F9953664253BCD3 }}
           package: .
