@@ -178,6 +178,8 @@ const Reports = () => {
           return
         }
       }
+    } else if (details && details.IsthisaTargetPatient === "No") {
+      files = files.filter((file) => file.ReportName !== "IPT Form");
     }
 
     dispatch(setReferralSubmissionStep(currentStep + 1))
@@ -361,6 +363,9 @@ const Reports = () => {
         <h3 className="detailsHeader" style={{marginBottom:'5px'}}>Reports</h3>
         <span>Please drag and drop the required documents to the sections or click on sections below</span><br/><br/>
         {reportslist.map((report, index) => {
+          if(details && details.IsthisaTargetPatient == "No" && report.ReportName== "IPT Form"){
+            return
+          }
           const hasFile = files.some((file) => file.ReportIndex === report.ReportIndex);
           var filename = null;
           if (hasFile) {
