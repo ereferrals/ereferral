@@ -58,5 +58,5 @@ jobs:
         with:
           app-name: 'ereferralweb'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_ONLINE }}
           package: release.zip
