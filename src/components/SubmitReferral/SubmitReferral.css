@@ -1,0 +1,9 @@
+.container-submit {
+    display: block;
+    font-size: 16px;
+    text-align: left;
+    margin-left: 20%;
+    max-width: 800px;
+    
+  }
+  .container-submit p{line-height: 25px;}

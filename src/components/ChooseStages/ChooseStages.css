@@ -1,0 +1,44 @@
+.choosestage-container{
+    width: 80%;
+    margin: 0 auto;
+}
+.choosestage-header{
+    font-weight: 600;
+    font-size: 24px;
+    margin: 40px 0px 20px 0px;
+    display: inline-block;
+    width: 100%;
+}
+.agreeTerm{font-size: 24px;font-weight: 600;color:#005cbb;line-height: 34px;margin: 30px 0px;}
+.agreeTerm input[type="checkbox"]{height: 20px;width: 20px;border: 2px solid #005cbb;float: right;}
+.choosestage-header button{
+    font-weight: 600;
+    font-size: 20px;
+}
+.stagebutton.selected{
+    background-color: #005cbb;
+    border: 1px solid green;
+    padding: 10px 20px;
+    color: white;
+}
+.stagebutton{
+    background-color: white;
+    border: 1px solid green;
+    padding: 10px 20px;
+    color: #005cbb;
+    margin-bottom: 10px;
+    width: 300px;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 30px;
+}
+.choosestage-gallery{
+    border: 1px solid grey;
+    padding: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+.btnCreate {float: right;}
+.leftColumn{width: 25%;}
+.rightColumn{width: 75%;margin-left: 100px;}

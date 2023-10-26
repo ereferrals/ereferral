@@ -1,0 +1,9 @@
+.detailsHeader{
+    margin-top: 0px;
+    font-size: 30px;
+    margin-bottom: 15px;
+    color: #000;
+}
+.detailssection{display: inline-block;width: 100%;}
+.detailsNext button{float: right;background-color: green;color: white;font-size: 20px;font-weight: 600;padding: 10px 20px;
+border-radius: 5px;border: 0px;cursor: pointer;min-width: 120px;box-shadow: 0px 8px 0px #444;}

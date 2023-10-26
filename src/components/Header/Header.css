@@ -1,0 +1,8 @@
+.header{
+    height: 60px;background-color:#005cbb;
+    display: flex;align-items: center;padding: 10px;
+    color: white;
+    font-size: 22px;
+    font-weight: 600;
+}
+.header img{width: 100px;margin: 0px 20px}

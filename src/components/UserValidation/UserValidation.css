@@ -1,0 +1,17 @@
+.container {
+    display: block;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    line-height: 40px;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 150px;
+  }
+  
+  .vertical-center1 {
+    margin: 0;
+  }
+
+  .boldtxt{font-weight: 600;}
+  

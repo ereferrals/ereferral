@@ -1,0 +1,12 @@
+.leftnav{
+    margin-top: 50px;max-width: 400px;
+}
+.leftnav button{
+    background-color: transparent;
+    border: 0px;
+    color: #005cbb;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
