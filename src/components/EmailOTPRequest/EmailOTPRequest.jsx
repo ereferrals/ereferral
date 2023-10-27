@@ -33,6 +33,12 @@ const EmailOTPRequest = () =>{
             setModalText("Validating email... Please wait.")
             openModal();
             var isValid = await validateDomain(domain);
+            if(isValid == "OTP Generated Already")
+            {
+                setShowCloseButton(true)
+                setModalText("Another eReferral session already in progress. Please close all browsers and try again.")
+                return
+            }
             //if((isValid==undefined || isValid == "Not valid") && false){//checkonce
             if(isValid==undefined || isValid == "Not valid"){
                 setShowCloseButton(true)

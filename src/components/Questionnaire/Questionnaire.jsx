@@ -46,9 +46,14 @@ const Questionnaire = () => {
     };
 
     const handleNext = () => {
-        if(awareOfDiagnosis == undefined || awareOfDiagnosis == ""/*discussedAtMDT == undefined || discussedAtMDT == "" || 
+        if(awareOfDiagnosis == undefined || awareOfDiagnosis == "" || 
+        (awareOfDiagnosis == "Yes" && (discussedAtMDT == undefined || discussedAtMDT == "")) || 
+        (discussedAtMDT == "Yes" && (overseasPatient == undefined || overseasPatient == "")))
+        {
+            /*discussedAtMDT == undefined || discussedAtMDT == "" || 
             awareOfDiagnosis == undefined || awareOfDiagnosis == "" || 
-            overseasPatient == undefined || overseasPatient == ""*/){
+            overseasPatient == undefined || overseasPatient == ""*/
+
             setShowCloseButton(true);
             setModalText("Complete questionnaire");
             openModal()
@@ -71,7 +76,7 @@ const Questionnaire = () => {
                 return
             }
         }
-        if(details.NHSNumber && details.NHSNumber != "" && (details.NHSNumber.length < 10 || details.NHSNumber.length > 10)){
+        if(details.NHSNumber && details.NHSNumber != "" && (details.NHSNumber.length != 10)){
             setShowCloseButton(true)
             setModalText("Enter valid NHS Number")
             openModal()

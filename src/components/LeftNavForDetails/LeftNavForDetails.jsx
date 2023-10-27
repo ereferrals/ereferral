@@ -20,37 +20,35 @@ const LeftNavForDetails = () => {
 
     const handleGoToStep = (step) => {
         if(currentStep == 0){
-            if(details.NHSNumber && details.NHSNumber != "" && (details.NHSNumber.length < 10 || details.NHSNumber.length > 10)){
+            if(details.NHSNumber && details.NHSNumber != "" && (details.NHSNumber.length != 10)){
                 setShowCloseButton(true)
                 setIsConfirmation(false)
                 setModalText("Enter valid NHS Number")
                 openModal()
                 return
             }
-            else if(details.HomePhoneNumber && details.HomePhoneNumber != "" && (details.HomePhoneNumber.length < 10 || details.HomePhoneNumber.length > 10)){
+            else if(details.HomePhoneNumber && details.HomePhoneNumber != "" && (details.HomePhoneNumber.length != 11)){
                 setShowCloseButton(true)
-                setIsConfirmation(false)
                 setModalText("Enter valid Home Phone Number")
                 openModal()
                 return
             }
-            else if(details.MobileNumber && details.MobileNumber != "" && (details.MobileNumber.length < 10 || details.MobileNumber.length > 10)){
+            else if(details.MobileNumber && details.MobileNumber != "" && (details.MobileNumber.length != 10)){
                 setShowCloseButton(true)
-                setIsConfirmation(false)
                 setModalText("Enter valid Mobile Number")
                 openModal()
                 return
             }
         }
         if(currentStep == 1){
-            if(details.NextofKinHomePhoneNumber && details.NextofKinHomePhoneNumber != "" && (details.NextofKinHomePhoneNumber.length < 10 || details.NextofKinHomePhoneNumber.length > 10)){
+            if(details.NextofKinHomePhoneNumber && details.NextofKinHomePhoneNumber != "" && (details.NextofKinHomePhoneNumber.length != 11)){
                 setShowCloseButton(true)
                 setIsConfirmation(false)
                 setModalText("Enter valid Home Phone Number")
                 openModal()
                 return
             }
-            else if(details.NextofKinMobileNumber && details.NextofKinMobileNumber != "" && (details.NextofKinMobileNumber.length < 10 || details.NextofKinMobileNumber.length > 10)){
+            else if(details.NextofKinMobileNumber && details.NextofKinMobileNumber != "" && (details.NextofKinMobileNumber.length != 10)){
                 setShowCloseButton(true)
                 setIsConfirmation(false)
                 setModalText("Enter valid Mobile Number")

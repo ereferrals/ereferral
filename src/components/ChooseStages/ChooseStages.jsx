@@ -90,8 +90,8 @@ const ChooseStages = () => {
         setModalText("Getting Referral Type Stages... Please wait.");
         openModal();
         setTimeout(async ()=> {
-            var stages = await getReferralTypeStages();//checkonce
-            /*var stages = [{title: 'Breast', stage: 'Stage I-II', report: 'Report 1', StageOrder: 1, ReportOrder: 1},
+            //var stages = await getReferralTypeStages();//checkonce
+            var stages = [{title: 'Breast', stage: 'Stage I-II', report: 'Report 1', StageOrder: 1, ReportOrder: 1},
             {title: 'Breast', stage: 'Stage I-II', report: 'Report 11', StageOrder: 3, ReportOrder: 2},
             {title: 'Breast', stage: 'Stage III', report: 'Report 2', StageOrder: 4, ReportOrder: 2},
             {title: 'Breast', stage: 'Stage III', report: 'Report 22', StageOrder: 2, ReportOrder: 1},
@@ -101,12 +101,12 @@ const ChooseStages = () => {
             {title: 'Lung', stage: 'Stage IV', report: 'Report 33', StageOrder: 3, ReportOrder: 1},
             {title: 'Lung', stage: 'Mesothelioma', report: 'Report 44', StageOrder: 4, ReportOrder: 1},
             {title: 'Lung', stage: 'Thymoma', report: 'Referral Letter or MDT Outcome', StageOrder: 5, ReportOrder: 3},
-            {title: 'Lung', stage: 'Thymoma', report: 'IPT Form if Relevant', StageOrder: 5, ReportOrder: 1},
+            {title: 'Lung', stage: 'Thymoma', report: 'IPT Form', StageOrder: 5, ReportOrder: 1},
             {title: 'Lung', stage: 'Thymoma', report: 'Histology report of biopsy', StageOrder: 5, ReportOrder: 2},
             {title: 'Lung', stage: 'Thymoma', report: 'Histology report of EBUS', StageOrder: 5, ReportOrder: 4},
             {title: 'Lung', stage: 'Thymoma', report: 'Molecular profile in case of adenocarcinoma: EGFR, ALK and PD-L1', StageOrder: 5, ReportOrder: 5},
             {title: 'Lung', stage: 'Thymoma', report: 'Molecular profile in case of squamous cell carcinoma: PDL-1', StageOrder: 5, ReportOrder: 6}];
-            */
+            
             const sortedStages = stages.sort((a, b) => {
                 if (a.StageOrder !== b.StageOrder) {
                     return a.StageOrder - b.StageOrder;

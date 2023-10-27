@@ -83,10 +83,40 @@ const PatientDetails = () => {
             openModal()
             return
         }
+        else if(details.HomePhoneNumber && details.HomePhoneNumber != "" && (details.HomePhoneNumber.length != 11)){
+            setShowCloseButton(true)
+            setModalText("Enter valid Home Phone Number")
+            openModal()
+            return
+        }
+        else if(details.MobileNumber && details.MobileNumber != "" && (details.MobileNumber.length != 10)){
+            setShowCloseButton(true)
+            setModalText("Enter valid Mobile Number")
+            openModal()
+            return
+        }
         dispatch(setReferralSubmissionStep(currentStep + 1))
     }
 
     const handleBack = () => {
+        if(details.NHSNumber && details.NHSNumber != "" && (details.NHSNumber.length < 10 || details.NHSNumber.length > 10)){
+            setShowCloseButton(true)
+            setModalText("Enter valid NHS Number")
+            openModal()
+            return
+        }
+        else if(details.HomePhoneNumber && details.HomePhoneNumber != "" && (details.HomePhoneNumber.length != 11)){
+            setShowCloseButton(true)
+            setModalText("Enter valid Home Phone Number")
+            openModal()
+            return
+        }
+        else if(details.MobileNumber && details.MobileNumber != "" && (details.MobileNumber.length != 10)){
+            setShowCloseButton(true)
+            setModalText("Enter valid Mobile Number")
+            openModal()
+            return
+        }
         dispatch(setAppStep(1))
     }
 
@@ -173,7 +203,7 @@ const PatientDetails = () => {
                         <FormTextBoxCtrl label="Address Line 4" onChangeText={onChangeTextHandle} title="AddressLine4" value={details && details.AddressLine4}/><br/>
                         <FormTextBoxCtrl label="Post Code" onChangeText={onChangeTextHandle} title="PostCode" value={details && details.PostCode}/><br/>
                         <FormTextBoxCtrl label="Home Phone Number" onChangeText={onChangeTextHandle} title="HomePhoneNumber" value={details && details.HomePhoneNumber} maxLengthValue={11} disallowSpaces={true}/><br/>
-                        <FormTextBoxCtrl label="Mobile Number" onChangeText={onChangeTextHandle} title="MobileNumber" value={details && details.MobileNumber} maxLengthValue={11} disallowSpaces={true}/><br/>
+                        <FormTextBoxCtrl label="Mobile Number" onChangeText={onChangeTextHandle} title="MobileNumber" value={details && details.MobileNumber} maxLengthValue={10} disallowSpaces={true}/><br/>
                         <FormTextBoxCtrl label="Email Address (Optional)" onChangeText={onChangeTextHandle} title="EmailAddress" value={details && details.EmailAddress}/><br/>
                     </div>
                 </div>

@@ -230,8 +230,18 @@ const Reports = () => {
       }
     }
     
-    const newStage = { ReportName: report, ReportFile: droppedFile, ReportIndex: reportIndex,
-      ReportOrder: reportOrder };
+    const timestamp = new Date().getTime()
+    const fileNameWithTimestamp = `${droppedFile.name}_${timestamp}`
+    const updatedFile = new File([droppedFile], fileNameWithTimestamp, {
+      type: droppedFile.type,
+    });
+    
+    const newStage = { 
+      ReportName: report, 
+      ReportFile: updatedFile,//droppedFile, 
+      ReportIndex: reportIndex,
+      ReportOrder: reportOrder 
+    };
     const updatedFiles = files.filter((file) => file.ReportIndex !== reportIndex);
     dispatch(updateFiles([...updatedFiles, newStage]))
   };
@@ -249,19 +259,19 @@ const Reports = () => {
 
   const openModal = () => {
     setIsModalOpen(true);
-};
+  };
 
   const closeModal = () => {
-        setIsModalOpen(false);
-    };
+    setIsModalOpen(false);
+  };
 
   const openPDFModal = () => {
     setIsPDFModalOpen(true);
-};
+  };
 
   const closePDFModal = () => {
-        setIsPDFModalOpen(false);
-    };
+    setIsPDFModalOpen(false);
+  };
 
   const handleDeleteFile = (e, hasFile, isMain) => {
       if(hasFile){
@@ -298,9 +308,16 @@ const Reports = () => {
       {
         selFile = selectedFile
       }
+
+      const timestamp = new Date().getTime()
+      const fileNameWithTimestamp = `${selFile.name}_${timestamp}`
+      const updatedFile = new File([selFile], fileNameWithTimestamp, {
+        type: selFile.type,
+      });
+
       const newFile = {
         ReportName: report.ReportName,
-        ReportFile: selFile,
+        ReportFile: updatedFile,//selFile,
         ReportIndex: report.ReportIndex,
         ReportOrder: report.ReportOrder
       };
