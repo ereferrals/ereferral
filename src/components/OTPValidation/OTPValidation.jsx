@@ -94,7 +94,7 @@ const OTPValidation = () => {
       }
       else{
           //closeModal();
-          setShowCloseButton(true);debugger
+          setShowCloseButton(true);
           setMaxAttempts(maxAttempts + 1)
           if(response && response.indexOf("Invalid") > -1){
             if(maxAttempts < 5){

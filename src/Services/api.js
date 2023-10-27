@@ -134,7 +134,8 @@ export const validateDomain = async (domainval) => {
   try {
     const response = await fetch(`${BASE_URL}/SPData/ValidateDomain`, {
       method: "POST",
-      body: formData
+      body: formData,
+      credentials: "include"
     });
 
     if (!response.ok) {
