@@ -99,9 +99,10 @@ const OTPValidation = () => {
           if(response && response.indexOf("Invalid") > -1){
             if(maxAttempts < 5){
               setMaxAttempts(maxAttempts + 1)
-              setModalText("You have reached maximum attempts. Please refresh and try again.");
+              setModalText("Invalid OTP.");
             }
             else{
+              setModalText("You have reached maximum attempts. Please refresh and try again.");
               setModalText(response);
             }
           }
