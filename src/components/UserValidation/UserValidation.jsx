@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import EmailOTPRequest from '../EmailOTPRequest/EmailOTPRequest';
 import OTPValidation from '../OTPValidation/OTPValidation';
 import ClatterbridgeLogo from '../../Images/Clatterbridge-logo.png';

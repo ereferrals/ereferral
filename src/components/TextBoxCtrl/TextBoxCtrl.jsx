@@ -32,6 +32,7 @@ const TextBoxCtrl = ({placeholdertext, onChangeText}) => {
           onChange={onChangeHandler}
           onFocus={handleFocus}
           onBlur={handleBlur}
+          maxLength={320}
         />
         <span className={`placeholder ${isFocused || email ? 'shrink' : ''}`}>{placeholdertext}</span>
       </div>

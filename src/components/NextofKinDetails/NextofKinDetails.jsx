@@ -95,13 +95,19 @@ const NextofKinDetails = () => {
 
     return (
         <div className="detailssection">
-            <div style={{float:'left'}}>
-                <h3 className="detailsHeader">Next of Kin Details</h3>
+            <div style={{float:'left',width:"100%"}}>
+                <div style={{display:"inline-block",width:"100%"}}>
+                    <h3 className="detailsHeader" style={{float:"left"}}>Next of Kin Details</h3>
+                    <div className="detailsNext" style={{float:"right"}}>
+                        <button onClick={handleNext}>Next</button>
+                        <button onClick={handleBack} style={{marginRight:'10px'}}>Back</button>
+                    </div>
+                </div>
                 <div style={{display:'inline-block',width:'100%'}}>
                     <div style={{marginRight:'200px',float: 'left'}}>
-                        <FormTextBoxCtrl label="First Name" onChangeText={onChangeTextHandle} title="NextofKinFirstName" value={details && details.NextofKinFirstName}/><br/>
-                        <FormTextBoxCtrl label="Last Name" onChangeText={onChangeTextHandle} title="NextofKinLastName" value={details && details.NextofKinLastName}/><br/>
-                        <FormTextBoxCtrl label="Middle Name (Optional)" onChangeText={onChangeTextHandle} title="NextofKinMiddlename" value={details && details.NextofKinMiddlename}/><br/>
+                        <FormTextBoxCtrl label="First Name" onChangeText={onChangeTextHandle} title="NextofKinFirstName" value={details && details.NextofKinFirstName} onlyText={true}/><br/>
+                        <FormTextBoxCtrl label="Last Name" onChangeText={onChangeTextHandle} title="NextofKinLastName" value={details && details.NextofKinLastName} onlyText={true}/><br/>
+                        <FormTextBoxCtrl label="Middle Name (Optional)" onChangeText={onChangeTextHandle} title="NextofKinMiddlename" value={details && details.NextofKinMiddlename} onlyText={true}/><br/>
                         <FormTextBoxCtrl label="Address Line 1" onChangeText={onChangeTextHandle} title="NextofKinAddressLine1" value={details && details.NextofKinAddressLine1}/><br/>
                         <FormTextBoxCtrl label="Address Line 2" onChangeText={onChangeTextHandle} title="NextofKinAddressLine2" value={details && details.NextofKinAddressLine2}/><br/>
                         <FormTextBoxCtrl label="Address Line 3" onChangeText={onChangeTextHandle} title="NextofKinAddressLine3" value={details && details.NextofKinAddressLine3}/><br/>
@@ -116,11 +122,10 @@ const NextofKinDetails = () => {
                     </div>
                 </div>
             </div>
-            <div className="detailsNext">
+            {/*<div className="detailsNext">
                 <button onClick={handleNext}>Next</button>
                 <button onClick={handleBack} style={{marginRight:'10px'}}>Back</button>
-                {/*<button onClick={handleReset} style={{marginRight:'10px'}}>Reset</button>*/}
-            </div>
+            </div>*/}
             <ModalDialog isOpen={isModalOpen} onClose={closeModal} showCloseButton={showCloseButton}>
                 {modalText}
             </ModalDialog>

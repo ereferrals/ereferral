@@ -17,12 +17,13 @@ const LeftNavForDetails = () => {
     const [isConfirmation, setIsConfirmation] = useState(true)
     const [confirmationBtnText, setConfirmationBtnText] = useState("")
     const sharedStrings = useSelector(state => state.sharedStrings)
+    const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 
     const handleGoToStep = (step) => {
+        setIsConfirmation(false)
         if(currentStep == 0){
             if(details.NHSNumber && details.NHSNumber != "" && (details.NHSNumber.length != 10)){
                 setShowCloseButton(true)
-                setIsConfirmation(false)
                 setModalText("Enter valid NHS Number")
                 openModal()
                 return
@@ -36,6 +37,12 @@ const LeftNavForDetails = () => {
             else if(details.MobileNumber && details.MobileNumber != "" && (details.MobileNumber.length != 10)){
                 setShowCloseButton(true)
                 setModalText("Enter valid Mobile Number")
+                openModal()
+                return
+            }
+            else if(details.EmailAddress && details.EmailAddress != "" && !(emailPattern.test(details.EmailAddress))){
+                setShowCloseButton(true)
+                setModalText("Enter valid email address")
                 openModal()
                 return
             }

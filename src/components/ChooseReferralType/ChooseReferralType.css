@@ -32,6 +32,9 @@
     min-height: 165px;
     min-width: 202px;
     background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .image-tile:hover {
     border:1px solid green;

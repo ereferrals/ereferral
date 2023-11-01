@@ -2,7 +2,8 @@ import React, {useEffect, useState} from "react"
 import "./FormTextBoxCtrl.css"
 import { useSelector } from "react-redux"
 
-const FormTextBoxCtrl = ({label, onChangeText, title, value, ctrlInSameRow, lblWidth, ctrlWidth, onBlurText, maxLengthValue, minLengthValue, disallowSpaces}) => {
+const FormTextBoxCtrl = ({label, onChangeText, title, value, ctrlInSameRow, lblWidth, ctrlWidth, onBlurText, 
+    maxLengthValue, minLengthValue, disallowSpaces, onlyText}) => {
   const [textboxvalue, setTextBoxValue] = useState(value)
   const details = useSelector(state => state.details)
   
@@ -14,6 +15,9 @@ const FormTextBoxCtrl = ({label, onChangeText, title, value, ctrlInSameRow, lblW
     var newValue = e.target.value;
     if (disallowSpaces) {
       newValue = newValue.replace(/\D/g, "");
+    }
+    if(onlyText){
+      newValue = newValue.replace(/[^A-Za-z \-'’]+/g, "")
     }
     setTextBoxValue(newValue)
     onChangeText(title, newValue)

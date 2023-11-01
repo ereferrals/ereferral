@@ -128,6 +128,7 @@ const ChooseStages = () => {
     const handleNext = () => {
         if(selectedStage == null){
             setShowCloseButton(true);
+            setIsConfirmation(false)
             setModalText("Select Stage");
             openModal();
             return;

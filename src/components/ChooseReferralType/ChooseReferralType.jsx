@@ -137,7 +137,7 @@ const ChooseReferralType = () => {
                         title={imageNames[index]}
                         >
                         <div key={index} className="image-tile" title={imageNames[index]}>
-                            <img src={imageUrl} alt={`Image ${index}`} title={imageNames[index]}/>
+                            {/*<img src={imageUrl} alt={`Image ${index}`} title={imageNames[index]}/>*/}
                             <div className="image-name" title={imageNames[index]}>{imageNames[index]}</div>
                         </div>
                     </a>

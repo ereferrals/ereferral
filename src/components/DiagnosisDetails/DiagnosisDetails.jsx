@@ -87,8 +87,14 @@ const DiagnosisDetails = ({onNext,onBack}) => {
 
     return (
         <div className="detailssection">
-            <div style={{float:'left',width:'870px'}}>
-                <h3 className="detailsHeader">Treatment & Target Category</h3>
+            <div style={{float:'left',width:"100%"}}>
+                <div style={{display:"inline-block",width:"100%"}}>
+                    <h3 className="detailsHeader" style={{float:"left"}}>Treatment & Target Category</h3>
+                    <div className="detailsNext" style={{float:"right"}}>
+                        <button onClick={handleNext}>Next</button>
+                        <button onClick={handleBack} style={{marginRight:'10px'}}>Back</button>
+                    </div>
+                </div>
                 <div style={{display:'inline-block',width:'870px'}}>
                     <div style={{marginRight:'200px',float: 'left'}}>
                         {/*<FormTextBoxCtrl label="Tumour Location" onChangeText={onChangeTextHandle} title="TumourLocation" value={details && details.TumourLocation}/><br/>*/}
@@ -113,11 +119,10 @@ const DiagnosisDetails = ({onNext,onBack}) => {
                 </div>
             </div>
             
-            <div className="detailsNext">
+            {/*<div className="detailsNext">
                     <button onClick={handleNext}>Next</button>
                     <button onClick={handleBack} style={{marginRight:'10px'}}>Back</button>
-                    {/*<button onClick={handleReset} style={{marginRight:'10px'}}>Reset</button>*/}
-                </div>
+                </div>*/}
         </div>
     )
 }

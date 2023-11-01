@@ -23,6 +23,7 @@ const PatientDetails = () => {
     const [sexDataList,setSexDataList] = useState([])
     const [specialRequirementsDataList,setSpecialRequirementsDataList] = useState([])
     const [titlesList,setTitlesDataList] = useState([])
+    const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [showCloseButton,setShowCloseButton] = useState(true)
@@ -95,6 +96,12 @@ const PatientDetails = () => {
             openModal()
             return
         }
+        else if(details.EmailAddress && details.EmailAddress != "" && !(emailPattern.test(details.EmailAddress))){
+            setShowCloseButton(true)
+            setModalText("Enter valid email address")
+            openModal()
+            return
+        }
         dispatch(setReferralSubmissionStep(currentStep + 1))
     }
 
@@ -114,6 +121,12 @@ const PatientDetails = () => {
         else if(details.MobileNumber && details.MobileNumber != "" && (details.MobileNumber.length != 10)){
             setShowCloseButton(true)
             setModalText("Enter valid Mobile Number")
+            openModal()
+            return
+        }
+        else if(details.EmailAddress && details.EmailAddress != "" && !(emailPattern.test(details.EmailAddress))){
+            setShowCloseButton(true)
+            setModalText("Enter valid email address")
             openModal()
             return
         }
@@ -181,13 +194,20 @@ const PatientDetails = () => {
     return (
         <div className="detailssection">
             <div style={{float:'left'}}>
-                <h3 className="detailsHeader">Patient Details</h3>
+                <div style={{display:"inline-block",width:"100%"}}>
+                    <h3 className="detailsHeader" style={{float:"left"}}>Patient Details</h3>
+                    <div className="detailsNext" style={{float:"right"}}>
+                        <button onClick={handleNext}>Next</button>
+                        <button onClick={handleBack} style={{marginRight:'10px'}}>Back</button>
+                    </div>
+                </div>
+                
                 <div style={{display:'inline-block',width:'100%'}}>
                     <div style={{marginRight:'200px',float: 'left'}}>
                         <FormTextBoxCtrl label="NHS Number" onBlurText={onBlurTextHandle} onChangeText={onChangeTextHandle} title="NHSNumber" value={details && details.NHSNumber} maxLengthValue={10} disallowSpaces={true} /><br/>
-                        <FormTextBoxCtrl label="Last Name" onChangeText={onChangeTextHandle} title="Surname" value={details && details.Surname}/><br/>
-                        <FormTextBoxCtrl label="First Name" onChangeText={onChangeTextHandle} title="FirstName" value={details && details.FirstName}/><br/>
-                        <FormTextBoxCtrl label="Middle Name (Optional)" onChangeText={onChangeTextHandle} title="MiddleName" value={details && details.MiddleName}/><br/>
+                        <FormTextBoxCtrl label="Last Name" onChangeText={onChangeTextHandle} title="Surname" value={details && details.Surname} onlyText={true}/><br/>
+                        <FormTextBoxCtrl label="First Name" onChangeText={onChangeTextHandle} title="FirstName" value={details && details.FirstName} onlyText={true}/><br/>
+                        <FormTextBoxCtrl label="Middle Name (Optional)" onChangeText={onChangeTextHandle} title="MiddleName" value={details && details.MiddleName} onlyText={true}/><br/>
                         <FormSelectCtrl label="Title" onChangeText={onChangeTextHandle} title="Title" value={details && details.Title} options={titlesList}/><br/>
                         <FormDateCtrl label="Date of Birth" onChangeText={onChangeTextHandle} title="DateofBirth" value={details && details.DateofBirth} dtWidth="320px"/><br/>
                         <FormSelectCtrl label="Sex" onChangeText={onChangeTextHandle} title="Sex" value={details && details.Sex} options={sexDataList}/><br/>
@@ -208,11 +228,7 @@ const PatientDetails = () => {
                     </div>
                 </div>
             </div>
-            <div className="detailsNext">
-                <button onClick={handleNext}>Next</button>
-                <button onClick={handleBack} style={{marginRight:'10px'}}>Back</button>
-                {/*<button onClick={handleReset} style={{marginRight:'10px'}}>Reset</button>*/}
-            </div>
+            
             
             <ModalDialog isOpen={isModalOpen} onClose={closeModal} showCloseButton={showCloseButton}>
                 {modalText}

@@ -53,8 +53,8 @@ const OTPValidation = () => {
   };
   const handleTextboxChange = (event, index) => {
     var newValue = event.target.value;
-    const isValidDigit = /^[0-9]$/.test(newValue);
-    if(!isValidDigit)
+    const isValidDigit = /^[0-9 ]$/.test(newValue);
+    if(!isValidDigit && newValue.trim() != "")
     {
       event.target.value="";
       return;
@@ -120,7 +120,7 @@ const OTPValidation = () => {
     }
   };
 
-  const handleResendOTP = async () => {debugger
+  const handleResendOTP = async () => {
     setResendAttempts(resendAttempts + 1)
     openModal()
     setShowCloseButton(false)

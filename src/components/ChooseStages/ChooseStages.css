@@ -1,6 +1,7 @@
 .choosestage-container{
     width: 80%;
     margin: 0 auto;
+    min-width: 900px;
 }
 .choosestage-header{
     font-weight: 600;
@@ -40,5 +41,5 @@
     align-items: flex-start;
 }
 .btnCreate {float: right;}
-.leftColumn{width: 25%;}
-.rightColumn{width: 75%;margin-left: 100px;}
+.leftColumn{width: 25%;min-width: 303px;}
+.rightColumn{width: 75%;margin-left: 100px;min-width: 600px;}

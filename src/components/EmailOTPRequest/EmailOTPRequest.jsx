@@ -1,12 +1,13 @@
-import React,{useState} from "react"
+import React,{useState,useEffect} from "react"
 import TextBoxCtrl from "../TextBoxCtrl/TextBoxCtrl";
 import ButtonCtrl from "../ButtonCtrl/ButtonCtrl";
 import ModalDialog from "../ModalDialog/ModalDialog";
-import { validateDomain, generateOTP } from "../../Services/api";
+import { validateDomain, generateOTP, clearSession, validateReCaptcha } from "../../Services/api";
 import { useDispatch } from "react-redux";
 import { setUserValidationStep } from "../UserValidation/UserValidationSlice";
 import { setEmail } from "./EmailSlice";
 import { updateDetails } from "../DetailsSlice";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const EmailOTPRequest = () =>{
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,11 +16,39 @@ const EmailOTPRequest = () =>{
     const [showCloseButton,setShowCloseButton] = useState(true)
     const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
     const dispatch = useDispatch()
+    const [captchaResponse, setCaptchaResponse] = useState(null)
+
+    useEffect(() => {
+        clearSessionString()
+    },[])
+
+    const clearSessionString = async () => {
+        await clearSession()
+    }
 
     const handleEmailOTPRequest = async () =>{
         if(emailId == "" || !(emailPattern.test(emailId))){
             setShowCloseButton(true)
             setModalText("Enter valid email address")
+            openModal();
+            return;
+        }
+        else{
+            const atIndex = emailId.indexOf("@");
+            var emailText = "";
+            if (atIndex !== -1) {
+                emailText = emailId.slice(0, atIndex)
+            }
+            if(emailText != "" && emailText.length > 64){
+                setShowCloseButton(true)
+                setModalText("Enter valid email address")
+                openModal();
+                return;
+            }
+        }
+        if(captchaResponse == null){
+            setShowCloseButton(true)
+            setModalText("Please select the 'I am not a Robot' checkbox.")
             openModal();
             return;
         }
@@ -74,10 +103,19 @@ const EmailOTPRequest = () =>{
         setEmailId(email)
     }
 
+    const onChange = async (value) => {
+        //console.log("Captcha value:", value)
+        const response = await validateReCaptcha(value)
+        setCaptchaResponse(response)
+    }
+
     return(
         <div>
             <center>
                 <p><TextBoxCtrl placeholdertext="Enter email address" onChangeText={onChangeText} /></p>
+                <p>
+                <ReCAPTCHA sitekey="6LeB4t4oAAAAAONBx_KT4CXAKPi9Kh_cGE_jiFqM" onChange={onChange} />
+                </p>
                 <p><ButtonCtrl btnText="Send" btnClickHandler={handleEmailOTPRequest} /></p>
             </center>
             <ModalDialog isOpen={isModalOpen} onClose={closeModal} showCloseButton={showCloseButton}>

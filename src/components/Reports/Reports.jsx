@@ -234,25 +234,40 @@ const Reports = () => {
         return;
       }
     }
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const arrayBuffer = e.target.result;
+      const dataView = new DataView(arrayBuffer);
     
-    const timestamp = new Date().getTime()
-    //const fileNameWithTimestamp = `${droppedFile.name}_${timestamp}`
-    const fileParts = droppedFile.name.split('.');
-    const fileExtension = fileParts.pop();
-    const fileNameWithoutExtension = fileParts.join('.');
-    const fileNameWithTimestamp = `${fileNameWithoutExtension}_${timestamp}.${fileExtension}`;
-    const updatedFile = new File([droppedFile], fileNameWithTimestamp, {
-      type: droppedFile.type,
-    });
-    
-    const newStage = { 
-      ReportName: report, 
-      ReportFile: updatedFile,//droppedFile, 
-      ReportIndex: reportIndex,
-      ReportOrder: reportOrder 
-    };
-    const updatedFiles = files.filter((file) => file.ReportIndex !== reportIndex);
-    dispatch(updateFiles([...updatedFiles, newStage]))
+      if (!(arrayBuffer.byteLength > 4 &&
+          dataView.getUint8(0) === 0x25 &&
+          dataView.getUint8(1) === 0x50 &&
+          dataView.getUint8(2) === 0x44 &&
+          dataView.getUint8(3) === 0x46)) {
+        alert("Invalid PDF file.");
+        return;
+      }
+
+      const timestamp = new Date().getTime()
+      const fileParts = droppedFile.name.split('.');
+      const fileExtension = fileParts.pop();
+      const fileNameWithoutExtension = fileParts.join('.');
+      const fileNameWithTimestamp = `${fileNameWithoutExtension}_${timestamp}.${fileExtension}`;
+      const updatedFile = new File([droppedFile], fileNameWithTimestamp, {
+        type: droppedFile.type,
+      });
+      
+      const newStage = { 
+        ReportName: report, 
+        ReportFile: updatedFile,//droppedFile, 
+        ReportIndex: reportIndex,
+        ReportOrder: reportOrder 
+      };
+      const updatedFiles = files.filter((file) => file.ReportIndex !== reportIndex);
+      dispatch(updateFiles([...updatedFiles, newStage]))
+    }
+    reader.readAsArrayBuffer(droppedFile);
   };
 
   const handlePDFView = (e) => {
@@ -362,35 +377,62 @@ const Reports = () => {
       fileInput.accept = ".pdf";
       fileInput.click();
   
-      fileInput.addEventListener("change", (event) => {debugger
+      fileInput.addEventListener("change", (event) => {
         const selFile = event.target.files[0];
         if (!selFile.type.includes("pdf")) {
             alert("Only PDF files are allowed.");
             return;
         }
-        if (selFile) {
-          const existingFile = files.find((file) => file.ReportIndex === report.ReportIndex);
-          setClickedReport(report)
-          setSelectedFile(selFile)
-          if (existingFile) {
-            setConfirmationBtnText("Yes")
-            setConfirmationType("Replace-File")
-            setModalText("This report already has a file. Do you want to replace it?");
-            setShowCloseButton(false)
-            setIsConfirmation(true);
-            openModal();
+        if (selFile.size > 5 * 1024 * 1024) {
+          alert("Please upload file with size up to 5MB.");
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const arrayBuffer = e.target.result;
+          const dataView = new DataView(arrayBuffer);
+        
+          if (!(arrayBuffer.byteLength > 4 &&
+              dataView.getUint8(0) === 0x25 &&
+              dataView.getUint8(1) === 0x50 &&
+              dataView.getUint8(2) === 0x44 &&
+              dataView.getUint8(3) === 0x46)) {
+            alert("Invalid PDF file.");
+            return;
           }
-          else{
-            replaceFileOnReport(report,selFile);
+
+          if (selFile) {
+            const existingFile = files.find((file) => file.ReportIndex === report.ReportIndex);
+            setClickedReport(report)
+            setSelectedFile(selFile)
+            if (existingFile) {
+              setConfirmationBtnText("Yes")
+              setConfirmationType("Replace-File")
+              setModalText("This report already has a file. Do you want to replace it?");
+              setShowCloseButton(false)
+              setIsConfirmation(true);
+              openModal();
+            }
+            else{
+              replaceFileOnReport(report,selFile);
+            }
           }
         }
+        reader.readAsArrayBuffer(selFile);
       });
     };
 
   return (
     <div>
-      <div style={{ float: "left" }}>
-        <h3 className="detailsHeader" style={{marginBottom:'5px'}}>Reports</h3>
+      <div style={{ float: "left",width:"100%" }}>
+        <div style={{display:"inline-block",width:"100%"}}>
+            <h3 className="detailsHeader" style={{float:"left",marginBottom:'5px'}}>Reports</h3>
+            <div className="detailsNext" style={{float:"right"}}>
+                <button onClick={handleNext}>Next</button>
+                <button onClick={handleBack} style={{marginRight:'10px'}}>Back</button>
+            </div>
+        </div>
         <span>Please drag and drop the required documents to the sections or click on sections below</span><br/><br/>
         {reportslist.map((report, index) => {
           if(details && details.IsthisaTargetPatient == "No" && report.ReportName== "IPT Form"){
@@ -435,10 +477,10 @@ const Reports = () => {
             <PDFViewer file={fileToView}></PDFViewer>
         </PDFModalDialog>}
       </div>
-      <div className="detailsNext">
+      {/*<div className="detailsNext">
         <button onClick={handleNext}>Next</button>
         <button onClick={handleBack} style={{marginRight:'10px'}}>Back</button>
-      </div>
+      </div>*/}
       <ModalDialog isOpen={isModalOpen} onClose={closeModal} showCloseButton={showCloseButton} isConfirmation={isConfirmation} 
       confirmationFn={handleConfirmation} confirmationBtnText={confirmationBtnText} isHtmlContent={true}>
         {modalText}
