@@ -61,7 +61,8 @@ const EmailOTPRequest = () =>{
             setShowCloseButton(false)
             setModalText("Validating email... Please wait.")
             openModal();
-            var isValid = await validateDomain(domain);
+            //var isValid = await validateDomain(domain);
+            var isValid = await validateDomain(emailId);
             if(isValid == "OTP Generated Already")
             {
                 setShowCloseButton(true)
