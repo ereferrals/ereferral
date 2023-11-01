@@ -32,7 +32,7 @@ const SuccessView = () => {
             <p>Many thanks<br/>The Clatterbridge Cancer Centre</p>
             <br/>
             <button className="buttonCtrl" style={{float:'none',marginRight:'20px'}} onClick={handleAddReferral}>Submit another referral</button>
-            <button className="buttonCtrl" style={{float:'none'}} onClick={handleResetSession}>Start new session</button>
+            <button className="buttonCtrl" style={{float:'none'}} onClick={handleResetSession}>Close session</button>
         </div>
     )
 }
