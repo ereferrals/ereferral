@@ -47,7 +47,7 @@ const RefererDetails = () => {
 
         resetControl("ReferringOrganisation","")
         resetControl("ReferringConsultant","")
-        resetControl("DateDecisiontoRefer","")
+        //resetControl("DateDecisiontoRefer","")
     }
 
     return (

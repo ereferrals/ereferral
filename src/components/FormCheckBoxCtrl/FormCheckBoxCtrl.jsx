@@ -1,8 +1,12 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import "./FormCheckBoxCtrl.css"
 
 const FormCheckBoxCtrl = ({label, onChangeText, title, value}) => {
-  const [textboxvalue, setTextBoxValue] = useState(value)
+  const [textboxvalue, setTextBoxValue] = useState(false)
+
+  useEffect(() => {
+    setTextBoxValue(value)
+  },[value])
 
   const onChangeHandle = (e) => {
     setTextBoxValue(e.target.checked)

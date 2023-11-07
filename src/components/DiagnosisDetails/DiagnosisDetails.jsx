@@ -105,7 +105,7 @@ const DiagnosisDetails = ({onNext,onBack}) => {
                     </div>
                 </div>
                 <div style={{display:'inline-block',width:'856px'}}><br/>
-                    <FormTextAreaCtrl label="Primary Diagnosis" onChangeText={onChangeTextHandle} title="PrimaryDiagnosis" value={details && details.PrimaryDiagnosis} ctrlWidth="860px"/><br/>
+                    {/*<FormTextAreaCtrl label="Primary Diagnosis" onChangeText={onChangeTextHandle} title="PrimaryDiagnosis" value={details && details.PrimaryDiagnosis} ctrlWidth="860px"/><br/>*/}
                     <FormYesNoBtnsCtrl label="Is this a Target Patient?" onChangeValue={onChangeTextHandle} 
                                     title="IsthisaTargetPatient" value={details && details.IsthisaTargetPatient} IsNewLine={true} /><br/>
                     {isUpgradeScreeingYes === "Yes" && 

@@ -8,6 +8,7 @@ import { setAppStep } from "../AppSlice";
 import FormSelectCtrl from "../FormSelectCtrl/FormSelectCtrl";
 import { setLeftNavClearLinkText } from "../SharedStringsSlice";
 import ModalDialog from "../ModalDialog/ModalDialog";
+import FormCheckBoxCtrl from "../FormCheckBoxCtrl/FormCheckBoxCtrl";
 
 const NextofKinDetails = () => {
     const dispatch = useDispatch()
@@ -19,6 +20,13 @@ const NextofKinDetails = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [showCloseButton,setShowCloseButton] = useState(true)
     const [modalText, setModalText] = useState("")
+    const [disableControls, setDisableControls] = useState(false)
+
+    useEffect(() => {
+        if(details){
+            setDisableControls(details.NoNextOfKin)
+        }
+    },[details.NoNextOfKin])
 
     const handleNext = () => {
         if(details.NextofKinHomePhoneNumber && details.NextofKinHomePhoneNumber != "" && (details.NextofKinHomePhoneNumber.length != 11)){
@@ -71,6 +79,7 @@ const NextofKinDetails = () => {
     }
 
     const handleReset = () => {
+        resetControl("NoNextOfKin",false)
         resetControl("NextofKinFirstName","")
         resetControl("NextofKinLastName","")
         resetControl("NextofKinMiddlename","")
@@ -105,17 +114,18 @@ const NextofKinDetails = () => {
                 </div>
                 <div style={{display:'inline-block',width:'100%'}}>
                     <div style={{marginRight:'200px',float: 'left'}}>
-                        <FormTextBoxCtrl label="First Name" onChangeText={onChangeTextHandle} title="NextofKinFirstName" value={details && details.NextofKinFirstName} onlyText={true}/><br/>
-                        <FormTextBoxCtrl label="Last Name" onChangeText={onChangeTextHandle} title="NextofKinLastName" value={details && details.NextofKinLastName} onlyText={true}/><br/>
-                        <FormTextBoxCtrl label="Middle Name (Optional)" onChangeText={onChangeTextHandle} title="NextofKinMiddlename" value={details && details.NextofKinMiddlename} onlyText={true}/><br/>
-                        <FormTextBoxCtrl label="Address Line 1" onChangeText={onChangeTextHandle} title="NextofKinAddressLine1" value={details && details.NextofKinAddressLine1}/><br/>
-                        <FormTextBoxCtrl label="Address Line 2" onChangeText={onChangeTextHandle} title="NextofKinAddressLine2" value={details && details.NextofKinAddressLine2}/><br/>
-                        <FormTextBoxCtrl label="Address Line 3" onChangeText={onChangeTextHandle} title="NextofKinAddressLine3" value={details && details.NextofKinAddressLine3}/><br/>
-                        <FormTextBoxCtrl label="Address Line 4" onChangeText={onChangeTextHandle} title="NextofKinAddressLine4" value={details && details.NextofKinAddressLine4}/><br/>
-                        <FormTextBoxCtrl label="Post Code" onChangeText={onChangeTextHandle} title="NextofKinPostCode" value={details && details.NextofKinPostCode}/><br/>
-                        <FormTextBoxCtrl label="Home Phone Number" onChangeText={onChangeTextHandle} title="NextofKinHomePhoneNumber" value={details && details.NextofKinHomePhoneNumber} maxLengthValue={11} disallowSpaces={true}/><br/>
-                        <FormTextBoxCtrl label="Mobile Number" onChangeText={onChangeTextHandle} title="NextofKinMobileNumber" value={details && details.NextofKinMobileNumber} maxLengthValue={10} disallowSpaces={true}/><br/>
-                        <FormSelectCtrl label="Relationship to Patient" onChangeText={onChangeTextHandle} title="RelationshiptoPatient" value={details && details.RelationshiptoPatient} options={relationshiptoPatientDataList}/><br/>
+                        <FormCheckBoxCtrl label="No Next of Kin" onChangeText={onChangeTextHandle} title="NoNextOfKin" value={details && details.NoNextOfKin} /><br/>
+                        <FormTextBoxCtrl label="First Name" onChangeText={onChangeTextHandle} title="NextofKinFirstName" value={details && details.NextofKinFirstName} onlyText={true} disableCtrl={disableControls}/><br/>
+                        <FormTextBoxCtrl label="Last Name" onChangeText={onChangeTextHandle} title="NextofKinLastName" value={details && details.NextofKinLastName} onlyText={true} disableCtrl={disableControls}/><br/>
+                        <FormTextBoxCtrl label="Middle Name (Optional)" onChangeText={onChangeTextHandle} title="NextofKinMiddlename" value={details && details.NextofKinMiddlename} onlyText={true} disableCtrl={disableControls}/><br/>
+                        <FormTextBoxCtrl label="Address Line 1" onChangeText={onChangeTextHandle} title="NextofKinAddressLine1" value={details && details.NextofKinAddressLine1} disableCtrl={disableControls}/><br/>
+                        <FormTextBoxCtrl label="Address Line 2" onChangeText={onChangeTextHandle} title="NextofKinAddressLine2" value={details && details.NextofKinAddressLine2} disableCtrl={disableControls}/><br/>
+                        <FormTextBoxCtrl label="Address Line 3" onChangeText={onChangeTextHandle} title="NextofKinAddressLine3" value={details && details.NextofKinAddressLine3} disableCtrl={disableControls}/><br/>
+                        <FormTextBoxCtrl label="Address Line 4" onChangeText={onChangeTextHandle} title="NextofKinAddressLine4" value={details && details.NextofKinAddressLine4} disableCtrl={disableControls}/><br/>
+                        <FormTextBoxCtrl label="Post Code" onChangeText={onChangeTextHandle} title="NextofKinPostCode" value={details && details.NextofKinPostCode} disableCtrl={disableControls}/><br/>
+                        <FormTextBoxCtrl label="Home Phone Number" onChangeText={onChangeTextHandle} title="NextofKinHomePhoneNumber" value={details && details.NextofKinHomePhoneNumber} maxLengthValue={11} disallowSpaces={true} disableCtrl={disableControls}/><br/>
+                        <FormTextBoxCtrl label="Mobile Number" onChangeText={onChangeTextHandle} title="NextofKinMobileNumber" value={details && details.NextofKinMobileNumber} maxLengthValue={10} disallowSpaces={true} disableCtrl={disableControls}/><br/>
+                        <FormSelectCtrl label="Relationship to Patient" onChangeText={onChangeTextHandle} title="RelationshiptoPatient" value={details && details.RelationshiptoPatient} options={relationshiptoPatientDataList} disableCtrl={disableControls}/><br/>
                     </div>
                     <div style={{float:'left'}}>
                         

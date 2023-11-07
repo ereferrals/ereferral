@@ -3,7 +3,7 @@ import "./FormTextBoxCtrl.css"
 import { useSelector } from "react-redux"
 
 const FormTextBoxCtrl = ({label, onChangeText, title, value, ctrlInSameRow, lblWidth, ctrlWidth, onBlurText, 
-    maxLengthValue, minLengthValue, disallowSpaces, onlyText}) => {
+    maxLengthValue, minLengthValue, disallowSpaces, onlyText, disableCtrl}) => {
   const [textboxvalue, setTextBoxValue] = useState(value)
   const details = useSelector(state => state.details)
   
@@ -33,7 +33,7 @@ const FormTextBoxCtrl = ({label, onChangeText, title, value, ctrlInSameRow, lblW
       <label style={lblWidth && { width: lblWidth }}>{label}</label>{ctrlInSameRow !== false && <br />}
       <input style={ctrlWidth && { width: ctrlWidth }} className="textbox" type="text" onChange={onChangeHandle} 
       onBlur={handleOnBlur} maxLength={maxLengthValue && maxLengthValue} minLength={minLengthValue && minLengthValue}
-      value={textboxvalue} />
+      value={textboxvalue} disabled={disableCtrl} />
     </div>
   )
 }

@@ -132,6 +132,7 @@ const LeftNavForDetails = () => {
     }
 
     const resetNextOfKinDetails = () => {
+        resetControl("NoNextOfKin", false)
         resetControl("NextofKinFirstName","")
         resetControl("NextofKinLastName","")
         resetControl("NextofKinMiddlename","")
