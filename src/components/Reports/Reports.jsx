@@ -109,7 +109,9 @@ const Reports = () => {
 
     const nextofKinMandatoryFields = ['NextofKinFirstName', 'NextofKinLastName', 'NextofKinAddressLine1',
                             'NextofKinAddressLine2', 'NextofKinAddressLine3', 'NextofKinAddressLine4', 'NextofKinPostCode',
-                            'NextofKinHomePhoneNumber', 'NextofKinMobileNumber', 'RelationshiptoPatient' ]
+                            'NextofKinMobileNumber' ]
+                            //'NextofKinHomePhoneNumber', 
+                            //, 'RelationshiptoPatient'
 
     const nextofKinMFDN = {}
     nextofKinMFDN["NextofKinFirstName"] = "Next of Kin First Name"
