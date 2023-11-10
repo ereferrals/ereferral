@@ -8,7 +8,7 @@ import { setLeftNavClearLinkText } from "../SharedStringsSlice"
 
 const LeftNavForDetails = () => {
     const dispatch = useDispatch()
-    const [currentStep,setCurrentStep] = useState("Patient")
+    const [currentStep,setCurrentStep] = useState(0)//"Patient")
     const leftNavStep = useSelector(stage => stage.referralSubmissionStep)
     const details = useSelector(state => state.details)
     const [isModalOpen, setIsModalOpen] = useState(false)
