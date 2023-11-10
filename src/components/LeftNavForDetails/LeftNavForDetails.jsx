@@ -19,46 +19,179 @@ const LeftNavForDetails = () => {
     const sharedStrings = useSelector(state => state.sharedStrings)
     const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 
+    const checkPatientDetailsFieldsValidation = () => {
+        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        const patientMandatoryFields = ['Surname','FirstName','DateofBirth','HomePhoneNumber']
+
+        const patientMFDN = {}
+        patientMFDN["Surname"] = "Surname"
+        patientMFDN["FirstName"] = "First Name"
+        patientMFDN["DateofBirth"] = "Date of Birth"
+        patientMFDN["HomePhoneNumber"] = "Primary Contact Number"
+        var emptyFields = []
+
+        for (const fieldName of patientMandatoryFields) {
+            if (!details.hasOwnProperty(fieldName) || details[fieldName] === "") {
+                emptyFields.push(patientMFDN[fieldName])
+            }
+        }
+
+        if(details.OverseasPatient == 'No'){
+            if(!details.NHSNumber || details.NHSNumber == ""){
+                emptyFields.push("NHS Number")
+            } 
+        }
+        
+        if (emptyFields.length > 0) {
+            errorMsg = errorMsg + `<div style='text-align:left;line-height:28px'><ul>${emptyFields.map(field => `<li>${field}</li>`).join('')}</ul></div>`;
+            setModalText(errorMsg)
+            return true
+        }
+        else if(details.NHSNumber && details.NHSNumber != "" && (details.NHSNumber.length < 10 || details.NHSNumber.length > 10)){
+            setModalText("Enter valid NHS Number")
+            return true
+        }
+        else if(details.HomePhoneNumber && details.HomePhoneNumber != "" && (details.HomePhoneNumber.length != 11)){
+            setModalText("Enter valid Primary Contact Number")
+            return true
+        }
+        else if(details.MobileNumber && details.MobileNumber != "" && (details.MobileNumber.length != 10)){
+            setModalText("Enter valid Mobile / Home Number")
+            return true
+        }
+        else if(details.EmailAddress && details.EmailAddress != "" && !(emailPattern.test(details.EmailAddress))){
+            setModalText("Enter valid email address")
+            return true
+        }
+        return false
+    }
+    const checkNOKDetailsFieldsValidation = () => {
+        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        const nextofKinMandatoryFields = ['NextofKinFirstName', 'NextofKinLastName', 'NextofKinAddressLine1',
+                            'NextofKinAddressLine2', 'NextofKinAddressLine3', 'NextofKinAddressLine4', 'NextofKinPostCode',
+                            'NextofKinMobileNumber' ]
+
+        const nextofKinMFDN = {}
+        nextofKinMFDN["NextofKinFirstName"] = "Next of Kin First Name"
+        nextofKinMFDN["NextofKinLastName"] = "Next of Kin Last Name"
+        nextofKinMFDN["NextofKinAddressLine1"] = "Next of Kin Address Line1"
+        nextofKinMFDN["NextofKinAddressLine2"] = "Next of Kin Address Line2"
+        nextofKinMFDN["NextofKinAddressLine3"] = "Next of Kin Address Line3"
+        nextofKinMFDN["NextofKinAddressLine4"] = "Next of Kin Address Line4"
+        nextofKinMFDN["NextofKinPostCode"] = "Next of Kin Post Code"
+        nextofKinMFDN["NextofKinHomePhoneNumber"] = "Next of Kin Home Phone Number"
+        nextofKinMFDN["NextofKinMobileNumber"] = "Next of Kin Mobile Number"
+        nextofKinMFDN["RelationshiptoPatient"] = "Relationship to Patient"
+        var emptyFields = []
+
+        if(!details["NoNextOfKin"]){
+            for (const fieldName of nextofKinMandatoryFields) {
+                if (!details.hasOwnProperty(fieldName) || details[fieldName] === "") {
+                    emptyFields.push(nextofKinMFDN[fieldName])
+                }
+            }
+        }
+
+        if (emptyFields.length > 0) {
+            errorMsg = errorMsg + `<div style='text-align:left;line-height:28px'><ul>${emptyFields.map(field => `<li>${field}</li>`).join('')}</ul></div>`;
+            setModalText(errorMsg)
+            return true
+        }
+        else if(details.NextofKinHomePhoneNumber && details.NextofKinHomePhoneNumber != "" && (details.NextofKinHomePhoneNumber.length != 11)){
+            setModalText("Enter valid Home Phone Number")
+            return true
+        }
+        else if(details.NextofKinMobileNumber && details.NextofKinMobileNumber != "" && (details.NextofKinMobileNumber.length != 10)){
+            setModalText("Enter valid Mobile Number")
+            return true
+        }
+        return false
+    }
+    const checkReferDetailsFieldsValidation = () => {
+        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        const referMandatoryFields = ['GPName', 'GPPractice', 'GPPracticeAddress', 'ReferringOrganisation', 'ReferringConsultant']
+        
+        const referMFDN = {}
+        referMFDN["GPName"] = "GP Name"
+        referMFDN["GPPractice"] = "GP Practice"
+        referMFDN["GPPracticeAddress"] = "GP Practice Address"
+        referMFDN["ReferringOrganisation"] = "Referring Organisation"
+        referMFDN["ReferringConsultant"] = "Referring Consultant"
+
+        let emptyFields = []
+
+        for (const fieldName of referMandatoryFields) {
+            if (!details.hasOwnProperty(fieldName) || details[fieldName] === "") {
+                emptyFields.push(referMFDN[fieldName])
+            }
+        }
+    
+        if (emptyFields.length > 0) {
+            errorMsg = errorMsg + `<div style='text-align:left;line-height:28px'><ul>${emptyFields.map(field => `<li>${field}</li>`).join('')}</ul></div>`;
+            setModalText(errorMsg)
+            return true
+        }
+        return false
+    }
+
+    const checkTTCFieldsValidation = () => {
+        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        let treatmentMandatoryFields = [ 'MedicalOncologistCCCConsultant', 'ClinicalOncologistCCCConsultant', 
+        'IsthisaTargetPatient' ]
+        
+        const treatmentMFDN = {}
+        treatmentMFDN["MedicalOncologistCCCConsultant"] = "Medical Oncologist CCC Consultant"
+        treatmentMFDN["ClinicalOncologistCCCConsultant"] = "Clinical Oncologist CCC Consultant"
+        treatmentMFDN["IsthisaTargetPatient"] = "Is this a Target Patient"
+
+        if(details && details.IsthisaTargetPatient == "Yes"){
+            //treatmentMandatoryFields = treatmentMandatoryFields.filter(field => field !== 'TargetCategory')
+            treatmentMandatoryFields.push("TargetCategory")
+            treatmentMFDN["TargetCategory"] = "Target Category"
+        }
+
+        let emptyFields = []
+
+        for (const fieldName of treatmentMandatoryFields) {
+            if (!details.hasOwnProperty(fieldName) || details[fieldName] === "") {
+                emptyFields.push(treatmentMFDN[fieldName])
+            }
+        }
+
+        if (emptyFields.length > 0) {
+            errorMsg = errorMsg + `<div style='text-align:left;line-height:28px'><ul>${emptyFields.map(field => `<li>${field}</li>`).join('')}</ul></div></div>`;
+            setModalText(errorMsg)
+            return true
+        }
+        return false
+    }
+
     const handleGoToStep = (step) => {
         setIsConfirmation(false)
         if(currentStep == 0){
-            if(details.NHSNumber && details.NHSNumber != "" && (details.NHSNumber.length != 10)){
+            if (checkPatientDetailsFieldsValidation() && step != 0){
                 setShowCloseButton(true)
-                setModalText("Enter valid NHS Number")
-                openModal()
-                return
-            }
-            else if(details.HomePhoneNumber && details.HomePhoneNumber != "" && (details.HomePhoneNumber.length != 11)){
-                setShowCloseButton(true)
-                setModalText("Enter valid Home Phone Number")
-                openModal()
-                return
-            }
-            else if(details.MobileNumber && details.MobileNumber != "" && (details.MobileNumber.length != 10)){
-                setShowCloseButton(true)
-                setModalText("Enter valid Mobile Number")
-                openModal()
-                return
-            }
-            else if(details.EmailAddress && details.EmailAddress != "" && !(emailPattern.test(details.EmailAddress))){
-                setShowCloseButton(true)
-                setModalText("Enter valid email address")
                 openModal()
                 return
             }
         }
         if(currentStep == 1){
-            if(details.NextofKinHomePhoneNumber && details.NextofKinHomePhoneNumber != "" && (details.NextofKinHomePhoneNumber.length != 11)){
+            if (checkNOKDetailsFieldsValidation() && step != 1){
                 setShowCloseButton(true)
-                setIsConfirmation(false)
-                setModalText("Enter valid Home Phone Number")
                 openModal()
                 return
             }
-            else if(details.NextofKinMobileNumber && details.NextofKinMobileNumber != "" && (details.NextofKinMobileNumber.length != 10)){
+        }
+        if(currentStep == 2){
+            if (checkReferDetailsFieldsValidation() && step != 2){
                 setShowCloseButton(true)
-                setIsConfirmation(false)
-                setModalText("Enter valid Mobile Number")
+                openModal()
+                return
+            }
+        }
+        if(currentStep == 3){
+            if (checkTTCFieldsValidation() && step != 3){
+                setShowCloseButton(true)
                 openModal()
                 return
             }
@@ -186,7 +319,7 @@ const LeftNavForDetails = () => {
         </div>
 
             <ModalDialog isOpen={isModalOpen} onClose={closeModal} showCloseButton={showCloseButton} 
-            isConfirmation={isConfirmation} confirmationFn={handleConfirmation} confirmationBtnText={confirmationBtnText}>
+            isConfirmation={isConfirmation} confirmationFn={handleConfirmation} confirmationBtnText={confirmationBtnText} isHtmlContent={true}>
             {modalText}
             </ModalDialog></>
     )

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react"
 import "./FormTextAreaCtrl.css"
 import { useSelector } from "react-redux"
 
-const FormTextAreaCtrl = ({label, onChangeText, title, value, ctrlWidth}) => {
+const FormTextAreaCtrl = ({label, onChangeText, title, value, ctrlWidth, isMandatory}) => {
   const [textboxvalue, setTextBoxValue] = useState(value)
   const details = useSelector(state => state.details)
 
@@ -16,7 +16,7 @@ const FormTextAreaCtrl = ({label, onChangeText, title, value, ctrlWidth}) => {
   }
   return (
     <div className="detailsform">
-      <label>{label}</label><br/>
+      <label>{label}{isMandatory && <span className="asterik">*</span>}</label><br/>
       <textarea className="textarea" type="text" onChange={onChangeHandle} value={textboxvalue} rows={3} 
         style={{width: ctrlWidth}} />
     </div>

@@ -77,9 +77,9 @@ const Reports = () => {
     }
   },[])
 
-  const handleNext = () => {
+  const handleNext = () => {/*
     var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b>You must ensure you complete all the below mandatory fields before submitting your referral:</b><br/><br/>"
-    const patientMandatoryFields = ['Surname','FirstName','DateofBirth']//'NHSNumber', 'Title','Sex','MaritalStatus',
+    const patientMandatoryFields = ['Surname','FirstName','DateofBirth','HomePhoneNumber']//'NHSNumber', 'Title','Sex','MaritalStatus',
                             //'Ethnicorigin','Religion','SpecialRequirements','AddressLine1','AddressLine2','AddressLine3',
                             //'AddressLine4','PostCode','HomePhoneNumber','MobileNumber'
 
@@ -87,6 +87,7 @@ const Reports = () => {
     patientMFDN["Surname"] = "Surname"
     patientMFDN["FirstName"] = "First Name"
     patientMFDN["DateofBirth"] = "Date of Birth"
+    patientMFDN["HomePhoneNumber"] = "Primary Contact Number"
     var emptyFields = []
     var hasMFToFill = false
 
@@ -195,7 +196,7 @@ const Reports = () => {
       openModal()
       return
     }
-    debugger
+    debugger*/
     const mainReports = reportslist.filter((report) => report.IsMain);
     const mainReportsWithFiles = mainReports.every((mainReport) => {
         if(details && details.IsthisaTargetPatient == "No" && mainReport.ReportName == "IPT Form"){

@@ -78,55 +78,64 @@ const PatientDetails = () => {
 
 
     const handleNext = () => {
-        if(details.NHSNumber && details.NHSNumber != "" && (details.NHSNumber.length < 10 || details.NHSNumber.length > 10)){
+        if (checkFieldsValidation()){
             setShowCloseButton(true)
-            setModalText("Enter valid NHS Number")
-            openModal()
-            return
-        }
-        else if(details.HomePhoneNumber && details.HomePhoneNumber != "" && (details.HomePhoneNumber.length != 11)){
-            setShowCloseButton(true)
-            setModalText("Enter valid Home Phone Number")
-            openModal()
-            return
-        }
-        else if(details.MobileNumber && details.MobileNumber != "" && (details.MobileNumber.length != 10)){
-            setShowCloseButton(true)
-            setModalText("Enter valid Mobile Number")
-            openModal()
-            return
-        }
-        else if(details.EmailAddress && details.EmailAddress != "" && !(emailPattern.test(details.EmailAddress))){
-            setShowCloseButton(true)
-            setModalText("Enter valid email address")
             openModal()
             return
         }
         dispatch(setReferralSubmissionStep(currentStep + 1))
     }
+    const checkFieldsValidation = () => {
+        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        const patientMandatoryFields = ['Surname','FirstName','DateofBirth','HomePhoneNumber']
 
-    const handleBack = () => {
-        if(details.NHSNumber && details.NHSNumber != "" && (details.NHSNumber.length < 10 || details.NHSNumber.length > 10)){
-            setShowCloseButton(true)
+        const patientMFDN = {}
+        patientMFDN["Surname"] = "Surname"
+        patientMFDN["FirstName"] = "First Name"
+        patientMFDN["DateofBirth"] = "Date of Birth"
+        patientMFDN["HomePhoneNumber"] = "Primary Contact Number"
+        var emptyFields = []
+        var hasMFToFill = false
+
+        for (const fieldName of patientMandatoryFields) {
+            if (!details.hasOwnProperty(fieldName) || details[fieldName] === "") {
+                emptyFields.push(patientMFDN[fieldName])
+                hasMFToFill = true
+            }
+        }
+
+        if(details.OverseasPatient == 'No'){
+            if(!details.NHSNumber || details.NHSNumber == ""){
+                emptyFields.push("NHS Number")
+            } 
+        }
+        
+        if (emptyFields.length > 0) {
+            errorMsg = errorMsg + `<div style='text-align:left;line-height:28px'><ul>${emptyFields.map(field => `<li>${field}</li>`).join('')}</ul></div>`;
+            setModalText(errorMsg)
+            return true
+        }
+        else if(details.NHSNumber && details.NHSNumber != "" && (details.NHSNumber.length < 10 || details.NHSNumber.length > 10)){
             setModalText("Enter valid NHS Number")
-            openModal()
-            return
+            return true
         }
         else if(details.HomePhoneNumber && details.HomePhoneNumber != "" && (details.HomePhoneNumber.length != 11)){
-            setShowCloseButton(true)
-            setModalText("Enter valid Home Phone Number")
-            openModal()
-            return
+            setModalText("Enter valid Primary Contact Number")
+            return true
         }
         else if(details.MobileNumber && details.MobileNumber != "" && (details.MobileNumber.length != 10)){
-            setShowCloseButton(true)
-            setModalText("Enter valid Mobile Number")
-            openModal()
-            return
+            setModalText("Enter valid Mobile / Home Number")
+            return true
         }
         else if(details.EmailAddress && details.EmailAddress != "" && !(emailPattern.test(details.EmailAddress))){
-            setShowCloseButton(true)
             setModalText("Enter valid email address")
+            return true
+        }
+        return false
+    }
+    const handleBack = () => {
+        if (checkFieldsValidation()){
+            setShowCloseButton(true)
             openModal()
             return
         }
@@ -135,33 +144,6 @@ const PatientDetails = () => {
 
     const onChangeTextHandle = (title, value) => {
         dispatch(updateDetails({ title, value }));
-    }
-
-    const resetControl = (title, value) => {
-        dispatch(updateDetails({ title, value }));
-    }
-
-    const handleReset = () => {
-        resetControl("NHSNumber","")
-        resetControl("Surname","")
-        resetControl("FirstName","")
-        resetControl("MiddleName","")
-        resetControl("Title","")
-        resetControl("DateofBirth","")
-        resetControl("Sex","")
-        resetControl("MaritalStatus","")
-        resetControl("Ethnicorigin","")
-        resetControl("Religion","")
-        resetControl("SpecialRequirements","")
-
-        resetControl("AddressLine1","")
-        resetControl("AddressLine2","")
-        resetControl("AddressLine3","")
-        resetControl("AddressLine4","")
-        resetControl("PostCode","")
-        resetControl("HomePhoneNumber","")
-        resetControl("MobileNumber","")
-        resetControl("EmailAddress","")
     }
 
     const onBlurTextHandle = (title, value) => {
@@ -204,12 +186,12 @@ const PatientDetails = () => {
                 
                 <div style={{display:'inline-block',width:'100%'}}>
                     <div style={{marginRight:'200px',float: 'left'}}>
-                        <FormTextBoxCtrl label="NHS Number" onBlurText={onBlurTextHandle} onChangeText={onChangeTextHandle} title="NHSNumber" value={details && details.NHSNumber} maxLengthValue={10} disallowSpaces={true} /><br/>
-                        <FormTextBoxCtrl label="Last Name" onChangeText={onChangeTextHandle} title="Surname" value={details && details.Surname} onlyText={true}/><br/>
-                        <FormTextBoxCtrl label="First Name" onChangeText={onChangeTextHandle} title="FirstName" value={details && details.FirstName} onlyText={true}/><br/>
+                        <FormTextBoxCtrl label="NHS Number" onBlurText={onBlurTextHandle} onChangeText={onChangeTextHandle} title="NHSNumber" value={details && details.NHSNumber} maxLengthValue={10} disallowSpaces={true} isMandatory={details.OverseasPatient === 'No'} /><br/>
+                        <FormTextBoxCtrl label="Last Name" onChangeText={onChangeTextHandle} title="Surname" value={details && details.Surname} onlyText={true} isMandatory={true}/><br/>
+                        <FormTextBoxCtrl label="First Name" onChangeText={onChangeTextHandle} title="FirstName" value={details && details.FirstName} onlyText={true} isMandatory={true}/><br/>
                         <FormTextBoxCtrl label="Middle Name (Optional)" onChangeText={onChangeTextHandle} title="MiddleName" value={details && details.MiddleName} onlyText={true}/><br/>
                         <FormSelectCtrl label="Title" onChangeText={onChangeTextHandle} title="Title" value={details && details.Title} options={titlesList}/><br/>
-                        <FormDateCtrl label="Date of Birth" onChangeText={onChangeTextHandle} title="DateofBirth" value={details && details.DateofBirth} dtWidth="320px"/><br/>
+                        <FormDateCtrl label="Date of Birth" onChangeText={onChangeTextHandle} title="DateofBirth" value={details && details.DateofBirth} dtWidth="320px" isMandatory={true}/><br/>
                         <FormSelectCtrl label="Sex" onChangeText={onChangeTextHandle} title="Sex" value={details && details.Sex} options={sexDataList}/><br/>
                         <FormSelectCtrl label="Marital Status" onChangeText={onChangeTextHandle} title="MaritalStatus" value={details && details.MaritalStatus} options={maritalStatusList}/><br/>
                         <FormSelectCtrl label="Ethnicity" onChangeText={onChangeTextHandle} title="Ethnicorigin" value={details && details.Ethnicorigin} options={ethnicoriginsList}/><br/>
@@ -222,15 +204,15 @@ const PatientDetails = () => {
                         <FormTextBoxCtrl label="Address Line 3" onChangeText={onChangeTextHandle} title="AddressLine3" value={details && details.AddressLine3}/><br/>
                         <FormTextBoxCtrl label="Address Line 4" onChangeText={onChangeTextHandle} title="AddressLine4" value={details && details.AddressLine4}/><br/>
                         <FormTextBoxCtrl label="Post Code" onChangeText={onChangeTextHandle} title="PostCode" value={details && details.PostCode}/><br/>
-                        <FormTextBoxCtrl label="Home Phone Number" onChangeText={onChangeTextHandle} title="HomePhoneNumber" value={details && details.HomePhoneNumber} maxLengthValue={11} disallowSpaces={true}/><br/>
-                        <FormTextBoxCtrl label="Mobile Number" onChangeText={onChangeTextHandle} title="MobileNumber" value={details && details.MobileNumber} maxLengthValue={10} disallowSpaces={true}/><br/>
+                        <FormTextBoxCtrl label="Primary Contact Number" onChangeText={onChangeTextHandle} title="HomePhoneNumber" value={details && details.HomePhoneNumber} maxLengthValue={11} disallowSpaces={true} isMandatory={true}/><br/>
+                        <FormTextBoxCtrl label="Mobile / Home Number (if not listed above)" onChangeText={onChangeTextHandle} title="MobileNumber" value={details && details.MobileNumber} maxLengthValue={10} disallowSpaces={true}/><br/>
                         <FormTextBoxCtrl label="Email Address (Optional)" onChangeText={onChangeTextHandle} title="EmailAddress" value={details && details.EmailAddress}/><br/>
                     </div>
                 </div>
             </div>
             
             
-            <ModalDialog isOpen={isModalOpen} onClose={closeModal} showCloseButton={showCloseButton}>
+            <ModalDialog isOpen={isModalOpen} onClose={closeModal} showCloseButton={showCloseButton} isHtmlContent={true}>
                 {modalText}
             </ModalDialog>
         </div>

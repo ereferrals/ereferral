@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react"
 import "./FormSelectCtrl.css"
 import { useSelector } from "react-redux"
 
-const FormSelectCtrl = ({label, onChangeText, title, value, options, disableCtrl}) => {
+const FormSelectCtrl = ({label, onChangeText, title, value, options, disableCtrl, isMandatory}) => {
   const [selectValue, setSelectValue] = useState(value)
   const details = useSelector(state => state.details)
 
@@ -16,7 +16,7 @@ const FormSelectCtrl = ({label, onChangeText, title, value, options, disableCtrl
   }
   return (
     <div className="formselectctrl">
-      <label>{label}</label><br/>
+      <label>{label}</label>{isMandatory && <span className="asterik">*</span>}<br/>
       <select onChange={onChangeHandle} value={selectValue} disabled={disableCtrl}>
           <option></option>
           {options && options.map((option, index) => (

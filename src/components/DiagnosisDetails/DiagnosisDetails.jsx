@@ -1,14 +1,13 @@
 import React,{useState,useEffect} from "react"
-import FormTextBoxCtrl from "../FormTextBoxCtrl/FormTextBoxCtrl";
-import FormTextAreaCtrl from "../FormTextAreaCtrl/FormTextAreaCtrl";
 import { useDispatch, useSelector } from "react-redux";
 import { updateDetails } from "../DetailsSlice";
 import { setReferralSubmissionStep } from "../ReferralSubmissionSlice";
 import FormSelectCtrl from "../FormSelectCtrl/FormSelectCtrl";
 import FormYesNoBtnsCtrl from "../FormYesNoBtnsCtrl/FormYesNoBtnsCtrl";
 import { setLeftNavClearLinkText } from "../SharedStringsSlice";
+import ModalDialog from "../ModalDialog/ModalDialog";
 
-const DiagnosisDetails = ({onNext,onBack}) => {
+const DiagnosisDetails = () => {
     const dispatch = useDispatch()
     const details = useSelector(state=>state.details)
     const listData = useSelector(state => state.masterData)
@@ -17,6 +16,8 @@ const DiagnosisDetails = ({onNext,onBack}) => {
     const [clinicalOncologistList,setClinicalOncologistList] = useState([])
     const [targetCategoryList,setTargetCategoryList] = useState([])
     const [isUpgradeScreeingYes,setIsUpgradeScreeingYes] = useState(details.IsthisaTargetPatient)
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [modalText, setModalText] = useState("")
 
     useEffect(() => {
         dispatch(setLeftNavClearLinkText("Treatment & Target Category"))
@@ -58,12 +59,60 @@ const DiagnosisDetails = ({onNext,onBack}) => {
         }
     },[])
 
+    const checkFieldsValidation = () => {
+        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        let treatmentMandatoryFields = [ 'MedicalOncologistCCCConsultant', 'ClinicalOncologistCCCConsultant', 
+        'IsthisaTargetPatient' ]
+        
+        const treatmentMFDN = {}
+        treatmentMFDN["MedicalOncologistCCCConsultant"] = "Medical Oncologist CCC Consultant"
+        treatmentMFDN["ClinicalOncologistCCCConsultant"] = "Clinical Oncologist CCC Consultant"
+        treatmentMFDN["IsthisaTargetPatient"] = "Is this a Target Patient"
+
+        if(details && details.IsthisaTargetPatient == "Yes"){
+            //treatmentMandatoryFields = treatmentMandatoryFields.filter(field => field !== 'TargetCategory')
+            treatmentMandatoryFields.push("TargetCategory")
+            treatmentMFDN["TargetCategory"] = "Target Category"
+        }
+
+        let emptyFields = []
+
+        for (const fieldName of treatmentMandatoryFields) {
+            if (!details.hasOwnProperty(fieldName) || details[fieldName] === "") {
+                emptyFields.push(treatmentMFDN[fieldName])
+            }
+        }
+
+        if (emptyFields.length > 0) {
+            errorMsg = errorMsg + `<div style='text-align:left;line-height:28px'><ul>${emptyFields.map(field => `<li>${field}</li>`).join('')}</ul></div></div>`;
+            setModalText(errorMsg)
+            return true
+        }
+        return false
+    }
+
     const handleNext = () => {
+        if (checkFieldsValidation()){
+            openModal()
+            return
+        }
         dispatch(setReferralSubmissionStep(currentStep + 1))
     }
 
     const handleBack = () => {
+        if (checkFieldsValidation()){
+            openModal()
+            return
+        }
         dispatch(setReferralSubmissionStep(currentStep - 1))
+    }
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    }
+
+    const closeModal = () => {
+        setIsModalOpen(false);
     }
 
     const onChangeTextHandle = (title, value) => {
@@ -71,18 +120,6 @@ const DiagnosisDetails = ({onNext,onBack}) => {
             setIsUpgradeScreeingYes(value)
         }
         dispatch(updateDetails({title, value}))
-    }
-
-    const resetControl = (title, value) => {
-        dispatch(updateDetails({ title, value }));
-    }
-
-    const handleReset = () => {
-        resetControl("MedicalOncologistCCCConsultant","")
-        resetControl("ClinicalOncologistCCCConsultant","")
-        resetControl("PrimaryDiagnosis","")
-        resetControl("IsthisaTargetPatient","")
-        resetControl("TargetCategory","")
     }
 
     return (
@@ -100,17 +137,17 @@ const DiagnosisDetails = ({onNext,onBack}) => {
                         {/*<FormTextBoxCtrl label="Tumour Location" onChangeText={onChangeTextHandle} title="TumourLocation" value={details && details.TumourLocation}/><br/>*/}
                     </div>
                     <div style={{float:'left'}}>
-                        <FormSelectCtrl label="CCC Consultant - Medical Oncologist" onChangeText={onChangeTextHandle} title="MedicalOncologistCCCConsultant" value={details && details.MedicalOncologistCCCConsultant} options={medicalOncologistList}/><br/>
-                        <FormSelectCtrl label="CCC Consultant - Clinical Oncologist" onChangeText={onChangeTextHandle} title="ClinicalOncologistCCCConsultant" value={details && details.ClinicalOncologistCCCConsultant} options={clinicalOncologistList}/>
+                        <FormSelectCtrl label="CCC Consultant - Medical Oncologist" onChangeText={onChangeTextHandle} title="MedicalOncologistCCCConsultant" value={details && details.MedicalOncologistCCCConsultant} options={medicalOncologistList} isMandatory={true}/><br/>
+                        <FormSelectCtrl label="CCC Consultant - Clinical Oncologist" onChangeText={onChangeTextHandle} title="ClinicalOncologistCCCConsultant" value={details && details.ClinicalOncologistCCCConsultant} options={clinicalOncologistList} isMandatory={true}/>
                     </div>
                 </div>
                 <div style={{display:'inline-block',width:'856px'}}><br/>
                     {/*<FormTextAreaCtrl label="Primary Diagnosis" onChangeText={onChangeTextHandle} title="PrimaryDiagnosis" value={details && details.PrimaryDiagnosis} ctrlWidth="860px"/><br/>*/}
                     <FormYesNoBtnsCtrl label="Is this a Target Patient?" onChangeValue={onChangeTextHandle} 
-                                    title="IsthisaTargetPatient" value={details && details.IsthisaTargetPatient} IsNewLine={true} /><br/>
+                                    title="IsthisaTargetPatient" value={details && details.IsthisaTargetPatient} IsNewLine={true} isMandatory={true} /><br/>
                     {isUpgradeScreeingYes === "Yes" && 
                     <FormSelectCtrl label="Target Category" onChangeText={onChangeTextHandle} 
-                        title="TargetCategory" value={details && details.TargetCategory} options={targetCategoryList}/>}
+                        title="TargetCategory" value={details && details.TargetCategory} options={targetCategoryList} isMandatory={true}/>}
                     {/*<FormTextAreaCtrl label="Pathway Information" onChangeText={onChangeTextHandle} title="PathwayInformation" value={details && details.PathwayInformation} ctrlWidth="860px"/><br/>*/}
                     {/*<FormTextAreaCtrl label="Upgrade/Screening/62 Day - including PPI/UPI number/Clock start date" onChangeText={onChangeTextHandle} title="UpgradeScreening" 
                     value={details && details.UpgradeScreening} ctrlWidth="860px"/><br/>*/}
@@ -118,6 +155,10 @@ const DiagnosisDetails = ({onNext,onBack}) => {
                     value={details && details.Diagnostics} ctrlWidth="860px"/>*/}
                 </div>
             </div>
+
+            <ModalDialog isOpen={isModalOpen} onClose={closeModal} showCloseButton={true} isHtmlContent={true}>
+                {modalText}
+            </ModalDialog>
             
             {/*<div className="detailsNext">
                     <button onClick={handleNext}>Next</button>

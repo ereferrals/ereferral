@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react"
 import "./FormYesNoBtnsCtrl.css"
 import { useSelector } from "react-redux";
 
-const FormYesNoBtnsCtrl = ({label, onChangeValue, title, value, IsNewLine}) => {
+const FormYesNoBtnsCtrl = ({label, onChangeValue, title, value, IsNewLine, isMandatory}) => {
   
   let isNewLine = false;
   if(IsNewLine){
@@ -22,7 +22,7 @@ const FormYesNoBtnsCtrl = ({label, onChangeValue, title, value, IsNewLine}) => {
 
   return (
     <div className="formyesnobtnsctrl">
-      <label style={{minWidth:'480px'}}>{label}</label>{isNewLine && <br/>}
+      <label style={{minWidth:'480px'}}>{label}{isMandatory && <span className="asterik">*</span>}</label>{isNewLine && <br/>}
       <div>
         <button className={selectValue == 'Yes' && 'selected'} onClick={onChangeHandle} title="Yes">Yes</button>
         <button className={selectValue == 'No' && 'selected'} onClick={onChangeHandle} title="No">No</button>
