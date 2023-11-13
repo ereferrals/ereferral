@@ -18,6 +18,7 @@ const DiagnosisDetails = () => {
     const [isUpgradeScreeingYes,setIsUpgradeScreeingYes] = useState(details.IsthisaTargetPatient)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [modalText, setModalText] = useState("")
+    const [enableRedBorder, setEnableRedBorder] = useState(false)
 
     useEffect(() => {
         dispatch(setLeftNavClearLinkText("Treatment & Target Category"))
@@ -86,6 +87,7 @@ const DiagnosisDetails = () => {
         if (emptyFields.length > 0) {
             errorMsg = errorMsg + `<div style='text-align:left;line-height:28px'><ul>${emptyFields.map(field => `<li>${field}</li>`).join('')}</ul></div></div>`;
             setModalText(errorMsg)
+            setEnableRedBorder(true)
             return true
         }
         return false
@@ -137,17 +139,17 @@ const DiagnosisDetails = () => {
                         {/*<FormTextBoxCtrl label="Tumour Location" onChangeText={onChangeTextHandle} title="TumourLocation" value={details && details.TumourLocation}/><br/>*/}
                     </div>
                     <div style={{float:'left'}}>
-                        <FormSelectCtrl label="CCC Consultant - Medical Oncologist" onChangeText={onChangeTextHandle} title="MedicalOncologistCCCConsultant" value={details && details.MedicalOncologistCCCConsultant} options={medicalOncologistList} isMandatory={true}/><br/>
-                        <FormSelectCtrl label="CCC Consultant - Clinical Oncologist" onChangeText={onChangeTextHandle} title="ClinicalOncologistCCCConsultant" value={details && details.ClinicalOncologistCCCConsultant} options={clinicalOncologistList} isMandatory={true}/>
+                        <FormSelectCtrl label="CCC Consultant - Medical Oncologist" onChangeText={onChangeTextHandle} title="MedicalOncologistCCCConsultant" value={details && details.MedicalOncologistCCCConsultant} options={medicalOncologistList} isMandatory={true} enableRedBorder={enableRedBorder && (!details.MedicalOncologistCCCConsultant || details.MedicalOncologistCCCConsultant === "")}/><br/>
+                        <FormSelectCtrl label="CCC Consultant - Clinical Oncologist" onChangeText={onChangeTextHandle} title="ClinicalOncologistCCCConsultant" value={details && details.ClinicalOncologistCCCConsultant} options={clinicalOncologistList} isMandatory={true} enableRedBorder={enableRedBorder && (!details.clinicalOncologistList || details.clinicalOncologistList === "")}/>
                     </div>
                 </div>
                 <div style={{display:'inline-block',width:'856px'}}><br/>
                     {/*<FormTextAreaCtrl label="Primary Diagnosis" onChangeText={onChangeTextHandle} title="PrimaryDiagnosis" value={details && details.PrimaryDiagnosis} ctrlWidth="860px"/><br/>*/}
                     <FormYesNoBtnsCtrl label="Is this a Target Patient?" onChangeValue={onChangeTextHandle} 
-                                    title="IsthisaTargetPatient" value={details && details.IsthisaTargetPatient} IsNewLine={true} isMandatory={true} /><br/>
+                                    title="IsthisaTargetPatient" value={details && details.IsthisaTargetPatient} IsNewLine={true} isMandatory={true} enableRedBorder={enableRedBorder && (!details.IsthisaTargetPatient || details.IsthisaTargetPatient === "")} /><br/>
                     {isUpgradeScreeingYes === "Yes" && 
                     <FormSelectCtrl label="Target Category" onChangeText={onChangeTextHandle} 
-                        title="TargetCategory" value={details && details.TargetCategory} options={targetCategoryList} isMandatory={true}/>}
+                        title="TargetCategory" value={details && details.TargetCategory} options={targetCategoryList} isMandatory={true} enableRedBorder={enableRedBorder && (!details.TargetCategory || details.TargetCategory === "")}/>}
                     {/*<FormTextAreaCtrl label="Pathway Information" onChangeText={onChangeTextHandle} title="PathwayInformation" value={details && details.PathwayInformation} ctrlWidth="860px"/><br/>*/}
                     {/*<FormTextAreaCtrl label="Upgrade/Screening/62 Day - including PPI/UPI number/Clock start date" onChangeText={onChangeTextHandle} title="UpgradeScreening" 
                     value={details && details.UpgradeScreening} ctrlWidth="860px"/><br/>*/}

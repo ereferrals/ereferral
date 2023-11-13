@@ -55,7 +55,7 @@ const LeftNavForDetails = () => {
             setModalText("Enter valid Primary Contact Number")
             return true
         }
-        else if(details.MobileNumber && details.MobileNumber != "" && (details.MobileNumber.length != 10)){
+        else if(details.MobileNumber && details.MobileNumber != "" && (details.MobileNumber.length != 11)){
             setModalText("Enter valid Mobile / Home Number")
             return true
         }
@@ -101,7 +101,7 @@ const LeftNavForDetails = () => {
             setModalText("Enter valid Home Phone Number")
             return true
         }
-        else if(details.NextofKinMobileNumber && details.NextofKinMobileNumber != "" && (details.NextofKinMobileNumber.length != 10)){
+        else if(details.NextofKinMobileNumber && details.NextofKinMobileNumber != "" && (details.NextofKinMobileNumber.length != 11)){
             setModalText("Enter valid Mobile Number")
             return true
         }
