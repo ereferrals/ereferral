@@ -134,11 +134,11 @@ const PatientDetails = () => {
         return false
     }
     const handleBack = () => {
-        if (checkFieldsValidation()){
+        /*if (checkFieldsValidation()){
             setShowCloseButton(true)
             openModal()
             return
-        }
+        }*/
         dispatch(setAppStep(1))
     }
 

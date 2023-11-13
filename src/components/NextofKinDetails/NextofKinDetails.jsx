@@ -27,7 +27,18 @@ const NextofKinDetails = () => {
 
     useEffect(() => {
         if(details){
-            if(prevNoNOKValue.current != details.NoNextOfKin && details.NoNextOfKin){
+            if(prevNoNOKValue.current != details.NoNextOfKin && details.NoNextOfKin && 
+                ((details.NextofKinFirstName && details.NextofKinFirstName != "") || 
+                (details.NextofKinLastName && details.NextofKinLastName != "") || 
+                (details.NextofKinMiddlename && details.NextofKinMiddlename != "") ||  
+                (details.NextofKinAddressLine1 && details.NextofKinAddressLine1 != "") || 
+                (details.NextofKinAddressLine2 && details.NextofKinAddressLine2 != "") || 
+                (details.NextofKinAddressLine3 && details.NextofKinAddressLine3 != "") ||  
+                (details.NextofKinAddressLine4 && details.NextofKinAddressLine4 != "") || 
+                (details.NextofKinPostCode && details.NextofKinPostCode != "") || 
+                (details.NextofKinHomePhoneNumber && details.NextofKinHomePhoneNumber != "") ||  
+                (details.NextofKinMobileNumber && details.NextofKinMobileNumber != "") || 
+                (details.RelationshiptoPatient && details.RelationshiptoPatient != ""))){
                 setIsConfirmation(true)
                 setShowCloseButton(false)
                 setModalText("If you proceed, data you have entered will be cleared?")
@@ -81,6 +92,7 @@ const NextofKinDetails = () => {
         }
     }
     const handleNext = () => {
+        setIsConfirmation(false)
         if (checkFieldsValidation()){
             setShowCloseButton(true)
             openModal()
@@ -90,11 +102,11 @@ const NextofKinDetails = () => {
     }
 
     const handleBack = () => {
-        if (checkFieldsValidation()){
+        /*if (checkFieldsValidation()){
             setShowCloseButton(true)
             openModal()
             return
-        }
+        }*/
         dispatch(setReferralSubmissionStep(currentStep - 1))
     }
 

@@ -100,10 +100,10 @@ const DiagnosisDetails = () => {
     }
 
     const handleBack = () => {
-        if (checkFieldsValidation()){
+        /*if (checkFieldsValidation()){
             openModal()
             return
-        }
+        }*/
         dispatch(setReferralSubmissionStep(currentStep - 1))
     }
 
