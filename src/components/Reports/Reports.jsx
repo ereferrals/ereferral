@@ -77,11 +77,9 @@ const Reports = () => {
     }
   },[])
 
-  const handleNext = () => {/*
+  const handleNext = () => {
     var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b>You must ensure you complete all the below mandatory fields before submitting your referral:</b><br/><br/>"
-    const patientMandatoryFields = ['Surname','FirstName','DateofBirth','HomePhoneNumber']//'NHSNumber', 'Title','Sex','MaritalStatus',
-                            //'Ethnicorigin','Religion','SpecialRequirements','AddressLine1','AddressLine2','AddressLine3',
-                            //'AddressLine4','PostCode','HomePhoneNumber','MobileNumber'
+    const patientMandatoryFields = ['Surname','FirstName','DateofBirth','HomePhoneNumber']
 
     const patientMFDN = {}
     patientMFDN["Surname"] = "Surname"
@@ -111,8 +109,6 @@ const Reports = () => {
     const nextofKinMandatoryFields = ['NextofKinFirstName', 'NextofKinLastName', 'NextofKinAddressLine1',
                             'NextofKinAddressLine2', 'NextofKinAddressLine3', 'NextofKinAddressLine4', 'NextofKinPostCode',
                             'NextofKinMobileNumber' ]
-                            //'NextofKinHomePhoneNumber', 
-                            //, 'RelationshiptoPatient'
 
     const nextofKinMFDN = {}
     nextofKinMFDN["NextofKinFirstName"] = "Next of Kin First Name"
@@ -141,7 +137,7 @@ const Reports = () => {
     }
     
     const referMandatoryFields = ['GPName', 'GPPractice', 'GPPracticeAddress', 'ReferringOrganisation', 'ReferringConsultant']
-    //, 'DateDecisiontoRefer'
+    
     const referMFDN = {}
     referMFDN["GPName"] = "GP Name"
     referMFDN["GPPractice"] = "GP Practice"
@@ -196,7 +192,7 @@ const Reports = () => {
       openModal()
       return
     }
-    debugger*/
+    
     const mainReports = reportslist.filter((report) => report.IsMain);
     const mainReportsWithFiles = mainReports.every((mainReport) => {
         if(details && details.IsthisaTargetPatient == "No" && mainReport.ReportName == "IPT Form"){
