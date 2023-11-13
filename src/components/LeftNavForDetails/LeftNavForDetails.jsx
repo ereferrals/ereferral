@@ -72,15 +72,15 @@ const LeftNavForDetails = () => {
                             'NextofKinMobileNumber' ]
 
         const nextofKinMFDN = {}
-        nextofKinMFDN["NextofKinFirstName"] = "Next of Kin First Name"
-        nextofKinMFDN["NextofKinLastName"] = "Next of Kin Last Name"
-        nextofKinMFDN["NextofKinAddressLine1"] = "Next of Kin Address Line1"
-        nextofKinMFDN["NextofKinAddressLine2"] = "Next of Kin Address Line2"
-        nextofKinMFDN["NextofKinAddressLine3"] = "Next of Kin Address Line3"
-        nextofKinMFDN["NextofKinAddressLine4"] = "Next of Kin Address Line4"
-        nextofKinMFDN["NextofKinPostCode"] = "Next of Kin Post Code"
-        nextofKinMFDN["NextofKinHomePhoneNumber"] = "Next of Kin Home Phone Number"
-        nextofKinMFDN["NextofKinMobileNumber"] = "Next of Kin Mobile Number"
+        nextofKinMFDN["NextofKinFirstName"] = "First Name"
+        nextofKinMFDN["NextofKinLastName"] = "Last Name"
+        nextofKinMFDN["NextofKinAddressLine1"] = "Address Line1"
+        nextofKinMFDN["NextofKinAddressLine2"] = "Address Line2"
+        nextofKinMFDN["NextofKinAddressLine3"] = "Address Line3"
+        nextofKinMFDN["NextofKinAddressLine4"] = "Address Line4"
+        nextofKinMFDN["NextofKinPostCode"] = "Post Code"
+        nextofKinMFDN["NextofKinHomePhoneNumber"] = "Home Phone Number"
+        nextofKinMFDN["NextofKinMobileNumber"] = "Mobile Number"
         nextofKinMFDN["RelationshiptoPatient"] = "Relationship to Patient"
         var emptyFields = []
 
@@ -168,23 +168,38 @@ const LeftNavForDetails = () => {
 
     const handleGoToStep = (step) => {
         setIsConfirmation(false)
-        /*if(sharedStrings.leftNavClearLinkText === "Patient"){
+        if(sharedStrings.leftNavClearLinkText === "Patient"){
             if (checkPatientDetailsFieldsValidation() && step != 0){
                 setShowCloseButton(true)
                 openModal()
                 return
             }
+            else if(step != 0 && step != 1){
+                setModalText("Please fill in Next of Kin Details.")
+                openModal()
+                return
+            }
         }
         if(sharedStrings.leftNavClearLinkText === "Next of Kin"){
-            if (checkNOKDetailsFieldsValidation() && step != 1){
+            if (checkNOKDetailsFieldsValidation() && (step != 0 && step != 1)){
                 setShowCloseButton(true)
+                openModal()
+                return
+            }
+            else if(step != 0 && step != 1 && step != 2){
+                setModalText("Please fill in Refer Details.")
                 openModal()
                 return
             }
         }
         if(sharedStrings.leftNavClearLinkText === "Refer"){
-            if (checkReferDetailsFieldsValidation() && step != 2){
+            if (checkReferDetailsFieldsValidation() && (step != 0 && step != 1 && step != 2)){
                 setShowCloseButton(true)
+                openModal()
+                return
+            }
+            else if(step != 0 && step != 1 && step != 2 && step != 3){
+                setModalText("Please fill in Treatment & Target Category Details.")
                 openModal()
                 return
             }
@@ -195,7 +210,8 @@ const LeftNavForDetails = () => {
                 openModal()
                 return
             }
-        }*/
+        }
+
         if(step == 0)
             dispatch(setLeftNavClearLinkText("Patient"))
         else if(step == 1)
