@@ -33,12 +33,12 @@ const RefererDetails = () => {
     },[])
 
     const checkFieldsValidation = () => {
-        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b style='line-height:28px'>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
         const referMandatoryFields = ['GPName', 'GPPractice', 'GPPracticeAddress', 'ReferringOrganisation', 'ReferringConsultant']
         
         const referMFDN = {}
-        referMFDN["GPName"] = "GP Name"
-        referMFDN["GPPractice"] = "GP Practice"
+        referMFDN["GPName"] = "Specified GP"
+        referMFDN["GPPractice"] = "GP Practice Name"
         referMFDN["GPPracticeAddress"] = "GP Practice Address"
         referMFDN["ReferringOrganisation"] = "Referring Organisation"
         referMFDN["ReferringConsultant"] = "Referring Consultant"

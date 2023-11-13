@@ -41,7 +41,7 @@ const NextofKinDetails = () => {
                 (details.RelationshiptoPatient && details.RelationshiptoPatient != ""))){
                 setIsConfirmation(true)
                 setShowCloseButton(false)
-                setModalText("If you proceed, data you have entered will be cleared?")
+                setModalText("If you proceed, data you have entered will be cleared")
                 setConfirmationBtnText("Ok")
                 openModal()
             }
@@ -51,21 +51,21 @@ const NextofKinDetails = () => {
     },[details.NoNextOfKin])
 
     const checkFieldsValidation = () => {
-        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b style='line-height:28px'>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
         const nextofKinMandatoryFields = ['NextofKinFirstName', 'NextofKinLastName', 'NextofKinAddressLine1',
                             'NextofKinAddressLine2', 'NextofKinAddressLine3', 'NextofKinAddressLine4', 'NextofKinPostCode',
                             'NextofKinMobileNumber' ]
 
         const nextofKinMFDN = {}
-        nextofKinMFDN["NextofKinFirstName"] = "Next of Kin First Name"
-        nextofKinMFDN["NextofKinLastName"] = "Next of Kin Last Name"
-        nextofKinMFDN["NextofKinAddressLine1"] = "Next of Kin Address Line1"
-        nextofKinMFDN["NextofKinAddressLine2"] = "Next of Kin Address Line2"
-        nextofKinMFDN["NextofKinAddressLine3"] = "Next of Kin Address Line3"
-        nextofKinMFDN["NextofKinAddressLine4"] = "Next of Kin Address Line4"
-        nextofKinMFDN["NextofKinPostCode"] = "Next of Kin Post Code"
-        nextofKinMFDN["NextofKinHomePhoneNumber"] = "Next of Kin Home Phone Number"
-        nextofKinMFDN["NextofKinMobileNumber"] = "Next of Kin Mobile Number"
+        nextofKinMFDN["NextofKinFirstName"] = "First Name"
+        nextofKinMFDN["NextofKinLastName"] = "Last Name"
+        nextofKinMFDN["NextofKinAddressLine1"] = "Address Line 1"
+        nextofKinMFDN["NextofKinAddressLine2"] = "Address Line 2"
+        nextofKinMFDN["NextofKinAddressLine3"] = "Address Line 3"
+        nextofKinMFDN["NextofKinAddressLine4"] = "Address Line 4"
+        nextofKinMFDN["NextofKinPostCode"] = "Post Code"
+        nextofKinMFDN["NextofKinHomePhoneNumber"] = "Home Phone Number"
+        nextofKinMFDN["NextofKinMobileNumber"] = "Mobile Number"
         nextofKinMFDN["RelationshiptoPatient"] = "Relationship to Patient"
         var emptyFields = []
 
@@ -174,14 +174,14 @@ const NextofKinDetails = () => {
                         <FormCheckBoxCtrl label="No Next of Kin" onChangeText={onChangeTextHandle} title="NoNextOfKin" value={details && details.NoNextOfKin} /><br/>
                         <FormTextBoxCtrl label="First Name" onChangeText={onChangeTextHandle} title="NextofKinFirstName" value={details && details.NextofKinFirstName} onlyText={true} disableCtrl={disableControls} isMandatory={true}/><br/>
                         <FormTextBoxCtrl label="Last Name" onChangeText={onChangeTextHandle} title="NextofKinLastName" value={details && details.NextofKinLastName} onlyText={true} disableCtrl={disableControls} isMandatory={true}/><br/>
-                        <FormTextBoxCtrl label="Middle Name (Optional)" onChangeText={onChangeTextHandle} title="NextofKinMiddlename" value={details && details.NextofKinMiddlename} onlyText={true} disableCtrl={disableControls}/><br/>
+                        <FormTextBoxCtrl label="Middle Name" onChangeText={onChangeTextHandle} title="NextofKinMiddlename" value={details && details.NextofKinMiddlename} onlyText={true} disableCtrl={disableControls}/><br/>
                         <FormTextBoxCtrl label="Address Line 1" onChangeText={onChangeTextHandle} title="NextofKinAddressLine1" value={details && details.NextofKinAddressLine1} disableCtrl={disableControls} isMandatory={true}/><br/>
                         <FormTextBoxCtrl label="Address Line 2" onChangeText={onChangeTextHandle} title="NextofKinAddressLine2" value={details && details.NextofKinAddressLine2} disableCtrl={disableControls} isMandatory={true}/><br/>
                         <FormTextBoxCtrl label="Address Line 3" onChangeText={onChangeTextHandle} title="NextofKinAddressLine3" value={details && details.NextofKinAddressLine3} disableCtrl={disableControls} isMandatory={true}/><br/>
                         <FormTextBoxCtrl label="Address Line 4" onChangeText={onChangeTextHandle} title="NextofKinAddressLine4" value={details && details.NextofKinAddressLine4} disableCtrl={disableControls} isMandatory={true}/><br/>
                         <FormTextBoxCtrl label="Post Code" onChangeText={onChangeTextHandle} title="NextofKinPostCode" value={details && details.NextofKinPostCode} disableCtrl={disableControls} isMandatory={true}/><br/>
                         <FormTextBoxCtrl label="Home Phone Number" onChangeText={onChangeTextHandle} title="NextofKinHomePhoneNumber" value={details && details.NextofKinHomePhoneNumber} maxLengthValue={11} disallowSpaces={true} disableCtrl={disableControls}/><br/>
-                        <FormTextBoxCtrl label="Mobile Number" onChangeText={onChangeTextHandle} title="NextofKinMobileNumber" value={details && details.NextofKinMobileNumber} maxLengthValue={10} disallowSpaces={true} disableCtrl={disableControls} isMandatory={true}/><br/>
+                        <FormTextBoxCtrl label="Mobile Number" onChangeText={onChangeTextHandle} title="NextofKinMobileNumber" value={details && details.NextofKinMobileNumber} maxLengthValue={11} disallowSpaces={true} disableCtrl={disableControls} isMandatory={true}/><br/>
                         <FormSelectCtrl label="Relationship to Patient" onChangeText={onChangeTextHandle} title="RelationshiptoPatient" value={details && details.RelationshiptoPatient} options={relationshiptoPatientDataList} disableCtrl={disableControls}/><br/>
                     </div>
                     <div style={{float:'left'}}>

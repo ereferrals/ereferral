@@ -15,7 +15,7 @@ const FormCheckBoxCtrl = ({label, onChangeText, title, value}) => {
   return (
     <div className="detailsform">
       <label style={{minWidth: '300px'}}>{label}</label>
-      <input className="textbox" style={{height:'20px',width:'20px', position:'relative',top:'5px'}} type="checkbox" onClick={onChangeHandle} checked={textboxvalue} />
+      <input className="textbox" style={{height:'20px',width:'20px', top:'5px'}} type="checkbox" onClick={onChangeHandle} checked={textboxvalue} />
     </div>
   )
 }

@@ -20,7 +20,7 @@ const LeftNavForDetails = () => {
     const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 
     const checkPatientDetailsFieldsValidation = () => {
-        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b style='line-height:28px'>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
         const patientMandatoryFields = ['Surname','FirstName','DateofBirth','HomePhoneNumber']
 
         const patientMFDN = {}
@@ -66,7 +66,7 @@ const LeftNavForDetails = () => {
         return false
     }
     const checkNOKDetailsFieldsValidation = () => {
-        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b style='line-height:28px'>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
         const nextofKinMandatoryFields = ['NextofKinFirstName', 'NextofKinLastName', 'NextofKinAddressLine1',
                             'NextofKinAddressLine2', 'NextofKinAddressLine3', 'NextofKinAddressLine4', 'NextofKinPostCode',
                             'NextofKinMobileNumber' ]
@@ -108,12 +108,12 @@ const LeftNavForDetails = () => {
         return false
     }
     const checkReferDetailsFieldsValidation = () => {
-        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b style='line-height:28px'>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
         const referMandatoryFields = ['GPName', 'GPPractice', 'GPPracticeAddress', 'ReferringOrganisation', 'ReferringConsultant']
         
         const referMFDN = {}
-        referMFDN["GPName"] = "GP Name"
-        referMFDN["GPPractice"] = "GP Practice"
+        referMFDN["GPName"] = "Specified GP"
+        referMFDN["GPPractice"] = "GP Practice Name"
         referMFDN["GPPracticeAddress"] = "GP Practice Address"
         referMFDN["ReferringOrganisation"] = "Referring Organisation"
         referMFDN["ReferringConsultant"] = "Referring Consultant"
@@ -135,7 +135,7 @@ const LeftNavForDetails = () => {
     }
 
     const checkTTCFieldsValidation = () => {
-        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b style='line-height:28px'>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
         let treatmentMandatoryFields = [ 'MedicalOncologistCCCConsultant', 'ClinicalOncologistCCCConsultant', 
         'IsthisaTargetPatient' ]
         
@@ -168,34 +168,34 @@ const LeftNavForDetails = () => {
 
     const handleGoToStep = (step) => {
         setIsConfirmation(false)
-        if(currentStep == 0){
+        /*if(sharedStrings.leftNavClearLinkText === "Patient"){
             if (checkPatientDetailsFieldsValidation() && step != 0){
                 setShowCloseButton(true)
                 openModal()
                 return
             }
         }
-        if(currentStep == 1){
+        if(sharedStrings.leftNavClearLinkText === "Next of Kin"){
             if (checkNOKDetailsFieldsValidation() && step != 1){
                 setShowCloseButton(true)
                 openModal()
                 return
             }
         }
-        if(currentStep == 2){
+        if(sharedStrings.leftNavClearLinkText === "Refer"){
             if (checkReferDetailsFieldsValidation() && step != 2){
                 setShowCloseButton(true)
                 openModal()
                 return
             }
         }
-        if(currentStep == 3){
+        if(sharedStrings.leftNavClearLinkText === "Treatment & Target Category"){
             if (checkTTCFieldsValidation() && step != 3){
                 setShowCloseButton(true)
                 openModal()
                 return
             }
-        }
+        }*/
         if(step == 0)
             dispatch(setLeftNavClearLinkText("Patient"))
         else if(step == 1)

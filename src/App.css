@@ -41,5 +41,5 @@
 .buttonCtrl{float: right;background-color: green;color: white;font-size: 20px;font-weight: 600;padding: 10px 20px;
   border-radius: 5px;border: 0px;cursor: pointer;min-width: 120px;box-shadow: 0px 8px 0px #444;}
 
-.asterik{color: red;font-weight: 600;font-size: 20px;position: relative;left: 3px;}
+.asterik{color: red;font-weight: 600;font-size: 20px;margin-left: 3px;}
 

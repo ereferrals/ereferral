@@ -60,13 +60,13 @@ const DiagnosisDetails = () => {
     },[])
 
     const checkFieldsValidation = () => {
-        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b style='line-height:28px'>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
         let treatmentMandatoryFields = [ 'MedicalOncologistCCCConsultant', 'ClinicalOncologistCCCConsultant', 
         'IsthisaTargetPatient' ]
         
         const treatmentMFDN = {}
-        treatmentMFDN["MedicalOncologistCCCConsultant"] = "Medical Oncologist CCC Consultant"
-        treatmentMFDN["ClinicalOncologistCCCConsultant"] = "Clinical Oncologist CCC Consultant"
+        treatmentMFDN["MedicalOncologistCCCConsultant"] = "CCC Consultant - Medical Oncologist"
+        treatmentMFDN["ClinicalOncologistCCCConsultant"] = "CCC Consultant - Clinical Oncologist"
         treatmentMFDN["IsthisaTargetPatient"] = "Is this a Target Patient"
 
         if(details && details.IsthisaTargetPatient == "Yes"){
