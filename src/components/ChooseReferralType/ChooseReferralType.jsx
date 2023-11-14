@@ -25,6 +25,7 @@ const ChooseReferralType = () => {
   const currentStep = useSelector(state => state.referralTypeStageStep)
   const selectedReferralType = useSelector(state => state.referralType)
   const listData = useSelector(state => state.masterData)
+  const referrerEmail = useSelector(state => state.details.ReferrerEmail)
   
   //Load master data asynchronously. 
   useEffect(() => {
@@ -108,9 +109,13 @@ const ChooseReferralType = () => {
       dispatch(setReferralType(e.target.title));
       let title = "ReferralType"
       let value = e.target.title
+      const email = referrerEmail
       dispatch(resetDetails())
       dispatch(resetReports())
-      dispatch(updateDetails({title, value}));
+      dispatch(updateDetails({title, value}))
+      title = "ReferrerEmail"
+      value = email
+      dispatch(updateDetails({title, value}))
       dispatch(setReferralTypeStageStep(currentStep + 1))
 
       if(e.target.title != selectedReferralType){
