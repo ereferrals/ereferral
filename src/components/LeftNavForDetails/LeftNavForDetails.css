@@ -9,4 +9,6 @@
     font-size: 20px;
     margin-bottom: 15px;
     cursor: pointer;
+    padding: 5px;
 }
+.leftnav button.active{width: 90%;background: #005cbb;color: #fff;text-align: left;}
