@@ -174,7 +174,7 @@ const LeftNavForDetails = () => {
                 openModal()
                 return
             }
-            else if(step != 0 && step != 1){
+            else if(step != 0 && step != 1 && details.OverseasPatient != 'Yes'){
                 setModalText("Please fill in Next of Kin Details.")
                 openModal()
                 return
@@ -186,26 +186,26 @@ const LeftNavForDetails = () => {
                 openModal()
                 return
             }
-            else if(step != 0 && step != 1 && step != 2){
+            else if(step === 3 || step === 4){
                 setModalText("Please fill in Refer Details.")
                 openModal()
                 return
             }
         }
         if(sharedStrings.leftNavClearLinkText === "Refer"){
-            if (checkReferDetailsFieldsValidation() && (step != 0 && step != 1 && step != 2)){
+            if (checkReferDetailsFieldsValidation() && (step === 3 || step === 4)){
                 setShowCloseButton(true)
                 openModal()
                 return
             }
-            else if(step != 0 && step != 1 && step != 2 && step != 3){
+            else if(step === 4){
                 setModalText("Please fill in Treatment & Target Category Details.")
                 openModal()
                 return
             }
         }
         if(sharedStrings.leftNavClearLinkText === "Treatment & Target Category"){
-            if (checkTTCFieldsValidation() && step != 3){
+            if (checkTTCFieldsValidation() && (step === 4)){
                 setShowCloseButton(true)
                 openModal()
                 return
