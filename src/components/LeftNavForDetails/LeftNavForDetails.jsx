@@ -174,7 +174,7 @@ const LeftNavForDetails = () => {
                 openModal()
                 return
             }
-            else if(step != 0 && step != 1 && details.OverseasPatient != 'Yes'){
+            else if(step != 0 && step != 1 && !details.NoNextOfKin){
                 setModalText("Please fill in Next of Kin Details.")
                 openModal()
                 return
@@ -184,7 +184,7 @@ const LeftNavForDetails = () => {
                 openModal()
                 return
             }
-            else if(checkTTCFieldsValidation() && (step === 3 || step === 4)){
+            else if(checkTTCFieldsValidation() && (step === 4)){
                 setModalText("Please fill in Treatment & Target Category Details.")
                 openModal()
                 return
@@ -201,7 +201,7 @@ const LeftNavForDetails = () => {
                 openModal()
                 return
             }
-            else if(checkTTCFieldsValidation() && (step === 3 || step === 4)){
+            else if(checkTTCFieldsValidation() && (step === 4)){
                 setModalText("Please fill in Treatment & Target Category Details.")
                 openModal()
                 return
@@ -213,7 +213,7 @@ const LeftNavForDetails = () => {
                 openModal()
                 return
             }
-            else if(step === 4){
+            else if(checkTTCFieldsValidation() && step === 4){
                 setModalText("Please fill in Treatment & Target Category Details.")
                 openModal()
                 return
