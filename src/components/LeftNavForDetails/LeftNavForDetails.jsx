@@ -186,8 +186,13 @@ const LeftNavForDetails = () => {
                 openModal()
                 return
             }
-            else if(step === 3 || step === 4){
+            else if(checkReferDetailsFieldsValidation() && (step === 3 || step === 4)){
                 setModalText("Please fill in Refer Details.")
+                openModal()
+                return
+            }
+            else if(checkTTCFieldsValidation() && (step === 3 || step === 4)){
+                setModalText("Please fill in Treatment & Target Category Details.")
                 openModal()
                 return
             }
