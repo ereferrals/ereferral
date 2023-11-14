@@ -5,7 +5,6 @@ import "./SubmitReferral.css"
 import ButtonCtrl from "../ButtonCtrl/ButtonCtrl";
 import { useDispatch, useSelector } from "react-redux";
 import { setReferralSubmissionStep } from "../ReferralSubmissionSlice";
-import { updateDetails } from "../DetailsSlice";
 
 const SubmitReferral = () => {
     const dispatch = useDispatch()
@@ -80,7 +79,6 @@ const SubmitReferral = () => {
                 <h3 className="detailsHeader" style={{float:'left'}}>Submit Referral</h3>
                 <button onClick={handleBack} className="buttonCtrl" style={{float:'right'}}>Back</button>
             </div>
-            <p>Declaration to be Agreed.</p>
             <p>Press <b><i>Submit</i></b> to send your referral. Press <b><i>Back</i></b> if you need to change any of the details.
             </p>
             <div style={{textAlign:"center", marginTop:'40px'}}><ButtonCtrl btnClickHandler={onSubmitHandle} btnText="Submit" /></div>

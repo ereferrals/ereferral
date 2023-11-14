@@ -192,13 +192,14 @@ const Reports = () => {
       openModal()
       return
     }
-    
-    const mainReports = reportslist.filter((report) => report.IsMain);
+    debugger
+    const mainReports = reportslist.filter((report) => (report.IsMain || !report.IsMain));
     const mainReportsWithFiles = mainReports.every((mainReport) => {
         if(details && details.IsthisaTargetPatient == "No" && mainReport.ReportName == "IPT Form"){
           return true
         }
-        return files.some((file) => file.ReportIndex === mainReport.ReportIndex)
+        //return files.some((file) => file.ReportIndex === mainReport.ReportIndex)
+        return files.some((file) => file.ReportName === mainReport.ReportName)
       });
 
     if (!mainReportsWithFiles && formdata.IsExistingNHSNumber != "Yes") {
@@ -487,7 +488,7 @@ const Reports = () => {
 
           return (
             <div style={{display:'flex'}}>
-                <div style={{width:'80px',display:'block',alignItems:'right',height:'40px',textAlign:'right'}}>{hasFile && <>
+                <div style={{width:'80px',display:'block',alignItems:'right',height:'40px',textAlign:'right',minWidth:'80px'}}>{hasFile && <>
                   {report.IsMain && <img src={addReport} title={report.ReportName} onClick={handleAddDuplicateReport} 
                   style={{width: '30px',cursor: 'pointer',marginRight:'5px',marginTop:'5px'}}/>}
                   <img src={viewIcon} title={report.ReportName} onClick={handlePDFView} 

@@ -1,5 +1,6 @@
 import React from 'react';
 import './ModalDialog.css';
+import loading from "../../Images/loading.gif";
 
 const ModalDialog = ({ isOpen, onClose, showCloseButton, isConfirmation, confirmationFn, confirmationBtnText, isHtmlContent, children }) => {
   if (!isOpen) {
@@ -17,7 +18,7 @@ const ModalDialog = ({ isOpen, onClose, showCloseButton, isConfirmation, confirm
     <div className="modal-overlay">
       <div className="modal-content">
         {isHtmlContent && <dv dangerouslySetInnerHTML={{ __html: children }}></dv>}
-        {!isHtmlContent && <dv>{children}</dv>}
+        {!isHtmlContent && <dv>{children==="Submitting Data... Please wait." && <><img style={{width:"80px"}} src={loading} /><br/></>} {children}</dv>}
         {!isConfirmation && showCloseButton && <></>}
         {isConfirmation && <br/>}
         {showCloseButton && <><br/><button style={{marginTop:"20px"}} className="btn-primary close-button" onClick={onClose}>
