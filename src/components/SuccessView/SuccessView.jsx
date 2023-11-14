@@ -29,7 +29,7 @@ const SuccessView = () => {
             <p>Thank you for your referral into The Clatterbridge Cancer Centre.</p>
             <p>Your referral request has been received and will be reviewed by the relevant team shortly. 
                 An email will be sent to you once the referral is accepted.</p>
-            <p>Many thanks<br/>The Clatterbridge Cancer Centre</p>
+            <p>Many thanks,<br/>The Clatterbridge Cancer Centre</p>
             <br/>
             <button className="buttonCtrl" style={{float:'none',marginRight:'20px'}} onClick={handleAddReferral}>Submit another referral</button>
             <button className="buttonCtrl" style={{float:'none'}} onClick={handleResetSession}>Close session</button>
