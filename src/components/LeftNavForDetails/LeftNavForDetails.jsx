@@ -339,12 +339,12 @@ const LeftNavForDetails = () => {
     return(
         <>
         <div className="leftnav">
-            <button onClick={() => handleGoToStep (0)} className={`${currentStep === 0 ? 'active' : ''}`}>Patient Details</button><br/>
-            <button onClick={() => handleGoToStep (1)} className={`${currentStep === 1 ? 'active' : ''}`}>Next of Kin Details</button><br/>
-            <button onClick={() => handleGoToStep (2)} className={`${currentStep === 2 ? 'active' : ''}`}>Refer Details</button><br/>
-            <button onClick={() => handleGoToStep (3)} className={`${currentStep === 3 ? 'active' : ''}`}>Treatment & Target Category</button><br/>
+            <button onClick={() => handleGoToStep (0)} className={`${leftNavStep === 0 ? 'active' : ''}`}>Patient Details</button><br/>
+            <button onClick={() => handleGoToStep (1)} className={`${leftNavStep === 1 ? 'active' : ''}`}>Next of Kin Details</button><br/>
+            <button onClick={() => handleGoToStep (2)} className={`${leftNavStep === 2 ? 'active' : ''}`}>Refer Details</button><br/>
+            <button onClick={() => handleGoToStep (3)} className={`${leftNavStep === 3 ? 'active' : ''}`}>Treatment & Target Category</button><br/>
             {/*<button onClick={() => handleGoToStep (3)}>MDT Details</button><br/>*/}
-            <button style={{display:"block"}} onClick={() => handleGoToStep (4)} className={`${currentStep === 4 ? 'active' : ''}`}>Reports</button>
+            <button style={{display:"block"}} onClick={() => handleGoToStep (4)} className={`${leftNavStep === 4 ? 'active' : ''}`}>Reports</button>
 
             {leftNavStep != 4 && <><hr style={{width:"200px",float:"left",height:"1px",background:"black",marginBottom: "15px"}}/>
             <button style={{textAlign:"left",lineHeight:"28px"}} onClick={() => handleClearDetails()}>Clear {sharedStrings.leftNavClearLinkText} Details</button></>}
