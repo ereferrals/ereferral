@@ -8,6 +8,7 @@ import { setUserValidationStep } from "../UserValidation/UserValidationSlice";
 import { setEmail } from "./EmailSlice";
 import { updateDetails } from "../DetailsSlice";
 import ReCAPTCHA from "react-google-recaptcha";
+import { setReferrerEmail } from "../SharedStringsSlice";
 
 const EmailOTPRequest = () =>{
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -79,7 +80,7 @@ const EmailOTPRequest = () =>{
             else{
                 var title = "ReferrerEmail"
                 var value = emailId
-                dispatch(updateDetails({title, value}));
+                dispatch(setReferrerEmail({title, value}));
                 setShowCloseButton(false)
                 setModalText("Sending OTP... Please wait.")
                 dispatch(setEmail(emailId))
