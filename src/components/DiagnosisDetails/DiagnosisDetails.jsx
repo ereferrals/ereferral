@@ -145,8 +145,10 @@ const DiagnosisDetails = () => {
                 </div>
                 <div style={{display:'inline-block',width:'856px'}}><br/>
                     {/*<FormTextAreaCtrl label="Primary Diagnosis" onChangeText={onChangeTextHandle} title="PrimaryDiagnosis" value={details && details.PrimaryDiagnosis} ctrlWidth="860px"/><br/>*/}
-                    <FormYesNoBtnsCtrl label="Is this a Target Patient?" onChangeValue={onChangeTextHandle} 
-                                    title="IsthisaTargetPatient" value={details && details.IsthisaTargetPatient} IsNewLine={true} isMandatory={true} enableRedBorder={enableRedBorder && (!details.IsthisaTargetPatient || details.IsthisaTargetPatient === "")} /><br/>
+                    <div style={{width:'190px', border: enableRedBorder && !details.IsthisaTargetPatient ? '1px solid red' : '0px solid red', padding: enableRedBorder && !details.IsthisaTargetPatient ? '5px' : '0px'}}>
+                        <FormYesNoBtnsCtrl label="Is this a Target Patient?" onChangeValue={onChangeTextHandle} 
+                                    title="IsthisaTargetPatient" value={details && details.IsthisaTargetPatient} IsNewLine={true} isMandatory={true} enableRedBorder={enableRedBorder && (!details.IsthisaTargetPatient || details.IsthisaTargetPatient === "")} />
+                    </div><br/>
                     {isUpgradeScreeingYes === "Yes" && 
                     <FormSelectCtrl label="Target Category" onChangeText={onChangeTextHandle} 
                         title="TargetCategory" value={details && details.TargetCategory} options={targetCategoryList} isMandatory={true} enableRedBorder={enableRedBorder && (!details.TargetCategory || details.TargetCategory === "")}/>}
