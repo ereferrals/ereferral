@@ -91,7 +91,7 @@ const PatientDetails = () => {
         const patientMandatoryFields = ['Surname','FirstName','DateofBirth','HomePhoneNumber']
 
         const patientMFDN = {}
-        patientMFDN["Surname"] = "Surname"
+        patientMFDN["Surname"] = "Last Name"
         patientMFDN["FirstName"] = "First Name"
         patientMFDN["DateofBirth"] = "Date of Birth"
         patientMFDN["HomePhoneNumber"] = "Primary Contact Number"
