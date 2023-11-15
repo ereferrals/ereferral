@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { setReferralSubmissionStep } from "../ReferralSubmissionSlice"
 import { updateDetails } from "../DetailsSlice"
 import ModalDialog from "../ModalDialog/ModalDialog"
-import { setLeftNavClearLinkText } from "../SharedStringsSlice"
+import { setLeftNavClearLinkText, setNOKMandatory, setPatientMandatory, setReferMandatory, setTTCMandatory } from "../SharedStringsSlice"
 
 const LeftNavForDetails = () => {
     const dispatch = useDispatch()
@@ -171,7 +171,11 @@ const LeftNavForDetails = () => {
     const handleGoToStep = (step) => {
         setIsConfirmation(false)
         if(sharedStrings.leftNavClearLinkText === "Patient"){
-            if (checkPatientDetailsFieldsValidation() && step != 0){
+            if (step != 0 && checkPatientDetailsFieldsValidation()){
+                //setPatientMandatory(true)
+                const title = "enablePatientMandatory"
+                const value = true
+                dispatch(setPatientMandatory({title, value}))
                 setShowCloseButton(true)
                 openModal()
                 return
@@ -181,48 +185,60 @@ const LeftNavForDetails = () => {
                 openModal()
                 return
             }
-            else if(checkReferDetailsFieldsValidation() && (step === 3 || step === 4)){
+            else if((step === 3 || step === 4) && checkReferDetailsFieldsValidation()){
                 setModalText("Please fill in Refer Details.")
                 openModal()
                 return
             }
-            else if(checkTTCFieldsValidation() && (step === 4)){
+            else if((step === 4) && checkTTCFieldsValidation()){
                 setModalText("Please fill in Treatment & Target Category Details.")
                 openModal()
                 return
             }
         }
-        if(sharedStrings.leftNavClearLinkText === "Next of Kin"){
-            if (checkNOKDetailsFieldsValidation() && (step != 0 && step != 1)){
+        if(sharedStrings.leftNavClearLinkText === "Next of Kin"){debugger
+            if ((step != 0 && step != 1) && checkNOKDetailsFieldsValidation()){
+                //setNOKMandatory(true)
+                const title = "enableNOKMandatory"
+                const value = true
+                dispatch(setNOKMandatory({title, value}))
                 setShowCloseButton(true)
                 openModal()
                 return
             }
-            else if(checkReferDetailsFieldsValidation() && (step === 3 || step === 4)){
+            else if((step === 3 || step === 4) && checkReferDetailsFieldsValidation()){
                 setModalText("Please fill in Refer Details.")
                 openModal()
                 return
             }
-            else if(checkTTCFieldsValidation() && (step === 4)){
+            else if((step === 4) && checkTTCFieldsValidation()){
                 setModalText("Please fill in Treatment & Target Category Details.")
                 openModal()
                 return
             }
         }
         if(sharedStrings.leftNavClearLinkText === "Refer"){
-            if (checkReferDetailsFieldsValidation() && (step === 3 || step === 4)){
+            if ((step === 3 || step === 4) && checkReferDetailsFieldsValidation()){
+                //setReferMandatory(true)
+                const title = "enableReferMandatory"
+                const value = true
+                dispatch(setReferMandatory({title, value}))
                 setShowCloseButton(true)
                 openModal()
                 return
             }
-            else if(checkTTCFieldsValidation() && step === 4){
+            else if(step === 4 && checkTTCFieldsValidation()){
                 setModalText("Please fill in Treatment & Target Category Details.")
                 openModal()
                 return
             }
         }
         if(sharedStrings.leftNavClearLinkText === "Treatment & Target Category"){
-            if (checkTTCFieldsValidation() && (step === 4)){
+            if (step === 4 && checkTTCFieldsValidation()){
+                //setTTCMandatory(true)
+                const title = "enableTTCMandatory"
+                const value = true
+                dispatch(setTTCMandatory({title, value}))
                 setShowCloseButton(true)
                 openModal()
                 return

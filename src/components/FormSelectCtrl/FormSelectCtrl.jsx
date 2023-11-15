@@ -5,6 +5,7 @@ import { useSelector } from "react-redux"
 const FormSelectCtrl = ({label, onChangeText, title, value, options, disableCtrl, isMandatory, enableRedBorder}) => {
   const [selectValue, setSelectValue] = useState(value)
   const details = useSelector(state => state.details)
+  const sortedOptions = options ? [...options].sort((a, b) => a.label.localeCompare(b.label)) : []
 
   useEffect(() => {
     setSelectValue(details && details[title])
@@ -14,12 +15,13 @@ const FormSelectCtrl = ({label, onChangeText, title, value, options, disableCtrl
     setSelectValue(e.target.value)
     onChangeText(title, e.target.value)
   }
+
   return (
     <div className="formselectctrl">
       <label>{label}</label>{isMandatory && <span className="asterik">*</span>}<br/>
       <select onChange={onChangeHandle} value={selectValue} disabled={disableCtrl} className={`${enableRedBorder ? 'redBorder' : ''}`}>
           <option></option>
-          {options && options.map((option, index) => (
+          {sortedOptions && sortedOptions.map((option, index) => (
             <option key={index} value={option.value}>
               {option.label}
             </option>

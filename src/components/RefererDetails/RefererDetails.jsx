@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateDetails } from "../DetailsSlice";
 import { setReferralSubmissionStep } from "../ReferralSubmissionSlice";
 import FormSelectCtrl from "../FormSelectCtrl/FormSelectCtrl";
-import { setLeftNavClearLinkText } from "../SharedStringsSlice";
+import { setLeftNavClearLinkText, setReferMandatory } from "../SharedStringsSlice";
 import ModalDialog from "../ModalDialog/ModalDialog";
 
 const RefererDetails = () => {
@@ -18,7 +18,8 @@ const RefererDetails = () => {
     const [modalText, setModalText] = useState("")
 
     const prevLeftNavClearText = useRef(state => state.leftNavClearLinkText)
-    const [enableRedBorder, setEnableRedBorder] = useState(false)
+    //const [enableRedBorder, setEnableRedBorder] = useState(false)
+    const enableRedBorder = useSelector(state => state.sharedStrings.enableReferMandatory)
 
     useEffect(() => {
         if(prevLeftNavClearText.current !== "Refer"){
@@ -55,7 +56,11 @@ const RefererDetails = () => {
         if (emptyFields.length > 0) {
             errorMsg = errorMsg + `<div style='text-align:left;line-height:28px'><ul>${emptyFields.map(field => `<li>${field}</li>`).join('')}</ul></div>`;
             setModalText(errorMsg)
-            setEnableRedBorder(true)
+            //setEnableRedBorder(true)
+            //setReferMandatory(true)
+            const title = "enableReferMandatory"
+            const value = true
+            dispatch(setReferMandatory({title, value}))
             return true
         }
         return false

@@ -7,9 +7,8 @@ import { updateDetails } from "../DetailsSlice";
 import { setReferralSubmissionStep } from "../ReferralSubmissionSlice";
 import { setAppStep } from "../AppSlice";
 import FormSelectCtrl from "../FormSelectCtrl/FormSelectCtrl";
-import { TextBox } from "@react-pdf-viewer/core";
 import ModalDialog from "../ModalDialog/ModalDialog";
-import { setLeftNavClearLinkText } from "../SharedStringsSlice";
+import { setLeftNavClearLinkText, setPatientMandatory } from "../SharedStringsSlice";
 
 const PatientDetails = () => {
     const dispatch = useDispatch()
@@ -29,7 +28,8 @@ const PatientDetails = () => {
     const [showCloseButton,setShowCloseButton] = useState(true)
     const [modalText, setModalText] = useState("")
     const nhsNumbers = useSelector(state => state.masterData.NHSNumbers)
-    const [enableRedBorder, setEnableRedBorder] = useState(false)
+    //const [enableRedBorder, setEnableRedBorder] = useState(false)
+    const enableRedBorder = useSelector(state => state.sharedStrings.enablePatientMandatory)
     
     useEffect(() => {
         dispatch(setLeftNavClearLinkText("Patient"))
@@ -114,7 +114,10 @@ const PatientDetails = () => {
         if (emptyFields.length > 0) {
             errorMsg = errorMsg + `<div style='text-align:left;line-height:28px'><ul>${emptyFields.map(field => `<li>${field}</li>`).join('')}</ul></div>`;
             setModalText(errorMsg)
-            setEnableRedBorder(true)
+            //setEnableRedBorder(true)
+            const title = "enablePatientMandatory"
+            const value = true
+            dispatch(setPatientMandatory({title, value}))
             return true
         }
         else if(details.NHSNumber && details.NHSNumber != "" && (details.NHSNumber.length < 10 || details.NHSNumber.length > 10)){
@@ -179,7 +182,7 @@ const PatientDetails = () => {
         <div className="detailssection">
             <div style={{float:'left'}}>
                 <div style={{display:"inline-block",width:"100%"}}>
-                    <h3 className="detailsHeader" style={{float:"left"}}>Patient Details</h3>
+                    <h3 className="detailsHeader" style={{float:"left"}}>Patient Details {enableRedBorder ? "Yes" : "No"}</h3>
                     <div className="detailsNext" style={{float:"right"}}>
                         <button onClick={handleNext}>Next</button>
                         <button onClick={handleBack} style={{marginRight:'10px'}}>Back</button>
@@ -194,7 +197,7 @@ const PatientDetails = () => {
                         <FormTextBoxCtrl label="First Name" onChangeText={onChangeTextHandle} title="FirstName" value={details && details.FirstName} onlyText={true} isMandatory={true} enableRedBorder={enableRedBorder && (!details.FirstName || details.FirstName === "")}/><br/>
                         <FormTextBoxCtrl label="Middle Name" onChangeText={onChangeTextHandle} title="MiddleName" value={details && details.MiddleName} onlyText={true}/><br/>
                         <FormSelectCtrl label="Title" onChangeText={onChangeTextHandle} title="Title" value={details && details.Title} options={titlesList}/><br/>
-                        <FormDateCtrl label="Date of Birth" onChangeText={onChangeTextHandle} title="DateofBirth" value={details && details.DateofBirth} dtWidth="320px" isMandatory={true} enableRedBorder={enableRedBorder && (!details.DateofBirth || details.DateofBirth === "")}/><br/>
+                        <FormDateCtrl label="Date of Birth" onChangeText={onChangeTextHandle} title="DateofBirth" value={details && details.DateofBirth} dtWidth="320px" isMandatory={true} isFutureDate={false} enableRedBorder={enableRedBorder && (!details.DateofBirth || details.DateofBirth === "")}/><br/>
                         <FormSelectCtrl label="Sex" onChangeText={onChangeTextHandle} title="Sex" value={details && details.Sex} options={sexDataList}/><br/>
                         <FormSelectCtrl label="Marital Status" onChangeText={onChangeTextHandle} title="MaritalStatus" value={details && details.MaritalStatus} options={maritalStatusList}/><br/>
                         <FormSelectCtrl label="Ethnicity" onChangeText={onChangeTextHandle} title="Ethnicorigin" value={details && details.Ethnicorigin} options={ethnicoriginsList}/><br/>

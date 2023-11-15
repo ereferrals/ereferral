@@ -1,6 +1,6 @@
 .report-strip{padding: 10px;font-weight: 600;border: 1.5px solid black;width: 800px;
     display: inline-block;margin-bottom: 10px;background-color: white;cursor: pointer;}
-.dragging{background-color: #f1f1f1;}
+.dragging{background-color: silver;}
 .with-file{background-color: green;color: white;}
 .pdf-container {
     width: 100%;

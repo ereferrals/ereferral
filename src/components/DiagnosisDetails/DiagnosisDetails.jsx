@@ -4,7 +4,7 @@ import { updateDetails } from "../DetailsSlice";
 import { setReferralSubmissionStep } from "../ReferralSubmissionSlice";
 import FormSelectCtrl from "../FormSelectCtrl/FormSelectCtrl";
 import FormYesNoBtnsCtrl from "../FormYesNoBtnsCtrl/FormYesNoBtnsCtrl";
-import { setLeftNavClearLinkText } from "../SharedStringsSlice";
+import { setLeftNavClearLinkText, setTTCMandatory } from "../SharedStringsSlice";
 import ModalDialog from "../ModalDialog/ModalDialog";
 
 const DiagnosisDetails = () => {
@@ -18,7 +18,8 @@ const DiagnosisDetails = () => {
     const [isUpgradeScreeingYes,setIsUpgradeScreeingYes] = useState(details.IsthisaTargetPatient)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [modalText, setModalText] = useState("")
-    const [enableRedBorder, setEnableRedBorder] = useState(false)
+    //const [enableRedBorder, setEnableRedBorder] = useState(false)
+    const enableRedBorder = useSelector(state => state.sharedStrings.enableTTCMandatory)
 
     useEffect(() => {
         dispatch(setLeftNavClearLinkText("Treatment & Target Category"))
@@ -87,7 +88,10 @@ const DiagnosisDetails = () => {
         if (emptyFields.length > 0) {
             errorMsg = errorMsg + `<div style='text-align:left;line-height:28px'><ul>${emptyFields.map(field => `<li>${field}</li>`).join('')}</ul></div></div>`;
             setModalText(errorMsg)
-            setEnableRedBorder(true)
+            //setEnableRedBorder(true)
+            const title = "enableTTCMandatory"
+            const value = true
+            dispatch(setTTCMandatory({title, value}))
             return true
         }
         return false

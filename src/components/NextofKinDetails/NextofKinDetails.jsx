@@ -6,7 +6,7 @@ import { updateDetails } from "../DetailsSlice";
 import { setReferralSubmissionStep } from "../ReferralSubmissionSlice";
 import { setAppStep } from "../AppSlice";
 import FormSelectCtrl from "../FormSelectCtrl/FormSelectCtrl";
-import { setLeftNavClearLinkText } from "../SharedStringsSlice";
+import { setLeftNavClearLinkText, setNOKMandatory } from "../SharedStringsSlice";
 import ModalDialog from "../ModalDialog/ModalDialog";
 import FormCheckBoxCtrl from "../FormCheckBoxCtrl/FormCheckBoxCtrl";
 
@@ -24,7 +24,8 @@ const NextofKinDetails = () => {
     const [isConfirmation, setIsConfirmation] = useState(false)
     const [confirmationBtnText, setConfirmationBtnText] = useState("")
     const prevNoNOKValue = useRef(details.NoNextOfKin)
-    const [enableRedBorder, setEnableRedBorder] = useState(false)
+    //const [enableRedBorder, setEnableRedBorder] = useState(false)
+    const enableRedBorder = useSelector(state => state.sharedStrings.enableNOKMandatory)
 
     useEffect(() => {
         if(details){
@@ -81,7 +82,11 @@ const NextofKinDetails = () => {
         if (emptyFields.length > 0) {
             errorMsg = errorMsg + `<div style='text-align:left;line-height:28px'><ul>${emptyFields.map(field => `<li>${field}</li>`).join('')}</ul></div>`;
             setModalText(errorMsg)
-            setEnableRedBorder(true)
+            //setEnableRedBorder(true)
+            //setNOKMandatory(true)
+            const title = "enableNOKMandatory"
+            const value = true
+            dispatch(setNOKMandatory({title, value}))
             return true
         }
         else if(details.NextofKinHomePhoneNumber && details.NextofKinHomePhoneNumber != "" && (details.NextofKinHomePhoneNumber.length != 11)){

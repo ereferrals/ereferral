@@ -237,7 +237,7 @@ const Reports = () => {
 
   const handleDragEnter = (e, report) => {
     e.preventDefault();
-    setDraggingOver(report);
+    setDraggingOver(report.ReportIndex);
   };
 
   const handleDragOver = (e) => {
@@ -343,7 +343,7 @@ const Reports = () => {
         setConfirmationBtnText("Delete")
         setShowCloseButton(false)
         setConfirmationType("Delete-File")
-        setModalText("Are you sure to delete the file?");
+        setModalText("Are you sure you want to delete the file?");
         setIsConfirmation(true);
         openModal();
         setReportFileToDelete(e.target.title);
@@ -483,7 +483,7 @@ const Reports = () => {
           var filename = null;
           if (hasFile) {
             var file = files.find(file => file.ReportIndex === report.ReportIndex);
-            filename = file.ReportFile.name;
+            filename = file.ReportFile.name.replace(/_\d+\.pdf$/, '.pdf');
           }
 
           return (
@@ -495,11 +495,11 @@ const Reports = () => {
                   style={{width: '40px',cursor: 'pointer',marginRight:'5px',height:'28px',marginTop:'8px'}}/>
                   </>
                 }</div>
-                <div
+                <div 
                 key={index}
                 title={report.ReportName}
                 className={`report-strip drop-area ${
-                    draggingOver === report.ReportName ? "dragging" : ""
+                    draggingOver === report.ReportIndex ? "dragging" : ""
                 } ${hasFile ? "with-file" : ""}`}
                 onDragEnter={(e) => handleDragEnter(e, report)}
                 onDragOver={handleDragOver}
