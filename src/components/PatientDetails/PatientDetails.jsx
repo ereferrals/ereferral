@@ -79,7 +79,7 @@ const PatientDetails = () => {
 
 
     const handleNext = () => {
-        if (checkFieldsValidation()){
+        if (details && details.IsExistingNHSNumber != "Yes" && checkFieldsValidation()){
             setShowCloseButton(true)
             openModal()
             return
@@ -158,7 +158,7 @@ const PatientDetails = () => {
             {
                 value = "Yes"
                 setShowCloseButton(true)
-                setModalText("As NHS Number already available, no need to upload all reports again.")
+                setModalText("The NHS number has been recognised as not needing all the reports specified. Please complete as many of the fields as you can and attach the reports you have available.")
                 openModal()
             }
             else
@@ -182,7 +182,7 @@ const PatientDetails = () => {
         <div className="detailssection">
             <div style={{float:'left'}}>
                 <div style={{display:"inline-block",width:"100%"}}>
-                    <h3 className="detailsHeader" style={{float:"left"}}>Patient Details {enableRedBorder ? "Yes" : "No"}</h3>
+                    <h3 className="detailsHeader" style={{float:"left"}}>Patient Details</h3>
                     <div className="detailsNext" style={{float:"right"}}>
                         <button onClick={handleNext}>Next</button>
                         <button onClick={handleBack} style={{marginRight:'10px'}}>Back</button>

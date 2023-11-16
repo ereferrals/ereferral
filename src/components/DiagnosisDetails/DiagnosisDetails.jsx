@@ -12,46 +12,52 @@ const DiagnosisDetails = () => {
     const details = useSelector(state=>state.details)
     const listData = useSelector(state => state.masterData)
     const currentStep = useSelector(state => state.referralSubmissionStep)
-    const [medicalOncologistList,setMedicalOncologistList] = useState([])
-    const [clinicalOncologistList,setClinicalOncologistList] = useState([])
+    const [medicalOncologistList,setMedicalOncologistList] = useState([{label: "Not Required", value: "Not Required"}, 
+    {label: "CCC to Assign", value:"CCC to Assign"}])
+    const [clinicalOncologistList,setClinicalOncologistList] = useState([{label: "Not Required", value: "Not Required"}, 
+    {label: "CCC to Assign", value:"CCC to Assign"}])
     const [targetCategoryList,setTargetCategoryList] = useState([])
     const [isUpgradeScreeingYes,setIsUpgradeScreeingYes] = useState(details.IsthisaTargetPatient)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [modalText, setModalText] = useState("")
     //const [enableRedBorder, setEnableRedBorder] = useState(false)
     const enableRedBorder = useSelector(state => state.sharedStrings.enableTTCMandatory)
+    const fixedOptions = [{label: "Not Required", value: "Not Required"}, 
+    {label: "CCC to Assign", value:"CCC to Assign"}]
 
     useEffect(() => {
         dispatch(setLeftNavClearLinkText("Treatment & Target Category"))
         if(listData.MedicalOncologists){
-            setMedicalOncologistList(
-                listData.MedicalOncologists
-                  .filter(status => status.referralType === details.ReferralType)
-                  .map(status => {
-                    const lastSpaceIndex = status.title.lastIndexOf(' ');
-                    const label = lastSpaceIndex !== -1 ? status.title.substring(0, lastSpaceIndex) : status.title;
-                    
-                    return {
-                      label: status.title,//label,
-                      value: status.title
-                    }
-                  })
-              )
+            const allOptions = listData.MedicalOncologists
+            .filter(status => status.referralType === details.ReferralType)
+            .map(status => {
+              const lastSpaceIndex = status.title.lastIndexOf(' ');
+              const label = lastSpaceIndex !== -1 ? status.title.substring(0, lastSpaceIndex) : status.title;
+      
+              return {
+                label: label,
+                value: status.title
+              };
+            })
+            const sortedOptions = allOptions.sort((a, b) => a.label.localeCompare(b.label))
+            const finalOptions = [...fixedOptions, ...sortedOptions]
+            setMedicalOncologistList(finalOptions)
         }
         if(listData.ClinicalOncologists){
-            setClinicalOncologistList(
-                listData.ClinicalOncologists
-                  .filter(status => status.referralType === details.ReferralType)
-                  .map(status => {
+            const allOptions = listData.ClinicalOncologists
+                .filter(status => status.referralType === details.ReferralType)
+                .map(status => {
                     const lastSpaceIndex = status.title.lastIndexOf(' ');
                     const label = lastSpaceIndex !== -1 ? status.title.substring(0, lastSpaceIndex) : status.title;
-            
+
                     return {
-                      label: status.title,//label,
-                      value: status.title
-                    }
-                  })
-              )
+                    label: label,
+                    value: status.title
+                    };
+            })
+            const sortedOptions = allOptions.sort((a, b) => a.label.localeCompare(b.label))
+            const finalOptions = [...fixedOptions, ...sortedOptions]
+            setClinicalOncologistList(finalOptions)
         }
         if(listData.TargetCategories){
             setTargetCategoryList(listData.TargetCategories.map((status) => ({
@@ -98,7 +104,7 @@ const DiagnosisDetails = () => {
     }
 
     const handleNext = () => {
-        if (checkFieldsValidation()){
+        if (details && details.IsExistingNHSNumber != "Yes" && checkFieldsValidation()){
             openModal()
             return
         }
@@ -143,8 +149,8 @@ const DiagnosisDetails = () => {
                         {/*<FormTextBoxCtrl label="Tumour Location" onChangeText={onChangeTextHandle} title="TumourLocation" value={details && details.TumourLocation}/><br/>*/}
                     </div>
                     <div style={{float:'left'}}>
-                        <FormSelectCtrl label="CCC Consultant - Medical Oncologist" onChangeText={onChangeTextHandle} title="MedicalOncologistCCCConsultant" value={details && details.MedicalOncologistCCCConsultant} options={medicalOncologistList} isMandatory={true} enableRedBorder={enableRedBorder && (!details.MedicalOncologistCCCConsultant || details.MedicalOncologistCCCConsultant === "")}/><br/>
-                        <FormSelectCtrl label="CCC Consultant - Clinical Oncologist" onChangeText={onChangeTextHandle} title="ClinicalOncologistCCCConsultant" value={details && details.ClinicalOncologistCCCConsultant} options={clinicalOncologistList} isMandatory={true} enableRedBorder={enableRedBorder && (!details.ClinicalOncologistCCCConsultant || details.ClinicalOncologistCCCConsultant === "")}/>
+                        <FormSelectCtrl label="CCC Consultant - Medical Oncologist" onChangeText={onChangeTextHandle} title="MedicalOncologistCCCConsultant" value={details && details.MedicalOncologistCCCConsultant} options={medicalOncologistList} isMandatory={true} enableRedBorder={enableRedBorder && (!details.MedicalOncologistCCCConsultant || details.MedicalOncologistCCCConsultant === "")} sortOptions={false}/><br/>
+                        <FormSelectCtrl label="CCC Consultant - Clinical Oncologist" onChangeText={onChangeTextHandle} title="ClinicalOncologistCCCConsultant" value={details && details.ClinicalOncologistCCCConsultant} options={clinicalOncologistList} isMandatory={true} enableRedBorder={enableRedBorder && (!details.ClinicalOncologistCCCConsultant || details.ClinicalOncologistCCCConsultant === "")} sortOptions={false}/>
                     </div>
                 </div>
                 <div style={{display:'inline-block',width:'856px'}}><br/>

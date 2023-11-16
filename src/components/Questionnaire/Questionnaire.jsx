@@ -149,7 +149,7 @@ const Questionnaire = () => {
             {
                 value = "Yes"
                 setShowCloseButton(true)
-                setModalText("As NHS Number already available, no need to upload all reports again.")
+                setModalText("The NHS number has been recognised as not needing all the reports specified. Please complete as many of the fields as you can and attach the reports you have available.")
                 openModal()
             }
             else

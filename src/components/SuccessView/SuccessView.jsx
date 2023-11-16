@@ -5,6 +5,7 @@ import { setAppStep } from "../AppSlice"
 import { resetDetails } from "../DetailsSlice"
 import { setStage } from "../ChooseStages/StagesSlice"
 import { setUserValidationStep } from "../UserValidation/UserValidationSlice"
+import { setNOKMandatory, setPatientMandatory, setReferMandatory, setTTCMandatory } from "../SharedStringsSlice"
 
 const SuccessView = () => {
     const dispatch = useDispatch()
@@ -22,6 +23,10 @@ const SuccessView = () => {
         dispatch(setReferralTypeStageStep(0))
         dispatch(resetDetails())
         dispatch(setStage(null))
+        dispatch(setPatientMandatory(false))
+        dispatch(setNOKMandatory(false))
+        dispatch(setReferMandatory(false))
+        dispatch(setTTCMandatory(false))
     }
 
     return(

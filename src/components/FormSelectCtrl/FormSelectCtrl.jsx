@@ -2,10 +2,10 @@ import React, {useEffect, useState} from "react"
 import "./FormSelectCtrl.css"
 import { useSelector } from "react-redux"
 
-const FormSelectCtrl = ({label, onChangeText, title, value, options, disableCtrl, isMandatory, enableRedBorder}) => {
+const FormSelectCtrl = ({label, onChangeText, title, value, options, disableCtrl, isMandatory, enableRedBorder, sortOptions}) => {
   const [selectValue, setSelectValue] = useState(value)
   const details = useSelector(state => state.details)
-  const sortedOptions = options ? [...options].sort((a, b) => a.label.localeCompare(b.label)) : []
+  const sortedOptions = options && sortOptions ? [...options].sort((a, b) => a.label.localeCompare(b.label)) : options
 
   useEffect(() => {
     setSelectValue(details && details[title])

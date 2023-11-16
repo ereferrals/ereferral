@@ -67,7 +67,7 @@ const RefererDetails = () => {
     }
 
     const handleNext = () => {
-        if (checkFieldsValidation()){
+        if (details && details.IsExistingNHSNumber != "Yes" && checkFieldsValidation()){
             openModal()
             return
         }

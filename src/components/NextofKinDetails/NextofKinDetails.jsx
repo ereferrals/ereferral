@@ -100,7 +100,7 @@ const NextofKinDetails = () => {
     }
     const handleNext = () => {
         setIsConfirmation(false)
-        if (checkFieldsValidation()){
+        if (details && details.IsExistingNHSNumber != "Yes" && checkFieldsValidation()){
             setShowCloseButton(true)
             openModal()
             return

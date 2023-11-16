@@ -1,5 +1,5 @@
 const BASE_URL = "https://ereferralsapi.azurewebsites.net";
-const Email_URL = "https://prod-01.uksouth.logic.azure.com:443/workflows/1cda7fb6dca84e04896495e53a96e6e4/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=aeRC3pMDBUOcYJUK18cX7CsRn7mGp4XXu8JfcJxozoI";
+const Email_URL = "";
 
 export const emailOTP = async (data) => {
   try {
