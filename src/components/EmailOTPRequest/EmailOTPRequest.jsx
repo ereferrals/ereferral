@@ -78,9 +78,8 @@ const EmailOTPRequest = () =>{
                 return;
             }
             else{
-                var title = "ReferrerEmail"
                 var value = emailId
-                dispatch(setReferrerEmail({title, value}));
+                dispatch(setReferrerEmail(value));
                 setShowCloseButton(false)
                 setModalText("Sending OTP... Please wait.")
                 dispatch(setEmail(emailId))
