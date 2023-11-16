@@ -18,7 +18,6 @@ const RefererDetails = () => {
     const [modalText, setModalText] = useState("")
 
     const prevLeftNavClearText = useRef(state => state.leftNavClearLinkText)
-    //const [enableRedBorder, setEnableRedBorder] = useState(false)
     const enableRedBorder = useSelector(state => state.sharedStrings.enableReferMandatory)
 
     useEffect(() => {
@@ -56,8 +55,6 @@ const RefererDetails = () => {
         if (emptyFields.length > 0) {
             errorMsg = errorMsg + `<div style='text-align:left;line-height:28px'><ul>${emptyFields.map(field => `<li>${field}</li>`).join('')}</ul></div>`;
             setModalText(errorMsg)
-            //setEnableRedBorder(true)
-            //setReferMandatory(true)
             const title = "enableReferMandatory"
             const value = true
             dispatch(setReferMandatory({title, value}))
