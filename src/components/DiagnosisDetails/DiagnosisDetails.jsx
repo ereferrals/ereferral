@@ -35,7 +35,7 @@ const DiagnosisDetails = () => {
               const label = lastSpaceIndex !== -1 ? status.title.substring(0, lastSpaceIndex) : status.title;
       
               return {
-                label: label,
+                label: status.title,
                 value: status.title
               };
             })
@@ -51,7 +51,7 @@ const DiagnosisDetails = () => {
                     const label = lastSpaceIndex !== -1 ? status.title.substring(0, lastSpaceIndex) : status.title;
 
                     return {
-                    label: label,
+                    label: status.title,
                     value: status.title
                     };
             })
