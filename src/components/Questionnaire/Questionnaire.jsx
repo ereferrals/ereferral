@@ -250,7 +250,7 @@ const Questionnaire = () => {
                     <br/><br/>
                 </div>
             
-                <ModalDialog isOpen={isModalOpen} onClose={closeModal} showCloseButton={showCloseButton} isHtmlContent={tr}>
+                <ModalDialog isOpen={isModalOpen} onClose={closeModal} showCloseButton={showCloseButton} isHtmlContent={true}>
                     {modalText}
                 </ModalDialog>
         </div>
