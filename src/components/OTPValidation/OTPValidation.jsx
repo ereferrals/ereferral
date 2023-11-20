@@ -146,7 +146,7 @@ const OTPValidation = () => {
               maxLength="1"
               onKeyUp={(event) => handleKeyDown(event, index)}
               onChange={(event) => handleTextboxChange(event, index)}
-              value={textBoxValues[index]}
+              value={enteredOTP[index]}
             />
           ))}
         </p>
