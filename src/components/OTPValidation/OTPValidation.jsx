@@ -122,7 +122,7 @@ const OTPValidation = () => {
   };
 
   const handleResendOTP = async () => {
-    setTextBoxValues(Array(6).fill(''))
+    setEnteredOTP(Array(6).fill(''))
     setResendAttempts(resendAttempts + 1)
     openModal()
     setShowCloseButton(false)
