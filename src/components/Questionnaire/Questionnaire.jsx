@@ -11,7 +11,8 @@ import { setAppStep } from "../AppSlice";
 import { setReferralSubmissionStep } from "../ReferralSubmissionSlice";
 import FormTextBoxCtrl from "../FormTextBoxCtrl/FormTextBoxCtrl";
 import FormYesNoBtnsCtrl from "../FormYesNoBtnsCtrl/FormYesNoBtnsCtrl";
-import { getMasterData } from "../../Services/api";
+import { warning_NHSNumberText } from "../Config";
+import { setNOKMandatory, setPatientMandatory, setReferMandatory, setTTCMandatory } from "../SharedStringsSlice";
 
 const Questionnaire = () => {
     const dispatch = useDispatch()
@@ -71,7 +72,7 @@ const Questionnaire = () => {
         if(overseasPatient == 'No'){
             if(!details.NHSNumber || details.NHSNumber == ""){
                 setShowCloseButton(true)
-                setModalText("Enter NHS Number")
+                setModalText(warning_NHSNumberText)
                 openModal()
                 return
             }
@@ -147,6 +148,11 @@ const Questionnaire = () => {
             const numberExists = nhsNumbers && nhsNumbers.some((nhsNumber) => nhsNumber.title === value);
             if(numberExists)
             {
+                dispatch(setPatientMandatory(false))
+                dispatch(setNOKMandatory(false))
+                dispatch(setReferMandatory(false))
+                dispatch(setTTCMandatory(false))
+
                 value = "Yes"
                 setShowCloseButton(true)
                 setModalText("<span style='line-height:28px'>The NHS number has been recognised as not needing all the reports specified. <br/>Please complete as many of the fields as you can and attach the reports you have available.</span>")

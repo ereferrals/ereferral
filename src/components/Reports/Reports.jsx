@@ -9,6 +9,7 @@ import ModalDialog from "../ModalDialog/ModalDialog";
 import { useDispatch, useSelector } from "react-redux";
 import { updateFiles, updateReportsList } from "./ReportsSlice";
 import { setReferralSubmissionStep } from "../ReferralSubmissionSlice";
+import { warning_MandatoryText } from "../Config";
 
 const Reports = () => {
   const dispatch = useDispatch()
@@ -79,7 +80,8 @@ const Reports = () => {
 
   const handleNext = () => {
     if(formdata.IsExistingNHSNumber != "Yes") {
-      var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b>You must ensure you complete all the below mandatory fields before submitting your referral:</b><br/><br/>"
+      //var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b>You must ensure you complete all the below mandatory fields before submitting your referral:</b><br/><br/>"
+      var errorMsg = `<div style='max-height:500px;overflow-y:auto;width:400px;'><b style='line-height:28px'>${warning_MandatoryText}</b><br/><br/>`
       const patientMandatoryFields = ['Surname','FirstName','DateofBirth','HomePhoneNumber']
 
       const patientMFDN = {}

@@ -6,6 +6,7 @@ import FormSelectCtrl from "../FormSelectCtrl/FormSelectCtrl";
 import FormYesNoBtnsCtrl from "../FormYesNoBtnsCtrl/FormYesNoBtnsCtrl";
 import { setLeftNavClearLinkText, setTTCMandatory } from "../SharedStringsSlice";
 import ModalDialog from "../ModalDialog/ModalDialog";
+import { warning_MandatoryText } from "../Config.js"
 
 const DiagnosisDetails = () => {
     const dispatch = useDispatch()
@@ -24,6 +25,7 @@ const DiagnosisDetails = () => {
     const enableRedBorder = useSelector(state => state.sharedStrings.enableTTCMandatory)
     const fixedOptions = [{label: "Not Required", value: "Not Required"}, 
     {label: "CCC to Assign", value:"CCC to Assign"}]
+    const mandatoryFlag = useSelector(state => state.details.IsExistingNHSNumber === 'Yes' ? false : true)
 
     useEffect(() => {
         dispatch(setLeftNavClearLinkText("Treatment & Target Category"))
@@ -68,7 +70,7 @@ const DiagnosisDetails = () => {
     },[])
 
     const checkFieldsValidation = () => {
-        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b style='line-height:28px'>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        var errorMsg = `<div style='max-height:500px;overflow-y:auto;width:400px'><b style='line-height:28px'>${warning_MandatoryText}</b><br/><br/>`
         let treatmentMandatoryFields = [ 'MedicalOncologistCCCConsultant', 'ClinicalOncologistCCCConsultant', 
         'IsthisaTargetPatient' ]
         
@@ -149,19 +151,19 @@ const DiagnosisDetails = () => {
                         {/*<FormTextBoxCtrl label="Tumour Location" onChangeText={onChangeTextHandle} title="TumourLocation" value={details && details.TumourLocation}/><br/>*/}
                     </div>
                     <div style={{float:'left'}}>
-                        <FormSelectCtrl label="CCC Consultant - Medical Oncologist" onChangeText={onChangeTextHandle} title="MedicalOncologistCCCConsultant" value={details && details.MedicalOncologistCCCConsultant} options={medicalOncologistList} isMandatory={true} enableRedBorder={enableRedBorder && (!details.MedicalOncologistCCCConsultant || details.MedicalOncologistCCCConsultant === "")} dontSortOptions={true}/><br/>
-                        <FormSelectCtrl label="CCC Consultant - Clinical Oncologist" onChangeText={onChangeTextHandle} title="ClinicalOncologistCCCConsultant" value={details && details.ClinicalOncologistCCCConsultant} options={clinicalOncologistList} isMandatory={true} enableRedBorder={enableRedBorder && (!details.ClinicalOncologistCCCConsultant || details.ClinicalOncologistCCCConsultant === "")} dontSortOptions={true}/>
+                        <FormSelectCtrl label="CCC Consultant - Medical Oncologist" onChangeText={onChangeTextHandle} title="MedicalOncologistCCCConsultant" value={details && details.MedicalOncologistCCCConsultant} options={medicalOncologistList} isMandatory={mandatoryFlag} enableRedBorder={enableRedBorder && (!details.MedicalOncologistCCCConsultant || details.MedicalOncologistCCCConsultant === "")} dontSortOptions={true}/><br/>
+                        <FormSelectCtrl label="CCC Consultant - Clinical Oncologist" onChangeText={onChangeTextHandle} title="ClinicalOncologistCCCConsultant" value={details && details.ClinicalOncologistCCCConsultant} options={clinicalOncologistList} isMandatory={mandatoryFlag} enableRedBorder={enableRedBorder && (!details.ClinicalOncologistCCCConsultant || details.ClinicalOncologistCCCConsultant === "")} dontSortOptions={true}/>
                     </div>
                 </div>
                 <div style={{display:'inline-block',width:'856px'}}><br/>
                     {/*<FormTextAreaCtrl label="Primary Diagnosis" onChangeText={onChangeTextHandle} title="PrimaryDiagnosis" value={details && details.PrimaryDiagnosis} ctrlWidth="860px"/><br/>*/}
                     <div style={{width:'190px', border: enableRedBorder && !details.IsthisaTargetPatient ? '1px solid red' : '0px solid red', padding: enableRedBorder && !details.IsthisaTargetPatient ? '5px' : '0px'}}>
                         <FormYesNoBtnsCtrl label="Is this a Target Patient?" onChangeValue={onChangeTextHandle} 
-                                    title="IsthisaTargetPatient" value={details && details.IsthisaTargetPatient} IsNewLine={true} isMandatory={true} enableRedBorder={enableRedBorder && (!details.IsthisaTargetPatient || details.IsthisaTargetPatient === "")} />
+                                    title="IsthisaTargetPatient" value={details && details.IsthisaTargetPatient} IsNewLine={true} isMandatory={mandatoryFlag} enableRedBorder={enableRedBorder && (!details.IsthisaTargetPatient || details.IsthisaTargetPatient === "")} />
                     </div><br/>
                     {isUpgradeScreeingYes === "Yes" && 
                     <FormSelectCtrl label="Target Category" onChangeText={onChangeTextHandle} 
-                        title="TargetCategory" value={details && details.TargetCategory} options={targetCategoryList} isMandatory={true} enableRedBorder={enableRedBorder && (!details.TargetCategory || details.TargetCategory === "")}/>}
+                        title="TargetCategory" value={details && details.TargetCategory} options={targetCategoryList} isMandatory={mandatoryFlag} enableRedBorder={enableRedBorder && (!details.TargetCategory || details.TargetCategory === "")}/>}
                     {/*<FormTextAreaCtrl label="Pathway Information" onChangeText={onChangeTextHandle} title="PathwayInformation" value={details && details.PathwayInformation} ctrlWidth="860px"/><br/>*/}
                     {/*<FormTextAreaCtrl label="Upgrade/Screening/62 Day - including PPI/UPI number/Clock start date" onChangeText={onChangeTextHandle} title="UpgradeScreening" 
                     value={details && details.UpgradeScreening} ctrlWidth="860px"/><br/>*/}

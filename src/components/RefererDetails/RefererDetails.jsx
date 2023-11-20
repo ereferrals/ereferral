@@ -7,6 +7,7 @@ import { setReferralSubmissionStep } from "../ReferralSubmissionSlice";
 import FormSelectCtrl from "../FormSelectCtrl/FormSelectCtrl";
 import { setLeftNavClearLinkText, setReferMandatory } from "../SharedStringsSlice";
 import ModalDialog from "../ModalDialog/ModalDialog";
+import { warning_MandatoryText } from "../Config";
 
 const RefererDetails = () => {
     const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const RefererDetails = () => {
 
     const prevLeftNavClearText = useRef(state => state.leftNavClearLinkText)
     const enableRedBorder = useSelector(state => state.sharedStrings.enableReferMandatory)
+    const mandatoryFlag = useSelector(state => state.details.IsExistingNHSNumber === 'Yes' ? false : true)
 
     useEffect(() => {
         if(prevLeftNavClearText.current !== "Refer"){
@@ -34,7 +36,8 @@ const RefererDetails = () => {
     },[])
 
     const checkFieldsValidation = () => {
-        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b style='line-height:28px'>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        //var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b style='line-height:28px'>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        var errorMsg = `<div style='max-height:500px;overflow-y:auto;width:400px;'><b style='line-height:28px'>${warning_MandatoryText}</b><br/><br/>`
         const referMandatoryFields = ['GPName', 'GPPractice', 'GPPracticeAddress', 'ReferringOrganisation', 'ReferringConsultant']
         
         const referMFDN = {}
@@ -103,14 +106,14 @@ const RefererDetails = () => {
                 </div>
                 <div style={{display:'inline-block',width:'100%'}}>
                     <div style={{marginRight:'200px',float: 'left'}}>
-                        <FormTextBoxCtrl label="Specified GP" onChangeText={onChangeTextHandle} title="GPName" value={details && details.GPName} onlyText={true} isMandatory={true} enableRedBorder={enableRedBorder && (!details.GPName || details.GPName === "")}/><br/>
-                        <FormTextBoxCtrl label="GP Practice Name" onChangeText={onChangeTextHandle} title="GPPractice" value={details && details.GPPractice} onlyText={true} isMandatory={true} enableRedBorder={enableRedBorder && (!details.GPPractice || details.GPPractice === "")}/><br/>
-                        <FormTextAreaCtrl label="GP Practice Address" onChangeText={onChangeTextHandle} title="GPPracticeAddress" value={details && details.GPPracticeAddress} ctrlWidth="322px" isMandatory={true} enableRedBorder={enableRedBorder && (!details.GPPracticeAddress || details.GPPracticeAddress === "")}/>
+                        <FormTextBoxCtrl label="Specified GP" onChangeText={onChangeTextHandle} title="GPName" value={details && details.GPName} onlyText={true} isMandatory={mandatoryFlag} enableRedBorder={enableRedBorder && (!details.GPName || details.GPName === "")}/><br/>
+                        <FormTextBoxCtrl label="GP Practice Name" onChangeText={onChangeTextHandle} title="GPPractice" value={details && details.GPPractice} onlyText={true} isMandatory={mandatoryFlag} enableRedBorder={enableRedBorder && (!details.GPPractice || details.GPPractice === "")}/><br/>
+                        <FormTextAreaCtrl label="GP Practice Address" onChangeText={onChangeTextHandle} title="GPPracticeAddress" value={details && details.GPPracticeAddress} ctrlWidth="322px" isMandatory={mandatoryFlag} enableRedBorder={enableRedBorder && (!details.GPPracticeAddress || details.GPPracticeAddress === "")}/>
                     </div>
                     <div style={{float:'left'}}>
-                        <FormSelectCtrl label="Referring Organisation" onChangeText={onChangeTextHandle} title="ReferringOrganisation" value={details && details.ReferringOrganisation} options={referringOrgsList} isMandatory={true} enableRedBorder={enableRedBorder && (!details.ReferringOrganisation || details.ReferringOrganisation === "")}/><br/>
+                        <FormSelectCtrl label="Referring Organisation" onChangeText={onChangeTextHandle} title="ReferringOrganisation" value={details && details.ReferringOrganisation} options={referringOrgsList} isMandatory={mandatoryFlag} enableRedBorder={enableRedBorder && (!details.ReferringOrganisation || details.ReferringOrganisation === "")}/><br/>
                         {/*<FormTextBoxCtrl label="Referring Organisation" onChangeText={onChangeTextHandle} title="ReferringOrganisation" value={details && details.ReferringOrganisation}/><br/>*/}
-                        <FormTextBoxCtrl label="Referring Consultant" onChangeText={onChangeTextHandle} title="ReferringConsultant" value={details && details.ReferringConsultant} onlyText={true} isMandatory={true} enableRedBorder={enableRedBorder && (!details.ReferringConsultant || details.ReferringConsultant === "")}/><br/>
+                        <FormTextBoxCtrl label="Referring Consultant" onChangeText={onChangeTextHandle} title="ReferringConsultant" value={details && details.ReferringConsultant} onlyText={true} isMandatory={mandatoryFlag} enableRedBorder={enableRedBorder && (!details.ReferringConsultant || details.ReferringConsultant === "")}/><br/>
                         {/*<FormDateCtrl label="Date Decision to Refer" onChangeText={onChangeTextHandle} title="DateDecisiontoRefer" value={details && details.DateDecisiontoRefer} dtWidth="320px"/>*/}
                         
                     </div>

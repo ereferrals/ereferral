@@ -10,6 +10,7 @@ import { setReferralTypeStageStep } from "../ReferralTypeSlice";
 import { setAppStep } from "../AppSlice";
 import { updateFiles, updateReportsList } from "../Reports/ReportsSlice";
 import { setReferralSubmissionStep } from "../ReferralSubmissionSlice";
+import { warning_SelectStageText } from "../Config.js"
 
 const ChooseStages = () => {
     const dispatch = useDispatch();
@@ -129,7 +130,7 @@ const ChooseStages = () => {
         if(selectedStage == null){
             setShowCloseButton(true);
             setIsConfirmation(false)
-            setModalText("Select Stage");
+            setModalText(warning_SelectStageText);
             openModal();
             return;
         }

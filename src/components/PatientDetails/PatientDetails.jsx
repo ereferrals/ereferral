@@ -8,7 +8,8 @@ import { setReferralSubmissionStep } from "../ReferralSubmissionSlice";
 import { setAppStep } from "../AppSlice";
 import FormSelectCtrl from "../FormSelectCtrl/FormSelectCtrl";
 import ModalDialog from "../ModalDialog/ModalDialog";
-import { setLeftNavClearLinkText, setPatientMandatory } from "../SharedStringsSlice";
+import { setLeftNavClearLinkText, setNOKMandatory, setPatientMandatory, setReferMandatory, setTTCMandatory } from "../SharedStringsSlice";
+import {warning_ValidEmailText,warning_MandatoryText} from "../Config.js"
 
 const PatientDetails = () => {
     const dispatch = useDispatch()
@@ -30,6 +31,7 @@ const PatientDetails = () => {
     const nhsNumbers = useSelector(state => state.masterData.NHSNumbers)
     //const [enableRedBorder, setEnableRedBorder] = useState(false)
     const enableRedBorder = useSelector(state => state.sharedStrings.enablePatientMandatory)
+    const mandatoryFlag = useSelector(state => state.details.IsExistingNHSNumber === 'Yes' ? false : true)
     
     useEffect(() => {
         dispatch(setLeftNavClearLinkText("Patient"))
@@ -87,7 +89,7 @@ const PatientDetails = () => {
         dispatch(setReferralSubmissionStep(currentStep + 1))
     }
     const checkFieldsValidation = () => {
-        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px;'><b style='line-height:28px'>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        var errorMsg = `<div style='max-height:500px;overflow-y:auto;width:400px;'><b style='line-height:28px'>${warning_MandatoryText}</b><br/><br/>`
         const patientMandatoryFields = ['Surname','FirstName','DateofBirth','HomePhoneNumber']
 
         const patientMFDN = {}
@@ -107,7 +109,7 @@ const PatientDetails = () => {
 
         if(details.OverseasPatient == 'No'){
             if(!details.NHSNumber || details.NHSNumber == ""){
-                emptyFields.push("NHS Number")
+                emptyFields.push("NHS number")
             } 
         }
         
@@ -133,7 +135,7 @@ const PatientDetails = () => {
             return true
         }
         else if(details.EmailAddress && details.EmailAddress != "" && !(emailPattern.test(details.EmailAddress))){
-            setModalText("Enter valid email address")
+            setModalText(warning_ValidEmailText)
             return true
         }
         return false
@@ -156,6 +158,11 @@ const PatientDetails = () => {
             const numberExists = nhsNumbers && nhsNumbers.some((nhsNumber) => nhsNumber.title === value);
             if(numberExists)
             {
+                dispatch(setPatientMandatory(false))
+                dispatch(setNOKMandatory(false))
+                dispatch(setReferMandatory(false))
+                dispatch(setTTCMandatory(false))
+
                 value = "Yes"
                 setShowCloseButton(true)
                 setModalText("<span style='line-height:28px'>The NHS number has been recognised as not needing all the reports specified. <br/>Please complete as many of the fields as you can and attach the reports you have available.</span>")
@@ -192,12 +199,12 @@ const PatientDetails = () => {
                 <div style={{display:'inline-block',width:'100%'}}>
                     <div style={{marginRight:'200px',float: 'left'}}>
                         <FormTextBoxCtrl label="NHS Number" onBlurText={onBlurTextHandle} onChangeText={onChangeTextHandle} title="NHSNumber" value={details && details.NHSNumber} maxLengthValue={10} disallowSpaces={true} 
-                            isMandatory={details.OverseasPatient === 'No'} enableRedBorder={enableRedBorder && details.OverseasPatient === 'No' && (!details.NHSNumber || details.NHSNumber === "")} /><br/>
-                        <FormTextBoxCtrl label="Last Name" onChangeText={onChangeTextHandle} title="Surname" value={details && details.Surname} onlyText={true} isMandatory={true} enableRedBorder={enableRedBorder && (!details.Surname || details.Surname === "")}/><br/>
-                        <FormTextBoxCtrl label="First Name" onChangeText={onChangeTextHandle} title="FirstName" value={details && details.FirstName} onlyText={true} isMandatory={true} enableRedBorder={enableRedBorder && (!details.FirstName || details.FirstName === "")}/><br/>
+                            isMandatory={mandatoryFlag && details.OverseasPatient === 'No'} enableRedBorder={enableRedBorder && details.OverseasPatient === 'No' && (!details.NHSNumber || details.NHSNumber === "")} /><br/>
+                        <FormTextBoxCtrl label="Last Name" onChangeText={onChangeTextHandle} title="Surname" value={details && details.Surname} onlyText={true} isMandatory={mandatoryFlag} enableRedBorder={enableRedBorder && (!details.Surname || details.Surname === "")}/><br/>
+                        <FormTextBoxCtrl label="First Name" onChangeText={onChangeTextHandle} title="FirstName" value={details && details.FirstName} onlyText={true} isMandatory={mandatoryFlag} enableRedBorder={enableRedBorder && (!details.FirstName || details.FirstName === "")}/><br/>
                         <FormTextBoxCtrl label="Middle Name" onChangeText={onChangeTextHandle} title="MiddleName" value={details && details.MiddleName} onlyText={true}/><br/>
                         <FormSelectCtrl label="Title" onChangeText={onChangeTextHandle} title="Title" value={details && details.Title} options={titlesList}/><br/>
-                        <FormDateCtrl label="Date of Birth" onChangeText={onChangeTextHandle} title="DateofBirth" value={details && details.DateofBirth} dtWidth="320px" isMandatory={true} isFutureDate={false} enableRedBorder={enableRedBorder && (!details.DateofBirth || details.DateofBirth === "")}/><br/>
+                        <FormDateCtrl label="Date of Birth" onChangeText={onChangeTextHandle} title="DateofBirth" value={details && details.DateofBirth} dtWidth="320px" isMandatory={mandatoryFlag} isFutureDate={false} enableRedBorder={enableRedBorder && (!details.DateofBirth || details.DateofBirth === "")}/><br/>
                         <FormSelectCtrl label="Sex" onChangeText={onChangeTextHandle} title="Sex" value={details && details.Sex} options={sexDataList}/><br/>
                         <FormSelectCtrl label="Marital Status" onChangeText={onChangeTextHandle} title="MaritalStatus" value={details && details.MaritalStatus} options={maritalStatusList}/><br/>
                         <FormSelectCtrl label="Ethnicity" onChangeText={onChangeTextHandle} title="Ethnicorigin" value={details && details.Ethnicorigin} options={ethnicoriginsList}/><br/>
@@ -210,7 +217,7 @@ const PatientDetails = () => {
                         <FormTextBoxCtrl label="Address Line 3" onChangeText={onChangeTextHandle} title="AddressLine3" value={details && details.AddressLine3}/><br/>
                         <FormTextBoxCtrl label="Address Line 4" onChangeText={onChangeTextHandle} title="AddressLine4" value={details && details.AddressLine4}/><br/>
                         <FormTextBoxCtrl label="Post Code" onChangeText={onChangeTextHandle} title="PostCode" value={details && details.PostCode}/><br/>
-                        <FormTextBoxCtrl label="Primary Contact Number" onChangeText={onChangeTextHandle} title="HomePhoneNumber" value={details && details.HomePhoneNumber} maxLengthValue={11} disallowSpaces={true} isMandatory={true} enableRedBorder={enableRedBorder && (!details.HomePhoneNumber || details.HomePhoneNumber === "")}/><br/>
+                        <FormTextBoxCtrl label="Primary Contact Number" onChangeText={onChangeTextHandle} title="HomePhoneNumber" value={details && details.HomePhoneNumber} maxLengthValue={11} disallowSpaces={true} isMandatory={mandatoryFlag} enableRedBorder={enableRedBorder && (!details.HomePhoneNumber || details.HomePhoneNumber === "")}/><br/>
                         <FormTextBoxCtrl label="Mobile / Home Number (if not listed above)" onChangeText={onChangeTextHandle} title="MobileNumber" value={details && details.MobileNumber} maxLengthValue={11} disallowSpaces={true}/><br/>
                         <FormTextBoxCtrl label="Email Address" onChangeText={onChangeTextHandle} title="EmailAddress" value={details && details.EmailAddress}/><br/>
                     </div>

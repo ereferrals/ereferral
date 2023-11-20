@@ -9,6 +9,7 @@ import { setEmail } from "./EmailSlice";
 import { updateDetails } from "../DetailsSlice";
 import ReCAPTCHA from "react-google-recaptcha";
 import { setReferrerEmail } from "../SharedStringsSlice";
+import {warning_ValidEmailText} from "../Config.js"
 
 const EmailOTPRequest = () =>{
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,7 +31,7 @@ const EmailOTPRequest = () =>{
     const handleEmailOTPRequest = async () =>{
         if(emailId == "" || !(emailPattern.test(emailId))){
             setShowCloseButton(true)
-            setModalText("Enter valid email address")
+            setModalText(warning_ValidEmailText)
             openModal();
             return;
         }
@@ -42,7 +43,7 @@ const EmailOTPRequest = () =>{
             }
             if(emailText != "" && emailText.length > 64){
                 setShowCloseButton(true)
-                setModalText("Enter valid email address")
+                setModalText(warning_ValidEmailText)
                 openModal();
                 return;
             }

@@ -5,6 +5,7 @@ import { setReferralSubmissionStep } from "../ReferralSubmissionSlice"
 import { updateDetails } from "../DetailsSlice"
 import ModalDialog from "../ModalDialog/ModalDialog"
 import { setLeftNavClearLinkText, setNOKMandatory, setPatientMandatory, setReferMandatory, setTTCMandatory } from "../SharedStringsSlice"
+import {warning_ValidEmailText,warning_MandatoryText} from "../Config.js"
 
 const LeftNavForDetails = () => {
     const dispatch = useDispatch()
@@ -20,7 +21,8 @@ const LeftNavForDetails = () => {
     const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 
     const checkPatientDetailsFieldsValidation = () => {
-        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b style='line-height:28px'>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        //var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b style='line-height:28px'>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        var errorMsg = `<div style='max-height:500px;overflow-y:auto;width:400px;'><b style='line-height:28px'>${warning_MandatoryText}</b><br/><br/>`
         const patientMandatoryFields = ['Surname','FirstName','DateofBirth','HomePhoneNumber']
 
         const patientMFDN = {}
@@ -60,13 +62,14 @@ const LeftNavForDetails = () => {
             return true
         }
         else if(details.EmailAddress && details.EmailAddress != "" && !(emailPattern.test(details.EmailAddress))){
-            setModalText("Enter valid email address")
+            setModalText(warning_ValidEmailText)
             return true
         }
         return false
     }
     const checkNOKDetailsFieldsValidation = () => {
-        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b style='line-height:28px'>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        //var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b style='line-height:28px'>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        var errorMsg = `<div style='max-height:500px;overflow-y:auto;width:400px;'><b style='line-height:28px'>${warning_MandatoryText}</b><br/><br/>`
         const nextofKinMandatoryFields = ['NextofKinFirstName', 'NextofKinLastName', 'NextofKinAddressLine1',
                             'NextofKinAddressLine2', 'NextofKinAddressLine3', 'NextofKinAddressLine4', 'NextofKinPostCode',
                             'NextofKinMobileNumber' ]
@@ -109,7 +112,8 @@ const LeftNavForDetails = () => {
     }
     const checkReferDetailsFieldsValidation = () => {
         //return false//checkonce
-        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b style='line-height:28px'>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        //var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b style='line-height:28px'>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        var errorMsg = `<div style='max-height:500px;overflow-y:auto;width:400px;'><b style='line-height:28px'>${warning_MandatoryText}</b><br/><br/>`
         const referMandatoryFields = ['GPName', 'GPPractice', 'GPPracticeAddress', 'ReferringOrganisation', 'ReferringConsultant']
         
         const referMFDN = {}
@@ -137,7 +141,8 @@ const LeftNavForDetails = () => {
 
     const checkTTCFieldsValidation = () => {
         //return false//checkonce
-        var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b style='line-height:28px'>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        //var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b style='line-height:28px'>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
+        var errorMsg = `<div style='max-height:500px;overflow-y:auto;width:400px;'><b style='line-height:28px'>${warning_MandatoryText}</b><br/><br/>`
         let treatmentMandatoryFields = [ 'MedicalOncologistCCCConsultant', 'ClinicalOncologistCCCConsultant', 
         'IsthisaTargetPatient' ]
         
