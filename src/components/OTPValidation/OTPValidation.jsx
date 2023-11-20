@@ -17,7 +17,8 @@ const OTPValidation = () => {
   const emailId = useSelector(state => state.email)
   const [resendAttempts, setResendAttempts] = useState(0)
   const maxResendAttempts = 3
-  const [maxAttempts, setMaxAttempts] = useState(0);
+  const [maxAttempts, setMaxAttempts] = useState(0)
+  const [textBoxValues, setTextBoxValues] = useState(Array(6).fill(''))
 
   useEffect(() => {
     let timer;
@@ -121,6 +122,7 @@ const OTPValidation = () => {
   };
 
   const handleResendOTP = async () => {
+    setTextBoxValues(Array(6).fill(''))
     setResendAttempts(resendAttempts + 1)
     openModal()
     setShowCloseButton(false)
@@ -144,6 +146,7 @@ const OTPValidation = () => {
               maxLength="1"
               onKeyUp={(event) => handleKeyDown(event, index)}
               onChange={(event) => handleTextboxChange(event, index)}
+              value={textBoxValues[index]}
             />
           ))}
         </p>
@@ -153,7 +156,7 @@ const OTPValidation = () => {
             <span>OTP will expire in {Math.floor(remainingTime / 60)}:{(remainingTime % 60).toString().padStart(2, '0')}</span>
           ) : (
             <a style={{ color: "#005cbb" }} href="javascript:void(0)" onClick={handleResendOTP}>
-              Re-send OTP
+              Resend OTP
             </a>
           )
         )}
