@@ -56,7 +56,7 @@ const Questionnaire = () => {
             overseasPatient == undefined || overseasPatient == ""*/
 
             setShowCloseButton(true);
-            setModalText("Complete questionnaire");
+            setModalText("Please complete the questionnaire");
             openModal()
             return
         }
