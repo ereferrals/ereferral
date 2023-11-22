@@ -153,10 +153,10 @@ const OTPValidation = () => {
         <p>
         {maxAttempts !== 5 && (
           isTimerActive ? (
-            <span>OTP will expire in {Math.floor(remainingTime / 60)}:{(remainingTime % 60).toString().padStart(2, '0')}</span>
+            <span>Verification code will expire in {Math.floor(remainingTime / 60)}:{(remainingTime % 60).toString().padStart(2, '0')}</span>
           ) : (
             <a style={{ color: "#005cbb" }} href="javascript:void(0)" onClick={handleResendOTP}>
-              Resend OTP
+              Resend verification code
             </a>
           )
         )}
