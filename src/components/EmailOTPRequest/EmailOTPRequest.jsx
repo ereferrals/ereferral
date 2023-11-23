@@ -82,7 +82,7 @@ const EmailOTPRequest = () =>{
                 var value = emailId
                 dispatch(setReferrerEmail(value));
                 setShowCloseButton(false)
-                setModalText("Sending OTP... Please wait.")
+                setModalText("Sending verification code... Please wait.")
                 dispatch(setEmail(emailId))
                 await generateOTP(emailId);
                 closeModal();

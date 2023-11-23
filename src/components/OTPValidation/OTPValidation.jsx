@@ -33,7 +33,7 @@ const OTPValidation = () => {
       } else {
         openModal();
         setShowCloseButton(true);
-        setModalText("Maximum OTP attempts reached. Please refresh and try again.");
+        setModalText("Maximum verification code attempts reached. Please refresh and try again.");
       }
     }
 
@@ -100,7 +100,7 @@ const OTPValidation = () => {
           if(response && response.indexOf("Invalid") > -1){
             if(maxAttempts < 5){
               setMaxAttempts(maxAttempts + 1)
-              setModalText("Invalid OTP.");
+              setModalText("Invalid verification code.");
             }
             else{
               setModalText("You have reached maximum attempts. Please refresh and try again.");
@@ -126,7 +126,7 @@ const OTPValidation = () => {
     setResendAttempts(resendAttempts + 1)
     openModal()
     setShowCloseButton(false)
-    setModalText("Sending OTP... Please wait.")
+    setModalText("Sending verification code... Please wait.")
     await generateOTP(emailId);
     closeModal();
     setRemainingTime(120)
