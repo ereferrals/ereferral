@@ -63,9 +63,9 @@ const Questionnaire = () => {
         if(discussedAtMDT == 'No' || awareOfDiagnosis == 'No'){
             setShowCloseButton(true);
             if(discussedAtMDT == 'No')
-                setModalText("Cannot continue if not discussed at MDT");
+                setModalText("Unable to proceed if patient has not been discussed at MDT and the stage has not been defined");
             else
-                setModalText("Cannot continue if patient not aware of diagnosis");
+                setModalText("Unable to proceed if the patient is not informed of the diagnosis");
             openModal();
             return;
         }
