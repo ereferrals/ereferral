@@ -77,6 +77,12 @@ const Questionnaire = () => {
                 return
             }
         }
+        if(details.DateatMDT === ""){
+            setShowCloseButton(true)
+            setModalText("Enter date at MDT")
+            openModal()
+            return
+        }
         if(details.NHSNumber && details.NHSNumber != "" && (details.NHSNumber.length != 10)){
             setShowCloseButton(true)
             setModalText("Enter valid NHS Number")
