@@ -24,7 +24,7 @@ const EmailOTPRequest = () =>{
         const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
         const isPrivateMode = window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.isPrivate;
 
-        if (isSafari && isPrivateMode) {
+        if (isSafari || isPrivateMode) {
             alert("You cannot use the app in Safari and private mode");
         } else {
             clearSessionString();
