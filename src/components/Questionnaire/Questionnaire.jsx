@@ -77,7 +77,7 @@ const Questionnaire = () => {
                 return
             }
         }
-        if(details.DateatMDT === ""){
+        if(!details.DateatMDT || details.DateatMDT === ""){
             setShowCloseButton(true)
             setModalText("Enter date at MDT")
             openModal()
