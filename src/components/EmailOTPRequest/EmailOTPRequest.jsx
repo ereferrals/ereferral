@@ -13,24 +13,26 @@ import {warning_ValidEmailText} from "../Config.js"
 
 const EmailOTPRequest = () =>{
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [emailId, setEmailId] = useState("");
+    const [emailId, setEmailId] = useState("")
     const [modalText, setModalText] = useState("");
     const [showCloseButton,setShowCloseButton] = useState(true)
     const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
     const dispatch = useDispatch()
     const [captchaResponse, setCaptchaResponse] = useState(null)
+    const [isSupportedMode, setIsSupportedMode] = useState(true)
 
     useEffect(() => {
         const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
         const isPrivateMode = window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.isPrivate;
 
         if (isSafari || isPrivateMode) {
-            alert("You cannot use the app in Safari and private mode");
+            //alert("You cannot use the app in Safari and private mode");
+            setIsSupportedMode(false)
         } else {
             clearSessionString();
         }
         //clearSessionString()
-    },[])
+    },[isSupportedMode])
 
     const clearSessionString = async () => {
         await clearSession()
@@ -121,6 +123,7 @@ const EmailOTPRequest = () =>{
 
     return(
         <div>
+            {isSupportedMode && <>
             <center>
                 <p><TextBoxCtrl placeholdertext="Enter email address" onChangeText={onChangeText} /></p>
                 <p>
@@ -130,7 +133,8 @@ const EmailOTPRequest = () =>{
             </center>
             <ModalDialog isOpen={isModalOpen} onClose={closeModal} showCloseButton={showCloseButton}>
             {modalText}
-            </ModalDialog>
+            </ModalDialog></>}
+            {!isSupportedMode && <><b style={{fontSize:'16px'}}>Please note that the app is not compatible with Safari or private browsing mode. For the best experience, we recommend using a different browser or regular browsing mode.</b></>}
         </div>
     )
 }
