@@ -122,12 +122,12 @@ export const validateOTP = async (otpval) => {
     });
     
     if (response.ok) {
-      const responseBody = await response.json();
+      const responseBody = await response.text();
       return {status:"success", accessToken: responseBody.accessToken};
     }
 
     if (response.status === 400) {
-      const errorResponse = await response.json();
+      const errorResponse = await response.text();
       alert("Bad Request:", errorResponse);
       return {status:"error", errorText: errorResponse};
     }
