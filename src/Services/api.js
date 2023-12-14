@@ -123,7 +123,7 @@ export const validateOTP = async (otpval) => {
     
     if (response.ok) {
       const responseBody = await response.text();
-      return {status:"success", accessToken: responseBody.accessToken};
+      return {status:"success", accessToken: responseBody};
     }
 
     if (response.status === 400) {

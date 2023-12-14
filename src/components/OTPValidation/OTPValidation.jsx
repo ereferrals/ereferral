@@ -91,7 +91,7 @@ const OTPValidation = () => {
       const response = await validateOTP(concatenatedNumberString);//"Success";//checkonce
       if(response.status == "success"){
           closeModal();
-          dispatch(setAccessToken(response))
+          dispatch(setAccessToken(response.accessToken))
           dispatch(setAppStep(1))
           //onNext();
       }
