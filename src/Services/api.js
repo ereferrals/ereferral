@@ -120,19 +120,16 @@ export const validateOTP = async (otpval) => {
       body: formData,
       credentials: "include"
     });
-
+    
     if (response.ok) {
       const responseBody = await response.json();
-      const accessToken = responseBody.accessToken;
-
-      console.log("Access Token:", accessToken);
-      return accessToken;
+      return {status:"success", "accessToken": responseBody.accessToken};
     }
 
     if (response.status === 400) {
       const errorResponse = await response.json();
-      console.error("Bad Request:", errorResponse);
-      return null;
+      alert("Bad Request:", errorResponse);
+      return {status:"error", "errorText": errorResponse};
     }
 
     throw new Error("Request failed with status: " + response.status);
