@@ -30,7 +30,7 @@ export const submitData = async (data, accessToken) => {
       },
       body: JSON.stringify(data),
       headers: {
-        'Authorization': `Bearer ${accessToken}`,
+        'Authorization': "Bearer " + accessToken,
       }
     });
 
@@ -54,7 +54,7 @@ export const saveData = async (data, accessToken) => {
       method: "POST",
       body: formData,
       headers: {
-        'Authorization': `Bearer ${accessToken}`,
+        'Authorization': "Bearer " + accessToken,
       }
     });
 
@@ -216,7 +216,7 @@ export const getNHSNumbers = async (accessToken) => {
     const response = await fetch(`${BASE_URL}/SPData`, {
       method: "GET",
       headers: {
-        'Authorization': `Bearer ${accessToken}`,
+        'Authorization': "Bearer " + accessToken,
       }
     });
     
@@ -239,7 +239,7 @@ export const getMasterData = async (type_name, accessToken) => {
     const response = await fetch(`${BASE_URL}/SPData/${type_name}`, {
       method: "GET",
       headers: {
-        'Authorization': `Bearer ${accessToken}`,
+        'Authorization': "Bearer " + accessToken,
       }
     });
     
@@ -261,7 +261,7 @@ export const getReferralTypeStages = async (domainval, accessToken) => {
     const response = await fetch(`${BASE_URL}/SPData/GetReferralTypeStages`, {
       method: "POST",
       headers: {
-        'Authorization': `Bearer ${accessToken}`,
+        'Authorization': "Bearer " + accessToken,
       }
     });
     
@@ -288,7 +288,7 @@ export const uploadFileToLib = async (file, metadata, accessToken) => {
       method: 'POST',
       body: formData,
       headers: {
-        'Authorization': `Bearer ${accessToken}`,
+        'Authorization': "Bearer " + accessToken,
       }
     });
 
@@ -308,7 +308,7 @@ export const uploadFile = async (file, accessToken) => {
       method: "POST",
       body: formData,
       headers: {
-        'Authorization': `Bearer ${accessToken}`,
+        'Authorization': "Bearer " + accessToken,
       }
     });
 
@@ -333,7 +333,7 @@ export const uploadFiles = async (files, accessToken) => {
       method: "POST",
       body: formData,
       headers: {
-        'Authorization': `Bearer ${accessToken}`,
+        'Authorization': "Bearer " + accessToken,
       }
     });
 
@@ -362,7 +362,7 @@ export const uploadFilesTest = async (files, accessToken) => {
       method: "POST",
       body: formData,
       headers: {
-        'Authorization': `Bearer ${accessToken}`,
+        'Authorization': "Bearer " + accessToken,
       }
     });
 
