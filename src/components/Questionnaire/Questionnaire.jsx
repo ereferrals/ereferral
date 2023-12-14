@@ -83,6 +83,12 @@ const Questionnaire = () => {
             openModal()
             return
         }
+        if(!details.TreatmentDecision || details.TreatmentDecision === ""){
+            setShowCloseButton(true)
+            setModalText("Select Treatment Decision")
+            openModal()
+            return
+        }
         if(details.NHSNumber && details.NHSNumber != "" && (details.NHSNumber.length != 10)){
             setShowCloseButton(true)
             setModalText("Enter valid NHS Number")
@@ -104,7 +110,7 @@ const Questionnaire = () => {
             setDiscussedAtMDT(value)
             if(value == 'No'){
                 resetControls("DiscussedatMDT")
-                setModalText("Cannot continue if not discussed at MDT")
+                setModalText("Unable to proceed if patient has not been discussed at MDT and the stage has not been defined")
                 openModal();
                 return;
             }
@@ -119,7 +125,7 @@ const Questionnaire = () => {
             setAwareOfDiagnosis(value)
             if(value == 'No'){
                 resetControls("PatientAwareofDiagnosis")
-                setModalText("Cannot continue if patient not aware of diagnosis")
+                setModalText("Unable to proceed if the patient is not informed of the diagnosis")
                 openModal();
                 return;
             }
@@ -241,11 +247,11 @@ const Questionnaire = () => {
                     {overseasPatient === 'Yes' && (
                         <><br/>
                             <div>
-                                <FormYesNoBtnsCtrl label="NHS Entitlement?" onChangeValue={onChangeTextHandle} 
+                                <FormYesNoBtnsCtrl label="Patient entitled to NHS treatment" onChangeValue={onChangeTextHandle} 
                                             title="HasAssessmentbeenCompleted" value={details && details.HasAssessmentbeenCompleted} />
                             </div><br/>
                             <div>
-                                <FormTextAreaCtrl label="Outcome of Assessment" onChangeText={onChangeTextHandle} 
+                                <FormTextAreaCtrl label="Outcome of NHS Entitlement Assessment" onChangeText={onChangeTextHandle} 
                                     title="OutcomeofAssessment" value={details && details.OutcomeofAssessment} ctrlWidth="633px"/>
                             </div>
                         </>

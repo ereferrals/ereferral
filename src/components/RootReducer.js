@@ -12,6 +12,7 @@ import userValidationReducer from "./UserValidation/UserValidationSlice"
 import emailReducer from "./EmailOTPRequest/EmailSlice"
 import masterDataReducer from "./MasterDataSlice"
 import sharedStringsReducer from "./SharedStringsSlice"
+import accessTokenReducer from "./AcessTokenSlice"
 
 const rootReducer = combineReducers({
   referralType: referralTypeReducer,
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
   userValidationStep: userValidationReducer,
   email: emailReducer,
   masterData: masterDataReducer,
-  sharedStrings: sharedStringsReducer
+  sharedStrings: sharedStringsReducer,
+  accessToken: accessTokenReducer
 });
 
 export default rootReducer;

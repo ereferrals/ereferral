@@ -20,7 +20,7 @@ const RefererDetails = () => {
 
     const prevLeftNavClearText = useRef(state => state.leftNavClearLinkText)
     const enableRedBorder = useSelector(state => state.sharedStrings.enableReferMandatory)
-    const mandatoryFlag = useSelector(state => state.details.IsExistingNHSNumber === 'Yes' ? false : true)
+    const mandatoryFlag = useSelector(state => (state.details.IsExistingNHSNumber === 'Yes' || state.details.OverseasPatient === 'Yes') ? false : true)
 
     useEffect(() => {
         if(prevLeftNavClearText.current !== "Refer"){
@@ -67,7 +67,7 @@ const RefererDetails = () => {
     }
 
     const handleNext = () => {
-        if (details && details.IsExistingNHSNumber != "Yes" && checkFieldsValidation()){
+        if ((details && details.IsExistingNHSNumber != "Yes" && details && details.OverseasPatient != "Yes") && checkFieldsValidation()){
             openModal()
             return
         }

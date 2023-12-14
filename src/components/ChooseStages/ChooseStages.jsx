@@ -22,7 +22,7 @@ const ChooseStages = () => {
     const stagesMasterData = useSelector(state => state.stage.stagesData)
     const [stages, setStages] = useState([])
     const userEmail = useSelector(state => state.email)
-    const currentStep = useSelector(state => state.referralTypeStageStep)
+    const accessToken = useSelector(state => state.accessToken)
     const [isConfirmation, setIsConfirmation] = useState(true)
     const [confirmationBtnText, setConfirmationBtnText] = useState("")
 
@@ -91,8 +91,8 @@ const ChooseStages = () => {
         setModalText("Getting Referral Type Stages... Please wait.");
         openModal();
         setTimeout(async ()=> {
-            var stages = await getReferralTypeStages();//checkonce
-            /*var stages = [{title: 'Breast', stage: 'Stage I-II', report: 'Report 1', StageOrder: 1, ReportOrder: 1},
+            const stages = await getReferralTypeStages(accessToken);//checkonce
+            /*const stages = [{title: 'Breast', stage: 'Stage I-II', report: 'Report 1', StageOrder: 1, ReportOrder: 1},
             {title: 'Breast', stage: 'Stage I-II', report: 'Report 11', StageOrder: 3, ReportOrder: 2},
             {title: 'Breast', stage: 'Stage III', report: 'Report 2', StageOrder: 4, ReportOrder: 2},
             {title: 'Breast', stage: 'Stage III', report: 'Report 22', StageOrder: 2, ReportOrder: 1},

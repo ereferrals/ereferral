@@ -21,7 +21,7 @@ export const emailOTP = async (data) => {
   }
 };
 
-export const submitData = async (data) => {
+export const submitData = async (data, accessToken) => {
   try {
     const response = await fetch(`${BASE_URL}/SPData`, {
       method: "POST",
@@ -29,6 +29,9 @@ export const submitData = async (data) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      }
     });
 
     if (!response.ok) {
@@ -41,7 +44,7 @@ export const submitData = async (data) => {
   }
 };
 
-export const saveData = async (data) => {
+export const saveData = async (data, accessToken) => {
   const transformedData = transformData(data);
   const formData = new FormData();
   formData.append("jsonObject", JSON.stringify(transformedData));
@@ -49,7 +52,10 @@ export const saveData = async (data) => {
   try {
     const response = await fetch(`${BASE_URL}/SPData`, {
       method: "POST",
-      body: formData
+      body: formData,
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      }
     });
 
     const responseBody = await response.json();
@@ -115,14 +121,29 @@ export const validateOTP = async (otpval) => {
       credentials: "include"
     });
 
-    if (!response.ok) {
+    if (response.ok) {
+      const responseBody = await response.json();
+      const accessToken = responseBody.accessToken;
+
+      console.log("Access Token:", accessToken);
+      return accessToken;
+    }
+
+    if (response.status === 400) {
+      const errorResponse = await response.json();
+      console.error("Bad Request:", errorResponse);
+      return null;
+    }
+
+    throw new Error("Request failed with status: " + response.status);
+    /*if (!response.ok) {
       throw new Error("Request failed with status: " + response.status);
     }
 
     const responseBody = await response.text();
 
-    console.log("Response:", responseBody);
-    return responseBody;
+    console.log("Response:", responseBody);*/
+    //return responseBody;
   } catch (error) {
     console.log(error);
   }
@@ -193,10 +214,13 @@ export const clearSession = async () => {
   }
 };
 
-export const getNHSNumbers = async () => {
+export const getNHSNumbers = async (accessToken) => {
   try {
     const response = await fetch(`${BASE_URL}/SPData`, {
-      method: "GET"
+      method: "GET",
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      }
     });
     
     if (!response.ok) {
@@ -213,10 +237,13 @@ export const getNHSNumbers = async () => {
 };
 
 
-export const getMasterData = async (type_name) => {
+export const getMasterData = async (type_name, accessToken) => {
   try {
     const response = await fetch(`${BASE_URL}/SPData/${type_name}`, {
-      method: "GET"
+      method: "GET",
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      }
     });
     
     if (!response.ok) {
@@ -232,10 +259,13 @@ export const getMasterData = async (type_name) => {
   }
 };
 
-export const getReferralTypeStages = async (domainval) => {
+export const getReferralTypeStages = async (domainval, accessToken) => {
   try {
     const response = await fetch(`${BASE_URL}/SPData/GetReferralTypeStages`, {
-      method: "POST"
+      method: "POST",
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      }
     });
     
     if (!response.ok) {
@@ -251,7 +281,7 @@ export const getReferralTypeStages = async (domainval) => {
   }
 };
 
-export const uploadFileToLib = async (file, metadata) => {
+export const uploadFileToLib = async (file, metadata, accessToken) => {
   const formData = new FormData();
   formData.append('file', file);
   formData.append('metadata', JSON.stringify(metadata));
@@ -259,7 +289,10 @@ export const uploadFileToLib = async (file, metadata) => {
   try {
     const response = await fetch(`${BASE_URL}/SPData/UploadFile`, {
       method: 'POST',
-      body: formData
+      body: formData,
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      }
     });
 
     const responseBody = await response.json();
@@ -269,7 +302,7 @@ export const uploadFileToLib = async (file, metadata) => {
   }
 };
 
-export const uploadFile = async (file) => {
+export const uploadFile = async (file, accessToken) => {
   try {
     const formData = new FormData();
     formData.append("file", file);
@@ -277,6 +310,9 @@ export const uploadFile = async (file) => {
     const response = await fetch(`${BASE_URL}/SPData/UploadFile`, {
       method: "POST",
       body: formData,
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      }
     });
 
     if (!response.ok) {
@@ -289,7 +325,7 @@ export const uploadFile = async (file) => {
   }
 };
 
-export const uploadFiles = async (files) => {
+export const uploadFiles = async (files, accessToken) => {
   try {
     const formData = new FormData();
     for (let i = 0; i < files.length; i++) {
@@ -298,7 +334,10 @@ export const uploadFiles = async (files) => {
 
     const response = await fetch(`${BASE_URL}/SPData/UploadFiles`, {
       method: "POST",
-      body: formData
+      body: formData,
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      }
     });
 
     //const responseData = await response.json();
@@ -315,7 +354,7 @@ export const uploadFiles = async (files) => {
   }
 };
 
-export const uploadFilesTest = async (files) => {
+export const uploadFilesTest = async (files, accessToken) => {
   try {
     const formData = new FormData();
     for (let i = 0; i < files.length; i++) {
@@ -325,6 +364,9 @@ export const uploadFilesTest = async (files) => {
     const response = await fetch(`${BASE_URL}/SPData/UploadFilesTest`, {
       method: "POST",
       body: formData,
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+      }
     });
 
     const responseData = await response.json();

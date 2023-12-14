@@ -11,7 +11,7 @@ const detailsSlice = createSlice({
             state[title] = value;
         },
         resetDetails: (state) => {
-            return {};
+            return {}
         },
     },
 });  

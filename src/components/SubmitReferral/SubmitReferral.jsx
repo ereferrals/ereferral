@@ -12,7 +12,7 @@ const SubmitReferral = () => {
     const reports = useSelector(state => state.reports.files)
     const [isModalOpen, setIsModalOpen] = useState(false);
     const currentStep = useSelector(state => state.referralSubmissionStep)
-    const email = useSelector(state => state.email)
+    const accessToken = useSelector(state => state.accessToken)
     const [isConfirmation, setIsConfirmation] = useState(true)
     const [confirmationBtnText, setConfirmationBtnText] = useState("")
     const [modalText, setModalText] = useState("")
@@ -49,7 +49,7 @@ const SubmitReferral = () => {
             setIsConfirmation(false)
             setShowCloseButton(false)
             setModalText("Submitting Data... Please wait.")
-            var itemId = await saveData(details);
+            const itemId = await saveData(details, accessToken);
             console.log(itemId);
             var reportsMetadata = {};
             for(var i=0;i < reports.length;i++){
@@ -63,7 +63,7 @@ const SubmitReferral = () => {
             }
             
             const uploadPromises = reports.map((report) => {
-            return uploadFileToLib(report.ReportFile, reportsMetadata[report.ReportFile.name]);
+            return uploadFileToLib(report.ReportFile, reportsMetadata[report.ReportFile.name], accessToken);
             });
         
             await Promise.all(uploadPromises);
