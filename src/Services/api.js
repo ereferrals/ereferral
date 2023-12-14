@@ -123,13 +123,13 @@ export const validateOTP = async (otpval) => {
     
     if (response.ok) {
       const responseBody = await response.json();
-      return {status:"success", "accessToken": responseBody.accessToken};
+      return {status:"success", accessToken: responseBody.accessToken};
     }
 
     if (response.status === 400) {
       const errorResponse = await response.json();
       alert("Bad Request:", errorResponse);
-      return {status:"error", "errorText": errorResponse};
+      return {status:"error", errorText: errorResponse};
     }
 
     throw new Error("Request failed with status: " + response.status);
