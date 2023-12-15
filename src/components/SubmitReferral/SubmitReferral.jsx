@@ -49,26 +49,36 @@ const SubmitReferral = () => {
             setIsConfirmation(false)
             setShowCloseButton(false)
             setModalText("Submitting Data... Please wait.")
-            const itemId = await saveData(details, accessToken);
-            console.log(itemId);
-            var reportsMetadata = {};
-            for(var i=0;i < reports.length;i++){
-                if(!reportsMetadata.hasOwnProperty(reports[i].name))
-                {
-                    reportsMetadata[reports[i].ReportFile.name] = {};
+            try{
+                await saveData(details, accessToken);
+                var reportsMetadata = {};
+                for(var i=0;i < reports.length;i++){
+                    if(!reportsMetadata.hasOwnProperty(reports[i].name))
+                    {
+                        reportsMetadata[reports[i].ReportFile.name] = {};
+                    }
+                    reportsMetadata[reports[i].ReportFile.name].Report=reports[i].ReportName;
+                    reportsMetadata[reports[i].ReportFile.name].ReportOrder=reports[i].ReportOrder;
                 }
-                reportsMetadata[reports[i].ReportFile.name].ReferralID=itemId;
-                reportsMetadata[reports[i].ReportFile.name].Report=reports[i].ReportName;
-                reportsMetadata[reports[i].ReportFile.name].ReportOrder=reports[i].ReportOrder;
-            }
+                
+                const uploadPromises = reports.map((report) => {
+                    return uploadFileToLib(report.ReportFile, reportsMetadata[report.ReportFile.name], accessToken);
+                });
             
-            const uploadPromises = reports.map((report) => {
-            return uploadFileToLib(report.ReportFile, reportsMetadata[report.ReportFile.name], accessToken);
-            });
-        
-            await Promise.all(uploadPromises);
-            closeModal();
-            dispatch(setReferralSubmissionStep(currentStep + 1))
+                await Promise.all(uploadPromises);
+                closeModal();
+                dispatch(setReferralSubmissionStep(currentStep + 1))
+            }
+            catch (error) {
+                setShowCloseButton(true)
+                if (error.message.includes('400')) {
+                    setModalText('Bad Request: ' + error.message)
+                } else if (error.message.includes('500')) {
+                    setModalText('Internal Server Error: ' + error.message)
+                } else {
+                    setModalText('Unexpected Error: ' + error.message)
+                }
+            }
         }
         closeModal();
       }

@@ -88,32 +88,33 @@ const OTPValidation = () => {
       openModal();
       setShowCloseButton(false);
       setModalText("Validating OTP... Please wait.");
-      const response = await validateOTP(concatenatedNumberString);//"Success";//checkonce
-      if(response.status == "success"){
-          closeModal();
-          dispatch(setAccessToken(response.accessToken))
-          dispatch(setAppStep(1))
-          //onNext();
+      try{
+        const response = await validateOTP(concatenatedNumberString);//"Success";//checkonce
+        closeModal();
+        dispatch(setAccessToken(response.accessToken))
+        dispatch(setAppStep(1))
       }
-      else{
-          //closeModal();
-          setShowCloseButton(true);
-          setMaxAttempts(maxAttempts + 1)
-          if(response && response.indexOf("Invalid") > -1){
-            if(maxAttempts < 5){
+      catch (error) {
+          setShowCloseButton(true)
+          if (error.message.includes('400')) {
               setMaxAttempts(maxAttempts + 1)
-              setModalText("Invalid verification code.");
-            }
-            else{
-              setModalText("You have reached maximum attempts. Please refresh and try again.");
-              setModalText(response);
-            }
+              if(error.message.includes('Invalid')){
+                if(maxAttempts < 5){
+                  setMaxAttempts(maxAttempts + 1)
+                  setModalText("Invalid verification code.");
+                }
+                else{
+                  setModalText("You have reached maximum attempts. Please refresh and try again.");
+                }
+              }
+              else {
+                  setModalText('Bad Request: ' + error.message)
+              }
+          } else if (error.message.includes('500')) {
+              setModalText('Internal Server Error: ' + error.message)
+          } else {
+              setModalText('Unexpected Error: ' + error.message)
           }
-          else{
-            setModalText(response);
-          }
-          
-          //alert(response)
       }
     }
     else{
@@ -124,16 +125,36 @@ const OTPValidation = () => {
   };
 
   const handleResendOTP = async () => {
-    setEnteredOTP(Array(6).fill(''))
-    setResendAttempts(resendAttempts + 1)
-    openModal()
-    setShowCloseButton(false)
-    setModalText("Sending verification code... Please wait.")
-    await generateOTP(emailId);
-    closeModal();
-    setRemainingTime(120)
-    setIsTimerActive(true)
-    return false
+    try{
+        setEnteredOTP(Array(6).fill(''))
+        setResendAttempts(resendAttempts + 1)
+        openModal()
+        setShowCloseButton(false)
+        setModalText("Sending verification code... Please wait.")
+        await generateOTP(emailId);
+        closeModal();
+        setRemainingTime(120)
+        setIsTimerActive(true)
+        return false
+      }
+      catch (error) {
+        setShowCloseButton(true)
+        if (error.message.includes('400')) {
+            if(error.message.includes('OTP Generated Already')){
+                setModalText("Another eReferral session already in progress. Please close all browsers and try again.")
+            }
+            else if(error.message.includes('OTP Generated Already')){
+                setModalText("Email not found in our records.")
+            }
+            else {
+                setModalText('Bad Request: ' + error.message)
+            }
+        } else if (error.message.includes('500')) {
+            setModalText('Internal Server Error: ' + error.message)
+        } else {
+            setModalText('Unexpected Error: ' + error.message)
+        }
+    }
   }
 
   return (

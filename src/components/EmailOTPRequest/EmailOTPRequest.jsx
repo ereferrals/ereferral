@@ -35,7 +35,18 @@ const EmailOTPRequest = () =>{
     },[isSupportedMode])
 
     const clearSessionString = async () => {
-        await clearSession()
+        try {
+            await clearSession();
+        } 
+        catch (error) {
+            if (error.message.includes('400')) {
+              alert('Bad Request: ' + error.message);
+            } else if (error.message.includes('500')) {
+              alert('Internal Server Error: ' + error.message);
+            } else {
+              alert('Unexpected Error: ' + error.message);
+            }
+        }
     }
 
     const handleEmailOTPRequest = async () =>{
@@ -73,30 +84,35 @@ const EmailOTPRequest = () =>{
             setShowCloseButton(false)
             setModalText("Validating email... Please wait.")
             openModal();
+            //checkonce
+            //Change to domain before live.
             //var isValid = await validateDomain(domain);
-            const isValid = await validateDomain(emailId);
-            if(isValid == "OTP Generated Already")
-            {
-                setShowCloseButton(true)
-                setModalText("Another eReferral session already in progress. Please close all browsers and try again.")
-                return
-            }
-            //if((isValid==undefined || isValid == "Not valid") && false){//checkonce
-            if(isValid==undefined || isValid == "Not valid"){
-                setShowCloseButton(true)
-                setModalText("Email not found in our records.")
-                //openModal();
-                return;
-            }
-            else{
-                var value = emailId
-                dispatch(setReferrerEmail(value));
-                setShowCloseButton(false)
+            try{
+                await validateDomain(emailId);
+                dispatch(setReferrerEmail(emailId));
                 setModalText("Sending verification code... Please wait.")
                 dispatch(setEmail(emailId))
                 await generateOTP(emailId);
                 closeModal();
                 dispatch(setUserValidationStep(1))
+            }
+            catch (error) {
+                setShowCloseButton(true)
+                if (error.message.includes('400')) {
+                    if(error.message.includes('OTP Generated Already')){
+                        setModalText("Another eReferral session already in progress. Please close all browsers and try again.")
+                    }
+                    else if(error.message.includes('OTP Generated Already')){
+                        setModalText("Email not found in our records.")
+                    }
+                    else {
+                        setModalText('Bad Request: ' + error.message)
+                    }
+                } else if (error.message.includes('500')) {
+                    setModalText('Internal Server Error: ' + error.message)
+                } else {
+                    setModalText('Unexpected Error: ' + error.message)
+                }
             }
         }
         //generate otp
@@ -116,9 +132,19 @@ const EmailOTPRequest = () =>{
     }
 
     const onChange = async (value) => {
-        //console.log("Captcha value:", value)
-        const response = await validateReCaptcha(value)
-        setCaptchaResponse(response)
+        try {
+            await validateReCaptcha(value)
+            setCaptchaResponse("validated")
+        } 
+        catch (error) {
+            if (error.message.includes('400')) {
+                alert('Bad Request: ' + error.message);
+            } else if (error.message.includes('500')) {
+                alert('Internal Server Error: ' + error.message);
+            } else {
+                alert('Unexpected Error: ' + error.message);
+            }
+        }
     }
 
     return(

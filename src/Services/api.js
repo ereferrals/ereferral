@@ -58,10 +58,24 @@ export const saveData = async (data, accessToken) => {
       }
     });
 
-    const responseBody = await response.json();
-    return responseBody.toString();
+    if (response.ok) {
+      const responseBody = await response.text();
+      console.log("Response:", responseBody);
+      return responseBody;
+    } else if (response.status === 400) {
+      const errorResponse = await response.text();
+      console.error("Bad Request:", errorResponse);
+      throw new Error(`Bad Request (Status Code: ${response.status}): ${errorResponse}`);
+    } else if (response.status === 500) {
+      const errorResponse = await response.text();
+      console.error("Internal Server Error:", errorResponse);
+      throw new Error(`Internal Server Error (Status Code: ${response.status}): ${errorResponse}`);
+    } else {
+      throw new Error("Unexpected error: " + response.status);
+    }
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    throw new Error("Request failed: " + error.message);
   }
 };
 
@@ -75,14 +89,24 @@ export const generateOTP = async (emailval) => {
       credentials: "include"
     });
 
-    if (!response.ok) {
-      throw new Error("Request failed with status: " + response.status);
+    if (response.ok) {
+      const responseBody = await response.text();
+      console.log("Response:", responseBody);
+      return responseBody;
+    } else if (response.status === 400) {
+      const errorResponse = await response.text();
+      console.error("Bad Request:", errorResponse);
+      throw new Error(`Bad Request (Status Code: ${response.status}): ${errorResponse}`);
+    } else if (response.status === 500) {
+      const errorResponse = await response.text();
+      console.error("Internal Server Error:", errorResponse);
+      throw new Error(`Internal Server Error (Status Code: ${response.status}): ${errorResponse}`);
+    } else {
+      throw new Error("Unexpected error: " + response.status);
     }
-    
-    const responseBody = await response.text();
-    return responseBody;
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    throw new Error("Request failed: " + error.message);
   }
 };
 
@@ -123,48 +147,52 @@ export const validateOTP = async (otpval) => {
     
     if (response.ok) {
       const responseBody = await response.text();
-      return {status:"success", accessToken: responseBody};
-    }
-
-    if (response.status === 400) {
+      console.log("Response:", responseBody);
+      return responseBody;
+    } else if (response.status === 400) {
       const errorResponse = await response.text();
-      alert("Bad Request:", errorResponse);
-      return {status:"error", errorText: errorResponse};
+      console.error("Bad Request:", errorResponse);
+      throw new Error(`Bad Request (Status Code: ${response.status}): ${errorResponse}`);
+    } else if (response.status === 500) {
+      const errorResponse = await response.text();
+      console.error("Internal Server Error:", errorResponse);
+      throw new Error(`Internal Server Error (Status Code: ${response.status}): ${errorResponse}`);
+    } else {
+      throw new Error("Unexpected error: " + response.status);
     }
-
-    throw new Error("Request failed with status: " + response.status);
-    /*if (!response.ok) {
-      throw new Error("Request failed with status: " + response.status);
-    }
-
-    const responseBody = await response.text();
-
-    console.log("Response:", responseBody);*/
-    //return responseBody;
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    throw new Error("Request failed: " + error.message);
   }
 };
 
-export const validateReCaptcha = async (captcharesponse) => {
+export const validateReCaptcha = async (captchavalue) => {
   const formData = new FormData();
-  formData.append("recaptchaResponse", captcharesponse);
+  formData.append("recaptchaResponse", captchavalue);
   try {
     const response = await fetch(`${BASE_URL}/Recaptcha/ValidateRecaptcha`, {
       method: "POST",
       body: formData
     });
 
-    if (!response.ok) {
-      throw new Error("Request failed with status: " + response.status);
+    if (response.ok) {
+      const responseBody = await response.text();
+      console.log("Response:", responseBody);
+      return responseBody;
+    } else if (response.status === 400) {
+      const errorResponse = await response.text();
+      console.error("Bad Request:", errorResponse);
+      throw new Error(`Bad Request (Status Code: ${response.status}): ${errorResponse}`);
+    } else if (response.status === 500) {
+      const errorResponse = await response.text();
+      console.error("Internal Server Error:", errorResponse);
+      throw new Error(`Internal Server Error (Status Code: ${response.status}): ${errorResponse}`);
+    } else {
+      throw new Error("Unexpected error: " + response.status);
     }
-
-    const responseBody = await response.text();
-
-    console.log("Response:", responseBody);
-    return responseBody;
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    throw new Error("Request failed: " + error.message);
   }
 };
 
@@ -178,16 +206,24 @@ export const validateDomain = async (domainval) => {
       credentials: "include"
     });
 
-    if (!response.ok) {
-      throw new Error("Request failed with status: " + response.status);
+    if (response.ok) {
+      const responseBody = await response.text();
+      console.log("Response:", responseBody);
+      return responseBody;
+    } else if (response.status === 400) {
+      const errorResponse = await response.text();
+      console.error("Bad Request:", errorResponse);
+      throw new Error(`Bad Request (Status Code: ${response.status}): ${errorResponse}`);
+    } else if (response.status === 500) {
+      const errorResponse = await response.text();
+      console.error("Internal Server Error:", errorResponse);
+      throw new Error(`Internal Server Error (Status Code: ${response.status}): ${errorResponse}`);
+    } else {
+      throw new Error("Unexpected error: " + response.status);
     }
-
-    const responseBody = await response.text();
-
-    console.log("Response:", responseBody);
-    return responseBody;
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    throw new Error("Request failed: " + error.message);
   }
 };
 
@@ -198,16 +234,24 @@ export const clearSession = async () => {
       credentials: "include"
     });
 
-    if (!response.ok) {
-      throw new Error("Request failed with status: " + response.status);
+    if (response.ok) {
+      const responseBody = await response.text();
+      console.log("Response:", responseBody);
+      return responseBody;
+    } else if (response.status === 400) {
+      const errorResponse = await response.text();
+      console.error("Bad Request:", errorResponse);
+      throw new Error(`Bad Request (Status Code: ${response.status}): ${errorResponse}`);
+    } else if (response.status === 500) {
+      const errorResponse = await response.text();
+      console.error("Internal Server Error:", errorResponse);
+      throw new Error(`Internal Server Error (Status Code: ${response.status}): ${errorResponse}`);
+    } else {
+      throw new Error("Unexpected error: " + response.status);
     }
-
-    const responseBody = await response.text();
-
-    console.log("Response:", responseBody);
-    return responseBody;
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    throw new Error("Request failed: " + error.message);
   }
 };
 
@@ -243,16 +287,24 @@ export const getMasterData = async (type_name, accessToken) => {
       }
     });
     
-    if (!response.ok) {
-      throw new Error("Request failed with status: " + response.status);
+    if (response.ok) {
+      const data = await response.json();
+      console.log("Response:", data);
+      return data;
+    } else if (response.status === 400) {
+      const errorResponse = await response.text();
+      console.error("Bad Request:", errorResponse);
+      throw new Error(`Bad Request (Status Code: ${response.status}): ${errorResponse}`);
+    } else if (response.status === 500) {
+      const errorResponse = await response.text();
+      console.error("Internal Server Error:", errorResponse);
+      throw new Error(`Internal Server Error (Status Code: ${response.status}): ${errorResponse}`);
+    } else {
+      throw new Error("Unexpected error: " + response.status);
     }
-
-    const data = await response.json();
-
-    console.log("Response:", data);
-    return data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    throw new Error("Request failed: " + error.message);
   }
 };
 
@@ -265,16 +317,24 @@ export const getReferralTypeStages = async (accessToken) => {
       }
     });
     
-    if (!response.ok) {
-      throw new Error("Request failed with status: " + response.status);
+    if (response.ok) {
+      const data = await response.json();
+      console.log("Response:", data);
+      return data;
+    } else if (response.status === 400) {
+      const errorResponse = await response.text();
+      console.error("Bad Request:", errorResponse);
+      throw new Error(`Bad Request (Status Code: ${response.status}): ${errorResponse}`);
+    } else if (response.status === 500) {
+      const errorResponse = await response.text();
+      console.error("Internal Server Error:", errorResponse);
+      throw new Error(`Internal Server Error (Status Code: ${response.status}): ${errorResponse}`);
+    } else {
+      throw new Error("Unexpected error: " + response.status);
     }
-
-    const data = await response.json();
-
-    console.log("Response:", data);
-    return data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    throw new Error("Request failed: " + error.message);
   }
 };
 

@@ -49,6 +49,7 @@ const ChooseReferralType = () => {
   },[])
 
   const fetchData = (type_name) => {
+    try{
     getMasterData(type_name, accessToken)
       .then((data) => {
         switch (type_name) {
@@ -97,12 +98,17 @@ const ChooseReferralType = () => {
           default:
             console.error(`Unsupported type_name: ${type_name}`);
         }
-
-        console.log("Response:", data);
       })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    }
+    catch (error) {
+      if (error.message.includes('400')) {
+        alert('Bad Request: ' + error.message)
+      } else if (error.message.includes('500')) {
+        alert('Internal Server Error: ' + error.message)
+      } else {
+        alert('Unexpected Error: ' + error.message)
+      }
+    }
   };
 
   const handleImageClick = (e) => {
