@@ -196,9 +196,9 @@ export const validateReCaptcha = async (captchavalue) => {
   }
 };
 
-export const validateDomain = async (domainval) => {
+export const validateDomain = async (emailval) => {
   const formData = new FormData();
-  formData.append("domain", domainval);
+  formData.append("email", emailval);
   try {
     const response = await fetch(`${BASE_URL}/SPData/ValidateDomain`, {
       method: "POST",
