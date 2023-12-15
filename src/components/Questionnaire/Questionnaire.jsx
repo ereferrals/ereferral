@@ -26,6 +26,7 @@ const Questionnaire = () => {
     const [showCloseButton,setShowCloseButton] = useState(true);
     const [modalText, setModalText] = useState("");
     const nhsNumbers = useSelector(state => state.masterData.NHSNumbers)
+    const [disableMDTCtrl, setDisableMDTCtrl] = useState(false)
     /*
     useEffect(() => {
         if(nhsNumbers.length == 0){
@@ -60,12 +61,12 @@ const Questionnaire = () => {
             openModal()
             return
         }
-        if(discussedAtMDT == 'No' || awareOfDiagnosis == 'No'){
+        if(/*discussedAtMDT == 'No' || */awareOfDiagnosis == 'No'){
             setShowCloseButton(true);
-            if(discussedAtMDT == 'No')
+            /*if(discussedAtMDT == 'No')
                 setModalText("Unable to proceed if patient has not been discussed at MDT and the stage has not been defined");
             else
-                setModalText("Unable to proceed if the patient is not informed of the diagnosis");
+                */setModalText("Unable to proceed if the patient is not informed of the diagnosis");
             openModal();
             return;
         }
@@ -77,7 +78,7 @@ const Questionnaire = () => {
                 return
             }
         }
-        if(!details.DateatMDT || details.DateatMDT === ""){
+        if(!disableMDTCtrl && (!details.DateatMDT || details.DateatMDT === "")){
             setShowCloseButton(true)
             setModalText("Enter date at MDT")
             openModal()
@@ -110,10 +111,12 @@ const Questionnaire = () => {
             setDiscussedAtMDT(value)
             if(value == 'No'){
                 resetControls("DiscussedatMDT")
-                setModalText("Unable to proceed if patient has not been discussed at MDT and the stage has not been defined")
-                openModal();
+                setDisableMDTCtrl(true)
+                //setModalText("Unable to proceed if patient has not been discussed at MDT and the stage has not been defined")
+                //openModal();
                 return;
             }
+            else{setDisableMDTCtrl(false)}
         }
         else if(title == "OverseasPatient"){
             setOverseasPatient(value)
@@ -183,6 +186,7 @@ const Questionnaire = () => {
         { id: 'Radiotherapy', label: 'Radiotherapy' },
         { id: 'Systemictreatment', label: 'Systemic treatment' },
         { id: 'Combinationofsystemictreatmentandradiotherapy', label: 'Combination of systemic treatment and radiotherapy' },
+        { id: 'ReferredforOncologyReview', label: 'Treatment proposal Inpatient being referred for Oncology review (sent to DC/NB & HI/AH)'}
     ];
     
     return(
@@ -213,13 +217,13 @@ const Questionnaire = () => {
                         <div>
                             <FormDateCtrl label="Date at MDT" onChangeText={onChangeTextHandle} title="DateatMDT" 
                             value={details && details.DateatMDT} isSameRow={true} lblMinWidth={'480px'} dtWidth={'150px'} 
-                            isFutureDate={false} />
+                            isFutureDate={false} disableCtrl={disableMDTCtrl} />
                             
                         </div><br/><br/>
                         <div style={{marginBottom:"10px",fontWeight:"bold",color:"#005cbb",fontSize:"20px"}}>Treatment Proposal:</div>
                         {treatmentDecisionOptions.map((option) => (<>
                             <div key={option.id}>
-                                <label htmlFor={option.id} style={{minWidth:"475px",display:"inline-block",fontWeight:"600"}}>{option.label}</label>
+                                <label htmlFor={option.id} style={{minWidth:"475px",display:"inline-block",fontWeight:"600",maxWidth:"475px"}}>{option.label}</label>
                                 <input
                                     type="radio"
                                     id={option.id}
@@ -234,7 +238,7 @@ const Questionnaire = () => {
                         ))}
                         <div><br/>
                             <FormTextAreaCtrl label="MDT Comments" onChangeText={onChangeTextHandle} title="MDTComments" 
-                            value={details && details.MDTComments} ctrlWidth="633px"/>
+                            value={details && details.MDTComments} ctrlWidth="633px" disableCtrl={disableMDTCtrl}/>
                         </div>
                         
                     <br/>
