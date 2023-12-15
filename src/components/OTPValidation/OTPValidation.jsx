@@ -91,7 +91,7 @@ const OTPValidation = () => {
       try{
         const response = await validateOTP(concatenatedNumberString);//"Success";//checkonce
         closeModal();
-        dispatch(setAccessToken(response.accessToken))
+        dispatch(setAccessToken(response))
         dispatch(setAppStep(1))
       }
       catch (error) {
@@ -108,12 +108,12 @@ const OTPValidation = () => {
                 }
               }
               else {
-                  setModalText('Bad Request: ' + error.message)
+                  setModalText(error.message)
               }
           } else if (error.message.includes('500')) {
-              setModalText('Internal Server Error: ' + error.message)
+              setModalText(error.message)
           } else {
-              setModalText('Unexpected Error: ' + error.message)
+              setModalText(error.message)
           }
       }
     }
@@ -147,12 +147,12 @@ const OTPValidation = () => {
                 setModalText("Email not found in our records.")
             }
             else {
-                setModalText('Bad Request: ' + error.message)
+                setModalText(error.message)
             }
         } else if (error.message.includes('500')) {
-            setModalText('Internal Server Error: ' + error.message)
+            setModalText(error.message)
         } else {
-            setModalText('Unexpected Error: ' + error.message)
+            setModalText(error.message)
         }
     }
   }

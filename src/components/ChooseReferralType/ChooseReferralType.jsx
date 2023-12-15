@@ -102,11 +102,11 @@ const ChooseReferralType = () => {
     }
     catch (error) {
       if (error.message.includes('400')) {
-        alert('Bad Request: ' + error.message)
+        alert(error.message)
       } else if (error.message.includes('500')) {
-        alert('Internal Server Error: ' + error.message)
+        alert(error.message)
       } else {
-        alert('Unexpected Error: ' + error.message)
+        alert(error.message)
       }
     }
   };

@@ -125,11 +125,11 @@ const ChooseStages = () => {
         catch (error) {
             setShowCloseButton(true)
             if (error.message.includes('400')) {
-                setModalText('Bad Request: ' + error.message)
+                setModalText(error.message)
             } else if (error.message.includes('500')) {
-                setModalText('Internal Server Error: ' + error.message)
+                setModalText(error.message)
             } else {
-                setModalText('Unexpected Error: ' + error.message)
+                setModalText(error.message)
             }
         }
     }
