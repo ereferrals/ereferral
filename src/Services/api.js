@@ -79,13 +79,13 @@ export const saveData = async (data, accessToken) => {
   }
 };
 
-export const generateOTP = async (emailval) => {
-  const formData = new FormData();
-  formData.append("email", emailval);
+export const generateOTP = async () => {
+  //const formData = new FormData();
+  //formData.append("email", emailval);
   try {
     const response = await fetch(`${BASE_URL}/OTP/generate`, {
       method: "POST",
-      body: formData,
+      //body: formData,
       credentials: "include"
     });
 

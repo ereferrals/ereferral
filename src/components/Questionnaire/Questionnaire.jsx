@@ -213,7 +213,7 @@ const Questionnaire = () => {
                         <FormYesNoBtnsCtrl label="Has the patient been discussed at MDT and stage defined?" onChangeValue={onChangeTextHandle} 
                                     title="DiscussedatMDT" value={details && details.DiscussedatMDT} />
                     </div>
-                    {discussedAtMDT === 'Yes' && (<><br/>
+                    {(discussedAtMDT === 'Yes' || discussedAtMDT === 'No') && (<><br/>
                         <div>
                             <FormDateCtrl label="Date at MDT" onChangeText={onChangeTextHandle} title="DateatMDT" 
                             value={details && details.DateatMDT} isSameRow={true} lblMinWidth={'480px'} dtWidth={'150px'} 

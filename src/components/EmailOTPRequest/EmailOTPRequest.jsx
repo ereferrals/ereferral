@@ -92,7 +92,7 @@ const EmailOTPRequest = () =>{
                 dispatch(setReferrerEmail(emailId));
                 setModalText("Sending verification code... Please wait.")
                 dispatch(setEmail(emailId))
-                await generateOTP(emailId);
+                await generateOTP();
                 closeModal();
                 dispatch(setUserValidationStep(1))
             }
