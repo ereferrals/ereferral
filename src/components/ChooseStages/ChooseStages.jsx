@@ -91,7 +91,7 @@ const ChooseStages = () => {
         setModalText("Getting Referral Type Stages... Please wait.");
         openModal();
         
-        //setTimeout(async ()=> {
+        setTimeout(async ()=> {
             const stages = await getReferralTypeStages(accessToken);//checkonce
             /*const stages = [{title: 'Breast', stage: 'Stage I-II', report: 'Report 1', StageOrder: 1, ReportOrder: 1},
             {title: 'Breast', stage: 'Stage I-II', report: 'Report 11', StageOrder: 3, ReportOrder: 2},
@@ -119,7 +119,7 @@ const ChooseStages = () => {
             
             dispatch(setStagesList(sortedStages))
             closeModal();
-        //},100)
+        },100)
     }
 
     const handleBack = () => {

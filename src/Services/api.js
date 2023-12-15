@@ -256,7 +256,7 @@ export const getMasterData = async (type_name, accessToken) => {
   }
 };
 
-export const getReferralTypeStages = async (domainval, accessToken) => {
+export const getReferralTypeStages = async (accessToken) => {
   try {
     const response = await fetch(`${BASE_URL}/SPData/GetReferralTypeStages`, {
       method: "POST",
