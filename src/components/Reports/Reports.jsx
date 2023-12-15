@@ -139,26 +139,28 @@ const Reports = () => {
         errorMsg = errorMsg + `<div style='text-align:left;line-height:28px'><b style='font-size:20px'>Next of Kin Details</b>:<ul>${emptyFields.map(field => `<li>${field}</li>`).join('')}</ul></div>`;
       }
       
-      const referMandatoryFields = ['GPName', 'GPPractice', 'GPPracticeAddress', 'ReferringOrganisation', 'ReferringConsultant']
-      
-      const referMFDN = {}
-      referMFDN["GPName"] = "GP Name"
-      referMFDN["GPPractice"] = "GP Practice"
-      referMFDN["GPPracticeAddress"] = "GP Practice Address"
-      referMFDN["ReferringOrganisation"] = "Referring Organisation"
-      referMFDN["ReferringConsultant"] = "Referring Consultant"
+      if(formdata.OverseasPatient != "Yes"){
+        const referMandatoryFields = ['GPName', 'GPPractice', 'GPPracticeAddress', 'ReferringOrganisation', 'ReferringConsultant']
+        
+        const referMFDN = {}
+        referMFDN["GPName"] = "GP Name"
+        referMFDN["GPPractice"] = "GP Practice"
+        referMFDN["GPPracticeAddress"] = "GP Practice Address"
+        referMFDN["ReferringOrganisation"] = "Referring Organisation"
+        referMFDN["ReferringConsultant"] = "Referring Consultant"
 
-      emptyFields = []
+        emptyFields = []
 
-      for (const fieldName of referMandatoryFields) {
-        if (!formdata.hasOwnProperty(fieldName) || formdata[fieldName] === "") {
-          emptyFields.push(referMFDN[fieldName])
-          hasMFToFill = true
+        for (const fieldName of referMandatoryFields) {
+          if (!formdata.hasOwnProperty(fieldName) || formdata[fieldName] === "") {
+            emptyFields.push(referMFDN[fieldName])
+            hasMFToFill = true
+          }
         }
-      }
 
-      if (emptyFields.length > 0) {
-        errorMsg = errorMsg + `<div style='text-align:left;line-height:28px'><b style='font-size:20px'>Refer Details</b>:<ul>${emptyFields.map(field => `<li>${field}</li>`).join('')}</ul></div>`;
+        if (emptyFields.length > 0) {
+          errorMsg = errorMsg + `<div style='text-align:left;line-height:28px'><b style='font-size:20px'>Refer Details</b>:<ul>${emptyFields.map(field => `<li>${field}</li>`).join('')}</ul></div>`;
+        }
       }
 
       let treatmentMandatoryFields = [ 'MedicalOncologistCCCConsultant', 'ClinicalOncologistCCCConsultant', 'IsthisaTargetPatient', 'TargetCategory' ]
