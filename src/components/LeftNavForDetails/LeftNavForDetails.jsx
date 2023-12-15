@@ -190,7 +190,7 @@ const LeftNavForDetails = () => {
                     openModal()
                     return
                 }
-                else if((step === 3 || step === 4) && checkReferDetailsFieldsValidation()){
+                else if((step === 3 || step === 4) && details.OverseasPatient != "Yes" && checkReferDetailsFieldsValidation()){
                     setModalText("Please fill in Refer Details.")
                     openModal()
                     return
@@ -222,7 +222,7 @@ const LeftNavForDetails = () => {
                 }
             }
             if(sharedStrings.leftNavClearLinkText === "Refer"){
-                if ((step === 3 || step === 4) && checkReferDetailsFieldsValidation()){
+                if ((step === 3 || step === 4) && details.OverseasPatient != "Yes" && checkReferDetailsFieldsValidation()){
                     const title = "enableReferMandatory"
                     const value = true
                     dispatch(setReferMandatory({title, value}))
