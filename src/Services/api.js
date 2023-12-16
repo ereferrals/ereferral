@@ -50,6 +50,7 @@ export const saveData = async (data) => {
     const response = await fetch(`${BASE_URL}/SPData`, {
       method: "POST",
       body: formData,
+      credentials: "include"
     });
 
     if (response.ok) {
@@ -166,7 +167,8 @@ export const validateReCaptcha = async (captchavalue) => {
   try {
     const response = await fetch(`${BASE_URL}/Recaptcha/ValidateRecaptcha`, {
       method: "POST",
-      body: formData
+      body: formData,
+      credentials: "include"
     });
 
     if (response.ok) {
@@ -253,6 +255,7 @@ export const getNHSNumbers = async () => {
   try {
     const response = await fetch(`${BASE_URL}/SPData`, {
       method: "GET",
+      credentials: "include"
     });
     
     if (!response.ok) {
@@ -301,6 +304,7 @@ export const getReferralTypeStages = async () => {
   try {
     const response = await fetch(`${BASE_URL}/SPData/GetReferralTypeStages`, {
       method: "POST",
+      credentials: "include"
     });
     
     if (response.ok) {
@@ -333,6 +337,7 @@ export const uploadFileToLib = async (file, metadata) => {
     const response = await fetch(`${BASE_URL}/SPData/UploadFile`, {
       method: 'POST',
       body: formData,
+      credentials: "include"
     });
 
     const responseBody = await response.json();
@@ -350,6 +355,7 @@ export const uploadFile = async (file) => {
     const response = await fetch(`${BASE_URL}/SPData/UploadFile`, {
       method: "POST",
       body: formData,
+      credentials: "include"
     });
 
     if (!response.ok) {
