@@ -26,7 +26,6 @@ const ChooseReferralType = () => {
   const selectedReferralType = useSelector(state => state.referralType)
   const listData = useSelector(state => state.masterData)
   const referrerEmail = useSelector(state => state.sharedStrings.ReferrerEmail)
-  const accessToken = useSelector(state => state.accessToken)
   
   //Load master data asynchronously. 
   useEffect(() => {
@@ -50,7 +49,7 @@ const ChooseReferralType = () => {
 
   const fetchData = (type_name) => {
     try{
-    getMasterData(type_name, accessToken)
+    getMasterData(type_name)
       .then((data) => {
         switch (type_name) {
           case "NHSNumbers":
