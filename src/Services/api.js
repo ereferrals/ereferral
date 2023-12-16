@@ -273,6 +273,7 @@ export const getMasterData = async (type_name) => {
   try {
     const response = await fetch(`${BASE_URL}/SPData/${type_name}`, {
       method: "GET",
+      credentials: "include"
     });
     
     if (response.ok) {
