@@ -50,7 +50,7 @@ const Questionnaire = () => {
     const handleNext = () => {
         if(awareOfDiagnosis == undefined || awareOfDiagnosis == "" || 
         (awareOfDiagnosis == "Yes" && (discussedAtMDT == undefined || discussedAtMDT == "")) || 
-        (discussedAtMDT == "Yes" && (overseasPatient == undefined || overseasPatient == "")))
+        (overseasPatient == undefined || overseasPatient == ""))
         {
             /*discussedAtMDT == undefined || discussedAtMDT == "" || 
             awareOfDiagnosis == undefined || awareOfDiagnosis == "" || 
@@ -78,7 +78,7 @@ const Questionnaire = () => {
                 return
             }
         }
-        if(!disableMDTCtrl && (!details.DateatMDT || details.DateatMDT === "")){
+        if(!(details && details.DiscussedatMDT) && (!details.DateatMDT || details.DateatMDT == "")){
             setShowCloseButton(true)
             setModalText("Enter date at MDT")
             openModal()
@@ -111,7 +111,7 @@ const Questionnaire = () => {
             setDiscussedAtMDT(value)
             if(value == 'No'){
                 resetControls("DiscussedatMDT")
-                setDisableMDTCtrl(true)
+                //setDisableMDTCtrl(true)
                 //setModalText("Unable to proceed if patient has not been discussed at MDT and the stage has not been defined")
                 //openModal();
                 return;
@@ -217,7 +217,7 @@ const Questionnaire = () => {
                         <div>
                             <FormDateCtrl label="Date at MDT" onChangeText={onChangeTextHandle} title="DateatMDT" 
                             value={details && details.DateatMDT} isSameRow={true} lblMinWidth={'480px'} dtWidth={'150px'} 
-                            isFutureDate={false} disableCtrl={disableMDTCtrl} />
+                            isFutureDate={false} disableCtrl={details && details.DiscussedatMDT == "No"} />
                             
                         </div><br/><br/>
                         <div style={{marginBottom:"10px",fontWeight:"bold",color:"#005cbb",fontSize:"20px"}}>Treatment Proposal:</div>
@@ -238,7 +238,7 @@ const Questionnaire = () => {
                         ))}
                         <div><br/>
                             <FormTextAreaCtrl label="MDT Comments" onChangeText={onChangeTextHandle} title="MDTComments" 
-                            value={details && details.MDTComments} ctrlWidth="633px" disableCtrl={disableMDTCtrl}/>
+                            value={details && details.MDTComments} ctrlWidth="633px" disableCtrl={details && details.DiscussedatMDT == "No"}/>
                         </div>
                         
                     <br/>
