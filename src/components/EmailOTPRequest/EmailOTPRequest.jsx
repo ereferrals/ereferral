@@ -22,7 +22,7 @@ const EmailOTPRequest = () =>{
     const [isSupportedMode, setIsSupportedMode] = useState(true)
 
     useEffect(() => {
-        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        /*const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
         const isPrivateMode = window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.isPrivate;
 
         if (isSafari || isPrivateMode) {
@@ -31,7 +31,8 @@ const EmailOTPRequest = () =>{
         } else {
             clearSessionString();
         }
-        //clearSessionString()
+        */
+        clearSessionString()
     },[isSupportedMode])
 
     const clearSessionString = async () => {
