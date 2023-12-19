@@ -79,7 +79,7 @@ const SubmitReferral = () => {
                 }
             }
         }
-        closeModal();
+        
       }
 
     return(
