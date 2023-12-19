@@ -114,8 +114,14 @@ const LeftNavForDetails = () => {
         //return false//checkonce
         //var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b style='line-height:28px'>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
         var errorMsg = `<div style='max-height:500px;overflow-y:auto;width:400px;'><b style='line-height:28px'>${warning_MandatoryText}</b><br/><br/>`
-        const referMandatoryFields = ['GPName', 'GPPractice', 'GPPracticeAddress', 'ReferringOrganisation', 'ReferringConsultant']
+        const referMandatoryFields = ['ReferringOrganisation', 'ReferringConsultant']
         
+        if(details.OverseasPatient != "Yes")
+        {
+            referMandatoryFields.push('GPName');
+            referMandatoryFields.push('GPPractice');
+            referMandatoryFields.push('GPPracticeAddress');
+        }
         const referMFDN = {}
         referMFDN["GPName"] = "Specified GP"
         referMFDN["GPPractice"] = "GP Practice Name"
@@ -190,7 +196,7 @@ const LeftNavForDetails = () => {
                     openModal()
                     return
                 }
-                else if((step === 3 || step === 4) && details.OverseasPatient != "Yes" && checkReferDetailsFieldsValidation()){
+                else if((step === 3 || step === 4) && checkReferDetailsFieldsValidation()){
                     setModalText("Please fill in Refer Details.")
                     openModal()
                     return
@@ -210,7 +216,7 @@ const LeftNavForDetails = () => {
                     openModal()
                     return
                 }
-                else if((step === 3 || step === 4) && details.OverseasPatient != "Yes" && checkReferDetailsFieldsValidation()){
+                else if((step === 3 || step === 4) && checkReferDetailsFieldsValidation()){
                     setModalText("Please fill in Refer Details.")
                     openModal()
                     return
@@ -222,7 +228,7 @@ const LeftNavForDetails = () => {
                 }
             }
             if(sharedStrings.leftNavClearLinkText === "Refer"){
-                if ((step === 3 || step === 4) && details.OverseasPatient != "Yes" && checkReferDetailsFieldsValidation()){
+                if ((step === 3 || step === 4) && checkReferDetailsFieldsValidation()){
                     const title = "enableReferMandatory"
                     const value = true
                     dispatch(setReferMandatory({title, value}))
