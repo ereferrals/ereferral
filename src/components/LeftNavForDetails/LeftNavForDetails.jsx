@@ -71,7 +71,7 @@ const LeftNavForDetails = () => {
         //var errorMsg = "<div style='max-height:500px;overflow-y:auto;width:400px'><b style='line-height:28px'>You must ensure you complete all the below mandatory fields to continue:</b><br/><br/>"
         var errorMsg = `<div style='max-height:500px;overflow-y:auto;width:400px;'><b style='line-height:28px'>${warning_MandatoryText}</b><br/><br/>`
         const nextofKinMandatoryFields = ['NextofKinFirstName', 'NextofKinLastName', 'NextofKinAddressLine1',
-                            'NextofKinAddressLine2', 'NextofKinAddressLine3', 'NextofKinAddressLine4', 'NextofKinPostCode',
+                            'NextofKinAddressLine2', /*'NextofKinAddressLine3', 'NextofKinAddressLine4', */'NextofKinPostCode',
                             'NextofKinMobileNumber' ]
 
         const nextofKinMFDN = {}
@@ -185,7 +185,7 @@ const LeftNavForDetails = () => {
                     openModal()
                     return
                 }
-                else if(step != 0 && step != 1 && !details.NoNextOfKin){
+                else if(step != 0 && step != 1 && !details.NoNextOfKin && checkNOKDetailsFieldsValidation()){ 
                     setModalText("Please fill in Next of Kin Details.")
                     openModal()
                     return
