@@ -49,7 +49,7 @@ const SubmitReferral = () => {
             setShowCloseButton(false)
             setModalText("Submitting Data... Please wait.")
             try{
-                await saveData(details);
+                await saveData(details)
                 var reportsMetadata = {};
                 for(var i=0;i < reports.length;i++){
                     if(!reportsMetadata.hasOwnProperty(reports[i].name))

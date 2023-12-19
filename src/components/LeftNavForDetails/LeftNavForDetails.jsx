@@ -210,7 +210,7 @@ const LeftNavForDetails = () => {
                     openModal()
                     return
                 }
-                else if((step === 3 || step === 4) && checkReferDetailsFieldsValidation()){
+                else if((step === 3 || step === 4) && details.OverseasPatient != "Yes" && checkReferDetailsFieldsValidation()){
                     setModalText("Please fill in Refer Details.")
                     openModal()
                     return
