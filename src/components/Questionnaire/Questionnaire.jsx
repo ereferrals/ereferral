@@ -78,7 +78,7 @@ const Questionnaire = () => {
                 return
             }
         }
-        if(!(details && details.DiscussedatMDT) && (!details.DateatMDT || details.DateatMDT == "")){
+        if(details && details.DiscussedatMDT == "Yes" && !details.DateatMDT || details.DateatMDT == ""){
             setShowCloseButton(true)
             setModalText("Enter date at MDT")
             openModal()
@@ -110,7 +110,7 @@ const Questionnaire = () => {
         if(title == "DiscussedatMDT"){
             setDiscussedAtMDT(value)
             if(value == 'No'){
-                resetControls("DiscussedatMDT")
+                //resetControls("DiscussedatMDT")
                 //setDisableMDTCtrl(true)
                 //setModalText("Unable to proceed if patient has not been discussed at MDT and the stage has not been defined")
                 //openModal();
