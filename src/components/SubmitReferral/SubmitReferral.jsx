@@ -5,6 +5,7 @@ import "./SubmitReferral.css"
 import ButtonCtrl from "../ButtonCtrl/ButtonCtrl";
 import { useDispatch, useSelector } from "react-redux";
 import { setReferralSubmissionStep } from "../ReferralSubmissionSlice";
+import { updateDetails } from "../DetailsSlice";
 
 const SubmitReferral = () => {
     const dispatch = useDispatch()
@@ -49,6 +50,20 @@ const SubmitReferral = () => {
             setShowCloseButton(false)
             setModalText("Submitting Data... Please wait.")
             try{
+                //Sanitizing date fields.
+                if(details && details.DateatMDT == "")
+                {
+                    var title = "DateatMDT"
+                    var value = ""
+                    dispatch(updateDetails({title,value}))
+                }
+                if(details && details.DateofBirth == "")
+                {
+                    var title = "DateofBirth"
+                    var value = ""
+                    dispatch(updateDetails({title,value}))
+                }
+
                 await saveData(details)
                 var reportsMetadata = {};
                 for(var i=0;i < reports.length;i++){

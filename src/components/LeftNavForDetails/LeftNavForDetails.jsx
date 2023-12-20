@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import "./LeftNavForDetails.css"
 import { useDispatch, useSelector } from "react-redux"
 import { setReferralSubmissionStep } from "../ReferralSubmissionSlice"
-import { removeDetailField, updateDetails } from "../DetailsSlice"
+import { updateDetails } from "../DetailsSlice"
 import ModalDialog from "../ModalDialog/ModalDialog"
 import { setLeftNavClearLinkText, setNOKMandatory, setPatientMandatory, setReferMandatory, setTTCMandatory } from "../SharedStringsSlice"
 import {warning_ValidEmailText,warning_MandatoryText} from "../Config.js"
@@ -345,7 +345,6 @@ const LeftNavForDetails = () => {
         resetControl("MiddleName","")
         resetControl("Title","")
         resetControl("DateofBirth","")
-        dispatch(removeDetailField("DateofBirth"))
         resetControl("Sex","")
         resetControl("MaritalStatus","")
         resetControl("Ethnicorigin","")

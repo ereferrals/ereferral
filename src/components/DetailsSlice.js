@@ -13,10 +13,6 @@ const detailsSlice = createSlice({
         resetDetails: (state) => {
             return {}
         },
-        removeDetailField: (state, action) => {
-            const fieldToRemove = action.payload;
-            delete state[fieldToRemove];
-        },
     },
 });  
 

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import FormTextAreaCtrl from "../FormTextAreaCtrl/FormTextAreaCtrl";
 import { useDispatch, useSelector } from "react-redux";
-import { removeDetailField, updateDetails } from "../DetailsSlice";
+import { updateDetails } from "../DetailsSlice";
 import FormSelectCtrl from "../FormSelectCtrl/FormSelectCtrl"
 import FormDateCtrl from "../FormDateCtrl/FormDateCtrl";
 import { setReferralTypeStageStep } from "../ReferralTypeSlice";
@@ -118,9 +118,6 @@ const Questionnaire = () => {
             }
             else{setDisableMDTCtrl(false)}
         }
-        else if(title == "DateatMDT" && value == ""){
-            dispatch(removeDetailField("DateatMDT"))
-        }
         else if(title == "OverseasPatient"){
             setOverseasPatient(value)
             if(value == 'No'){
@@ -145,7 +142,7 @@ const Questionnaire = () => {
         }
         if(ctrlsset == "PatientAwareofDiagnosis" || ctrlsset == "DiscussedatMDT"){
             ctrlsToReset.push("DateatMDT")
-            dispatch(removeDetailField("DateatMDT"))
+            //dispatch(removeDetailField("DateatMDT"))
             //ctrlsToReset.push("TreatmentDecision")
             ctrlsToReset.push("MDTComments")
             //ctrlsToReset.push("OverseasPatient")

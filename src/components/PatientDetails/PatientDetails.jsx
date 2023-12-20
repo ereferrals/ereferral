@@ -3,7 +3,7 @@ import FormTextBoxCtrl from "../FormTextBoxCtrl/FormTextBoxCtrl";
 import FormTextAreaCtrl from "../FormTextAreaCtrl/FormTextAreaCtrl";
 import FormDateCtrl from "../FormDateCtrl/FormDateCtrl";
 import { useDispatch, useSelector } from "react-redux";
-import { removeDetailField, updateDetails } from "../DetailsSlice";
+import { updateDetails } from "../DetailsSlice";
 import { setReferralSubmissionStep } from "../ReferralSubmissionSlice";
 import { setAppStep } from "../AppSlice";
 import FormSelectCtrl from "../FormSelectCtrl/FormSelectCtrl";
@@ -150,9 +150,6 @@ const PatientDetails = () => {
     }
 
     const onChangeTextHandle = (title, value) => {
-        if(title == "DateofBirth" && value == ""){
-            dispatch(removeDetailField("DateofBirth"))
-        }
         dispatch(updateDetails({ title, value }));
     }
 
