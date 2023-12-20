@@ -181,8 +181,9 @@ const NextofKinDetails = () => {
                     </div>
                 </div>
                 <div style={{display:'inline-block',width:'100%'}}>
+                <FormCheckBoxCtrl label="No Next of Kin" onChangeText={onChangeTextHandle} title="NoNextOfKin" value={details && details.NoNextOfKin} /><br/>
                     <div style={{marginRight:'200px',float: 'left'}}>
-                        <FormCheckBoxCtrl label="No Next of Kin" onChangeText={onChangeTextHandle} title="NoNextOfKin" value={details && details.NoNextOfKin} /><br/>
+                        
                         <FormTextBoxCtrl label="First Name" onChangeText={onChangeTextHandle} title="NextofKinFirstName" value={details && details.NextofKinFirstName} onlyText={true} disableCtrl={disableControls} isMandatory={mandatoryFlag} enableRedBorder={!disableControls && enableRedBorder && (!details.NextofKinFirstName || details.NextofKinFirstName === "")}/><br/>
                         <FormTextBoxCtrl label="Last Name" onChangeText={onChangeTextHandle} title="NextofKinLastName" value={details && details.NextofKinLastName} onlyText={true} disableCtrl={disableControls} isMandatory={mandatoryFlag} enableRedBorder={!disableControls && enableRedBorder && (!details.NextofKinLastName || details.NextofKinLastName === "")}/><br/>
                         <FormTextBoxCtrl label="Middle Name" onChangeText={onChangeTextHandle} title="NextofKinMiddlename" value={details && details.NextofKinMiddlename} onlyText={true} disableCtrl={disableControls}/><br/>
