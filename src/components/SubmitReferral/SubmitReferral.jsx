@@ -53,15 +53,11 @@ const SubmitReferral = () => {
                 //Sanitizing date fields.
                 if(details && details.DateatMDT == "")
                 {
-                    var title = "DateatMDT"
-                    var value = ""
-                    dispatch(updateDetails({title,value}))
+                    details["DateatMDT"] = "null"
                 }
                 if(details && details.DateofBirth == "")
                 {
-                    var title = "DateofBirth"
-                    var value = ""
-                    dispatch(updateDetails({title,value}))
+                    details["DateofBirth"] = "null"
                 }
 
                 await saveData(details)
