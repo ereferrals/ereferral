@@ -78,7 +78,7 @@ const Questionnaire = () => {
                 return
             }
         }
-        if(details && details.DiscussedatMDT == "Yes" && !details.DateatMDT || details.DateatMDT == ""){
+        if(details && details.DiscussedatMDT == "Yes" && (!details.DateatMDT || details.DateatMDT == "")){
             setShowCloseButton(true)
             setModalText("Enter date at MDT")
             openModal()
@@ -145,6 +145,7 @@ const Questionnaire = () => {
         }
         if(ctrlsset == "PatientAwareofDiagnosis" || ctrlsset == "DiscussedatMDT"){
             ctrlsToReset.push("DateatMDT")
+            dispatch(removeDetailField("DateatMDT"))
             //ctrlsToReset.push("TreatmentDecision")
             ctrlsToReset.push("MDTComments")
             //ctrlsToReset.push("OverseasPatient")
