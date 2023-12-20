@@ -110,7 +110,7 @@ const Questionnaire = () => {
         if(title == "DiscussedatMDT"){
             setDiscussedAtMDT(value)
             if(value == 'No'){
-                //resetControls("DiscussedatMDT")
+                resetControls("DiscussedatMDT")
                 //setDisableMDTCtrl(true)
                 //setModalText("Unable to proceed if patient has not been discussed at MDT and the stage has not been defined")
                 //openModal();
@@ -142,9 +142,9 @@ const Questionnaire = () => {
         }
         if(ctrlsset == "PatientAwareofDiagnosis" || ctrlsset == "DiscussedatMDT"){
             ctrlsToReset.push("DateatMDT")
-            ctrlsToReset.push("TreatmentDecision")
+            //ctrlsToReset.push("TreatmentDecision")
             ctrlsToReset.push("MDTComments")
-            ctrlsToReset.push("OverseasPatient")
+            //ctrlsToReset.push("OverseasPatient")
         }
         if(ctrlsset == "PatientAwareofDiagnosis" || ctrlsset == "DiscussedatMDT" || ctrlsset == "OverseasPatient"){
             ctrlsToReset.push("HasAssessmentbeenCompleted")
