@@ -18,6 +18,21 @@ const SubmitReferral = () => {
     const [modalText, setModalText] = useState("")
     const [showCloseButton,setShowCloseButton] = useState(true)
 
+    useEffect(() => {
+        //Sanitizing date fields.
+        if(details && details.DateatMDT == "")
+        {
+            var title = "DateatMDT"
+            var value = "null"
+            dispatch(updateDetails({title,value}))
+        }
+        if(details && details.DateofBirth == "")
+        {
+            var title = "DateofBirth"
+            var value = "null"
+            dispatch(updateDetails({title,value}))
+        }
+    })
     const onSubmitHandle = async () =>{
         if(!navigator.onLine){
             setModalText("Submission is not possible because there is no internet connection.")
@@ -50,6 +65,7 @@ const SubmitReferral = () => {
             setShowCloseButton(false)
             setModalText("Submitting Data... Please wait.")
             try{
+
                 await saveData(details)
                 var reportsMetadata = {};
                 for(var i=0;i < reports.length;i++){
