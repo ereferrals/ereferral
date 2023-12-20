@@ -147,7 +147,7 @@ const Questionnaire = () => {
             ctrlsToReset.push("MDTComments")
             //ctrlsToReset.push("OverseasPatient")
         }
-        if(ctrlsset == "PatientAwareofDiagnosis" || ctrlsset == "DiscussedatMDT" || ctrlsset == "OverseasPatient"){
+        if(ctrlsset == "PatientAwareofDiagnosis" || /*ctrlsset == "DiscussedatMDT" || */ctrlsset == "OverseasPatient"){
             ctrlsToReset.push("HasAssessmentbeenCompleted")
             ctrlsToReset.push("OutcomeofAssessment")
             ctrlsToReset.push("NHSNumber")
