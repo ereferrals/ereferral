@@ -50,16 +50,6 @@ const SubmitReferral = () => {
             setShowCloseButton(false)
             setModalText("Submitting Data... Please wait.")
             try{
-                //Sanitizing date fields.
-                if(details && details.DateatMDT == "")
-                {
-                    details["DateatMDT"] = "null"
-                }
-                if(details && details.DateofBirth == "")
-                {
-                    details["DateofBirth"] = "null"
-                }
-
                 await saveData(details)
                 var reportsMetadata = {};
                 for(var i=0;i < reports.length;i++){
