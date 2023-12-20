@@ -13,8 +13,12 @@ const detailsSlice = createSlice({
         resetDetails: (state) => {
             return {}
         },
+        removeDetailField: (state, action) => {
+            const fieldToRemove = action.payload;
+            delete state[fieldToRemove];
+        },
     },
 });  
 
-export const { updateDetails, resetDetails } = detailsSlice.actions;
+export const { updateDetails, resetDetails, removeDetailField } = detailsSlice.actions;
 export default detailsSlice.reducer;
