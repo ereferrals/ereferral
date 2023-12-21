@@ -187,7 +187,7 @@ const Questionnaire = () => {
         { id: 'Radiotherapy', label: 'Radiotherapy' },
         { id: 'Systemictreatment', label: 'Systemic treatment' },
         { id: 'Combinationofsystemictreatmentandradiotherapy', label: 'Combination of systemic treatment and radiotherapy' },
-        { id: 'ReferredforOncologyReview', label: 'Inpatient being referred for Oncology review (sent to DC/NB & HI/AH)'}
+        { id: 'ReferredforOncologyReview', label: 'Inpatient being referred for Oncology review'}
     ];
     
     return(
