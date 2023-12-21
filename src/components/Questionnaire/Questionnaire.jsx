@@ -192,15 +192,15 @@ const Questionnaire = () => {
     
     return(
         <div>
-            <div className="choosestage-container">
-                <div className="choosestage-header">
-                    <div style={{float: 'left'}}>NHS Entitlement Assessment & MDT Outcome</div>
+            <div className="choosestage-header" style={{margin: '40px',width: 'calc(100% - 40px - 10%)', paddingLeft: 'calc(10% - 40px)'}}>
+                <div style={{float: 'left'}}>NHS Entitlement Assessment & MDT Outcome</div>
                     <div style={{float: 'right'}}>
                         <button onClick={handleNext} className="buttonCtrl">Next</button>
                         <button onClick={handleBack} className="buttonCtrl" style={{marginRight: '10px'}}>Back</button>
                         {/*<ButtonCtrl className="buttonCtrl" btnText="Next" btnClickHandler={handleCreateReferral} />*/}
                     </div>
-                </div>
+            </div>
+            <div className="choosestage-container">
                 <div style={{display:'inline-block',width:'100%'}}>
                     
                     <div>

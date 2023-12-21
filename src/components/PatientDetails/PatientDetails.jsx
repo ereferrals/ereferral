@@ -187,14 +187,15 @@ const PatientDetails = () => {
 
     return (
         <div className="detailssection">
-            <div style={{float:'left'}}>
-                <div style={{display:"inline-block",width:"100%"}}>
+            <div style={{display:"inline-block",width:"100%"}}>
                     <h3 className="detailsHeader" style={{float:"left"}}>Patient Details</h3>
                     <div className="detailsNext" style={{float:"right"}}>
                         <button onClick={handleNext}>Next</button>
                         <button onClick={handleBack} style={{marginRight:'10px'}}>Back</button>
                     </div>
                 </div>
+            <div style={{float:'left'}}>
+                
                 
                 <div style={{display:'inline-block',width:'100%'}}>
                     <div style={{marginRight:'200px',float: 'left'}}>
