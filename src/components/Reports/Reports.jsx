@@ -200,9 +200,11 @@ const Reports = () => {
     }
     const mainReports = reportslist.filter((report) => (report.IsMain || !report.IsMain));
     const mainReportsWithFiles = mainReports.every((mainReport) => {
-        if(details && details.IsthisaTargetPatient == "No" && mainReport.ReportName == "IPT Form"){
+        if(details && ((details.IsthisaTargetPatient == "No" && mainReport.ReportName == "IPT Form") || 
+          (details.DiscussedatMDT == "No" && mainReport.ReportName.startsWith("MDT report")))){
           return true
         }
+
         //return files.some((file) => file.ReportIndex === mainReport.ReportIndex)
         return files.some((file) => file.ReportName === mainReport.ReportName)
       });
