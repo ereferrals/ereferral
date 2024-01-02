@@ -514,7 +514,7 @@ const Reports = () => {
                 onDrop={(e) => handleDrop(e, report.ReportName, report.ReportIndex, report.ReportOrder)}
                 onClick={() => handleFileUpload(null, report)}
                 >
-                {!report.IsMain && "Additional"} {report.ReportName}{details.DiscussedatMDT === "No" && report.reportName.startsWith("MDT ") && " (Optional)"}{hasFile && " - "}{hasFile && filename}
+                {!report.IsMain && "Additional"} {report.ReportName}{details.DiscussedatMDT === "No" && report.ReportName.startsWith("MDT ") && " (Optional)"}{hasFile && " - "}{hasFile && filename}
                 </div>
                 {(hasFile || !report.IsMain) && <div><img src={deleteIcon} title={report.ReportIndex} 
                   onClick={(e) => {handleDeleteFile(e, hasFile, report.IsMain)}} style={{width: '25px',margin:'7px 0px 0px 5px',cursor:'pointer'}}/></div>}
