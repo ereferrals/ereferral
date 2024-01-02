@@ -29,9 +29,15 @@ const sharedStringsSlice = createSlice({
         setTTCMandatory: (state, action) => {
             state.enableTTCMandatory = action.payload;
         },
+        resetMandatory: (state) => {
+            state.enablePatientMandatory = false
+            state.enableNOKMandatory = false
+            state.enableReferMandatory = false
+            state.enableTTCMandatory = false
+        }
     },
 });  
 
 export const { setLeftNavClearLinkText, setReferrerEmail, setPatientMandatory, setNOKMandatory,
-    setReferMandatory, setTTCMandatory } = sharedStringsSlice.actions;
+    setReferMandatory, setTTCMandatory, resetMandatory } = sharedStringsSlice.actions;
 export default sharedStringsSlice.reducer;
