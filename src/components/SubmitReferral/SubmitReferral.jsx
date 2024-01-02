@@ -17,6 +17,7 @@ const SubmitReferral = () => {
     const [confirmationBtnText, setConfirmationBtnText] = useState("")
     const [modalText, setModalText] = useState("")
     const [showCloseButton,setShowCloseButton] = useState(true)
+    const [contentInHtml,setContentInHtml] = useState(false)
 
     useEffect(() => {
         //Sanitizing date fields.
@@ -34,6 +35,7 @@ const SubmitReferral = () => {
         }
     })
     const onSubmitHandle = async () =>{
+        setContentInHtml(false)
         if(!navigator.onLine){
             setModalText("Submission is not possible because there is no internet connection.")
             setIsConfirmation(false)
@@ -63,6 +65,7 @@ const SubmitReferral = () => {
         if(isConfirmed){
             setIsConfirmation(false)
             setShowCloseButton(false)
+            setContentInHtml(false)
             setModalText("Submitting Data... Please wait.")
             try{
 
@@ -87,6 +90,7 @@ const SubmitReferral = () => {
             }
             catch (error) {
                 setShowCloseButton(true)
+                setContentInHtml(true)
                 if (error.message.includes('400')) {
                     setModalText(error.message)
                 } else if (error.message.includes('500')) {
@@ -109,7 +113,8 @@ const SubmitReferral = () => {
             </p>
             <div style={{textAlign:"center", marginTop:'40px'}}><ButtonCtrl btnClickHandler={onSubmitHandle} btnText="Submit" /></div>
             <ModalDialog isOpen={isModalOpen} onClose={closeModal} showCloseButton={showCloseButton} 
-            isConfirmation={isConfirmation} confirmationFn={handleConfirmation} confirmationBtnText={confirmationBtnText}>
+            isConfirmation={isConfirmation} confirmationFn={handleConfirmation} confirmationBtnText={confirmationBtnText} 
+            isHtmlContent={contentInHtml}>
                 {modalText}
             </ModalDialog>
         </div>
