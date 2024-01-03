@@ -89,7 +89,7 @@ const LeftNavForDetails = () => {
         nextofKinMFDN["NextofKinAddressLine4"] = "Address Line 4"
         nextofKinMFDN["NextofKinPostCode"] = "Post Code"
         nextofKinMFDN["NextofKinHomePhoneNumber"] = "Home Phone Number"
-        nextofKinMFDN["NextofKinMobileNumber"] = "Mobile Number"
+        nextofKinMFDN["NextofKinMobileNumber"] = "Primary Contact Number"
         nextofKinMFDN["RelationshiptoPatient"] = "Relationship to Patient"
         var emptyFields = []
 
@@ -114,7 +114,7 @@ const LeftNavForDetails = () => {
             return true
         }
         else if(details.NextofKinMobileNumber && details.NextofKinMobileNumber != "" && (details.NextofKinMobileNumber.length != 11)){
-            setModalText("Enter valid Mobile Number")
+            setModalText("Enter valid Primary Contact Number")
             return true
         }
         return false

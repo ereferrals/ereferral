@@ -71,7 +71,7 @@ const NextofKinDetails = () => {
         nextofKinMFDN["NextofKinAddressLine4"] = "Address Line 4"
         nextofKinMFDN["NextofKinPostCode"] = "Post Code"
         nextofKinMFDN["NextofKinHomePhoneNumber"] = "Home Phone Number"
-        nextofKinMFDN["NextofKinMobileNumber"] = "Mobile Number"
+        nextofKinMFDN["NextofKinMobileNumber"] = "Primary Contact Number"
         nextofKinMFDN["RelationshiptoPatient"] = "Relationship to Patient"
         var emptyFields = []
 
@@ -98,7 +98,7 @@ const NextofKinDetails = () => {
             return true
         }
         else if(details.NextofKinMobileNumber && details.NextofKinMobileNumber != "" && (details.NextofKinMobileNumber.length != 11)){
-            setModalText("Enter valid Mobile Number")
+            setModalText("Enter valid Primary Contact Number")
             return true
         }
     }
@@ -195,8 +195,8 @@ const NextofKinDetails = () => {
                         
                     </div>
                     <div style={{float:'left'}}>
-                        <FormTextBoxCtrl label="Primary Contact Number" onChangeText={onChangeTextHandle} title="NextofKinHomePhoneNumber" value={details && details.NextofKinHomePhoneNumber} maxLengthValue={11} disallowSpaces={true} disableCtrl={disableControls} isMandatory={mandatoryFlag} enableRedBorder={!disableControls && enableRedBorder && (!details.NextofKinHomePhoneNumber || details.NextofKinHomePhoneNumber === "")}/><br/>
-                        <FormTextBoxCtrl label="Mobile / Home Number (if not listed above)" onChangeText={onChangeTextHandle} title="NextofKinMobileNumber" value={details && details.NextofKinMobileNumber} maxLengthValue={11} disallowSpaces={true} disableCtrl={disableControls}/><br/>
+                        <FormTextBoxCtrl label="Primary Contact Number" onChangeText={onChangeTextHandle} title="NextofKinMobileNumber" value={details && details.NextofKinMobileNumber} maxLengthValue={11} disallowSpaces={true} disableCtrl={disableControls} isMandatory={mandatoryFlag} enableRedBorder={!disableControls && enableRedBorder && (!details.NextofKinMobileNumber || details.NextofKinMobileNumber === "")}/><br/>
+                        <FormTextBoxCtrl label="Mobile / Home Number (if not listed above)" onChangeText={onChangeTextHandle} title="NextofKinHomePhoneNumber" value={details && details.NextofKinHomePhoneNumber} maxLengthValue={11} disallowSpaces={true} disableCtrl={disableControls}/><br/>
                         <FormSelectCtrl label="Relationship to Patient" onChangeText={onChangeTextHandle} title="RelationshiptoPatient" value={details && details.RelationshiptoPatient} options={relationshiptoPatientDataList} disableCtrl={disableControls}/><br/>
                     </div>
                 </div>
