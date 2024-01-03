@@ -15,6 +15,7 @@ const SuccessView = () => {
         dispatch(setReferralTypeStageStep(1))
         dispatch(resetDetails())
         dispatch(setStage(null))
+        dispatch(resetMandatory())
     }
 
     const handleResetSession = () => {
