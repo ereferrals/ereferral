@@ -75,7 +75,7 @@ const NextofKinDetails = () => {
         nextofKinMFDN["RelationshiptoPatient"] = "Relationship to Patient"
         var emptyFields = []
 
-        if(!details["NoNextOfKin"]){
+        if(!details["NoNextOfKin"] && details && details.IsExistingNHSNumber != "Yes"){
             for (const fieldName of nextofKinMandatoryFields) {
                 if (!details.hasOwnProperty(fieldName) || details[fieldName] === "") {
                     emptyFields.push(nextofKinMFDN[fieldName])
@@ -104,7 +104,7 @@ const NextofKinDetails = () => {
     }
     const handleNext = () => {
         setIsConfirmation(false)
-        if (details && details.IsExistingNHSNumber != "Yes" && checkFieldsValidation()){
+        if (checkFieldsValidation()){
             setShowCloseButton(true)
             openModal()
             return
