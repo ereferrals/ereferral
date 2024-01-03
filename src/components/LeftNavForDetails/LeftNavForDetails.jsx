@@ -49,6 +49,10 @@ const LeftNavForDetails = () => {
         if (emptyFields.length > 0) {
             errorMsg = errorMsg + `<div style='text-align:left;line-height:28px'><ul>${emptyFields.map(field => `<li>${field}</li>`).join('')}</ul></div>`;
             setModalText(errorMsg)
+
+            const title = "enablePatientMandatory"
+            const value = true
+            dispatch(setPatientMandatory({title, value}))
             return true
         }
         else if(details.NHSNumber && details.NHSNumber != "" && (details.NHSNumber.length < 10 || details.NHSNumber.length > 10)){
@@ -100,6 +104,9 @@ const LeftNavForDetails = () => {
         if (emptyFields.length > 0) {
             errorMsg = errorMsg + `<div style='text-align:left;line-height:28px'><ul>${emptyFields.map(field => `<li>${field}</li>`).join('')}</ul></div>`;
             setModalText(errorMsg)
+            const title = "enableNOKMandatory"
+            const value = true
+            dispatch(setNOKMandatory({title, value}))
             return true
         }
         else if(details.NextofKinHomePhoneNumber && details.NextofKinHomePhoneNumber != "" && (details.NextofKinHomePhoneNumber.length != 11)){
@@ -190,9 +197,6 @@ const LeftNavForDetails = () => {
         //if(details && details.IsExistingNHSNumber != "Yes"){
             if(sharedStrings.leftNavClearLinkText === "Patient"){
                 if (step != 0 && checkPatientDetailsFieldsValidation()){
-                    const title = "enablePatientMandatory"
-                    const value = true
-                    dispatch(setPatientMandatory({title, value}))
                     setShowCloseButton(true)
                     openModal()
                     return
@@ -215,9 +219,6 @@ const LeftNavForDetails = () => {
             }
             if(sharedStrings.leftNavClearLinkText === "Next of Kin"){
                 if ((step != 0 && step != 1) && checkNOKDetailsFieldsValidation()){
-                    const title = "enableNOKMandatory"
-                    const value = true
-                    dispatch(setNOKMandatory({title, value}))
                     setShowCloseButton(true)
                     openModal()
                     return
