@@ -81,14 +81,14 @@ const PatientDetails = () => {
 
 
     const handleNext = () => {
-        if (details && details.IsExistingNHSNumber != "Yes" && checkFieldsValidation()){
+        if (checkFieldsValidation(details && details.IsExistingNHSNumber != "Yes")){
             setShowCloseButton(true)
             openModal()
             return
         }
         dispatch(setReferralSubmissionStep(currentStep + 1))
     }
-    const checkFieldsValidation = () => {
+    const checkFieldsValidation = (checkMandatory) => {
         var errorMsg = `<div style='max-height:500px;overflow-y:auto;width:400px;'><b style='line-height:28px'>${warning_MandatoryText}</b><br/><br/>`
         const patientMandatoryFields = ['Surname','FirstName','DateofBirth','HomePhoneNumber']
 
@@ -100,10 +100,12 @@ const PatientDetails = () => {
         var emptyFields = []
         var hasMFToFill = false
 
-        for (const fieldName of patientMandatoryFields) {
-            if (!details.hasOwnProperty(fieldName) || details[fieldName] === "") {
-                emptyFields.push(patientMFDN[fieldName])
-                hasMFToFill = true
+        if(checkMandatory){
+            for (const fieldName of patientMandatoryFields) {
+                if (!details.hasOwnProperty(fieldName) || details[fieldName] === "") {
+                    emptyFields.push(patientMFDN[fieldName])
+                    hasMFToFill = true
+                }
             }
         }
 
