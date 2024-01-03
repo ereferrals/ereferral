@@ -195,8 +195,8 @@ const NextofKinDetails = () => {
                         
                     </div>
                     <div style={{float:'left'}}>
-                        <FormTextBoxCtrl label="Primary Contact Number" onChangeText={onChangeTextHandle} title="NextofKinMobileNumber" value={details && details.NextofKinMobileNumber} maxLengthValue={11} disallowSpaces={true} disableCtrl={disableControls} isMandatory={mandatoryFlag} enableRedBorder={!disableControls && enableRedBorder && (!details.NextofKinMobileNumber || details.NextofKinMobileNumber === "")}/><br/>
-                        <FormTextBoxCtrl label="Mobile / Home Number (if not listed above)" onChangeText={onChangeTextHandle} title="NextofKinHomePhoneNumber" value={details && details.NextofKinHomePhoneNumber} maxLengthValue={11} disallowSpaces={true} disableCtrl={disableControls}/><br/>
+                        <FormTextBoxCtrl label="Primary Contact Number" onChangeText={onChangeTextHandle} title="NextofKinHomePhoneNumber" value={details && details.NextofKinHomePhoneNumber} maxLengthValue={11} disallowSpaces={true} disableCtrl={disableControls} isMandatory={mandatoryFlag} enableRedBorder={!disableControls && enableRedBorder && (!details.NextofKinHomePhoneNumber || details.NextofKinHomePhoneNumber === "")}/><br/>
+                        <FormTextBoxCtrl label="Mobile / Home Number (if not listed above)" onChangeText={onChangeTextHandle} title="NextofKinMobileNumber" value={details && details.NextofKinMobileNumber} maxLengthValue={11} disallowSpaces={true} disableCtrl={disableControls}/><br/>
                         <FormSelectCtrl label="Relationship to Patient" onChangeText={onChangeTextHandle} title="RelationshiptoPatient" value={details && details.RelationshiptoPatient} options={relationshiptoPatientDataList} disableCtrl={disableControls}/><br/>
                     </div>
                 </div>
