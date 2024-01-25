@@ -14,7 +14,7 @@ const OTPValidation = () => {
   const [modalText, setModalText] = useState("")
   const [isTimerActive, setIsTimerActive] = useState(true)
   const [remainingTime, setRemainingTime] = useState(300)
-  const emailId = useSelector(state => state.email)
+  const emailId = useSelector(state => state.sharedStrings.ReferrerEmail)
   const [resendAttempts, setResendAttempts] = useState(0)
   const maxResendAttempts = 3
   const [maxAttempts, setMaxAttempts] = useState(0)

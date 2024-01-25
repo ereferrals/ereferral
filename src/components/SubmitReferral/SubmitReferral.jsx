@@ -62,10 +62,10 @@ const SubmitReferral = () => {
         dispatch(setReferralSubmissionStep(currentStep-1))
     }
     const handleConfirmation = async (isConfirmed) => {
+        setIsConfirmation(false)
+        setShowCloseButton(false)
+        setContentInHtml(false)
         if(isConfirmed){
-            setIsConfirmation(false)
-            setShowCloseButton(false)
-            setContentInHtml(false)
             setModalText("Submitting Data... Please wait.")
             try{
 
@@ -100,7 +100,9 @@ const SubmitReferral = () => {
                 }
             }
         }
-        
+        else{
+            closeModal();
+        }
       }
 
     return(
