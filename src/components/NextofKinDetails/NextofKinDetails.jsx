@@ -28,7 +28,7 @@ const NextofKinDetails = () => {
     //const [enableRedBorder, setEnableRedBorder] = useState(false)
     const enableRedBorder = useSelector(state => state.sharedStrings.enableNOKMandatory)
     //const mandatoryFlag = useSelector(state => !state.details.IsExistingNHSNumber)
-    const mandatoryFlag = useSelector(state => state.details.IsExistingNHSNumber === 'Yes' ? false : true)
+    const mandatoryFlag = true//useSelector(state => state.details.IsExistingNHSNumber === 'Yes' ? false : true)
 
     useEffect(() => {
         if(details){
@@ -75,13 +75,13 @@ const NextofKinDetails = () => {
         nextofKinMFDN["RelationshiptoPatient"] = "Relationship to Patient"
         var emptyFields = []
 
-        if(!details["NoNextOfKin"] && details && details.IsExistingNHSNumber != "Yes"){
-            for (const fieldName of nextofKinMandatoryFields) {
-                if (!details.hasOwnProperty(fieldName) || details[fieldName] === "") {
-                    emptyFields.push(nextofKinMFDN[fieldName])
-                }
+        //if(!details["NoNextOfKin"] && details && details.IsExistingNHSNumber != "Yes"){
+        for (const fieldName of nextofKinMandatoryFields) {
+            if (!details.hasOwnProperty(fieldName) || details[fieldName] === "") {
+                emptyFields.push(nextofKinMFDN[fieldName])
             }
         }
+        //}
 
         if (emptyFields.length > 0) {
             errorMsg = errorMsg + `<div style='text-align:left;line-height:28px'><ul>${emptyFields.map(field => `<li>${field}</li>`).join('')}</ul></div>`;

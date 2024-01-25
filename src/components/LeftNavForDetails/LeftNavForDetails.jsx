@@ -32,14 +32,13 @@ const LeftNavForDetails = () => {
         patientMFDN["HomePhoneNumber"] = "Primary Contact Number"
         var emptyFields = []
 
-        if(details && details.IsExistingNHSNumber != "Yes")
-        {
-            for (const fieldName of patientMandatoryFields) {
-                if (!details.hasOwnProperty(fieldName) || details[fieldName] === "") {
-                    emptyFields.push(patientMFDN[fieldName])
-                }
+        //if(details && details.IsExistingNHSNumber != "Yes") {
+        for (const fieldName of patientMandatoryFields) {
+            if (!details.hasOwnProperty(fieldName) || details[fieldName] === "") {
+                emptyFields.push(patientMFDN[fieldName])
             }
         }
+        //}
         if(details.OverseasPatient == 'No'){
             if(!details.NHSNumber || details.NHSNumber == ""){
                 emptyFields.push("NHS Number")
@@ -93,7 +92,7 @@ const LeftNavForDetails = () => {
         nextofKinMFDN["RelationshiptoPatient"] = "Relationship to Patient"
         var emptyFields = []
 
-        if(!details["NoNextOfKin"] && details && details.IsExistingNHSNumber != "Yes"){
+        if(!details["NoNextOfKin"] && /*details && details.IsExistingNHSNumber != "Yes"*/){
             for (const fieldName of nextofKinMandatoryFields) {
                 if (!details.hasOwnProperty(fieldName) || details[fieldName] === "") {
                     emptyFields.push(nextofKinMFDN[fieldName])
@@ -140,14 +139,13 @@ const LeftNavForDetails = () => {
 
         let emptyFields = []
 
-        if(details && details.IsExistingNHSNumber != "Yes")
-        {
-            for (const fieldName of referMandatoryFields) {
-                if (!details.hasOwnProperty(fieldName) || details[fieldName] === "") {
-                    emptyFields.push(referMFDN[fieldName])
-                }
+        //if(details && details.IsExistingNHSNumber != "Yes") {
+        for (const fieldName of referMandatoryFields) {
+            if (!details.hasOwnProperty(fieldName) || details[fieldName] === "") {
+                emptyFields.push(referMFDN[fieldName])
             }
         }
+        //}
         if (emptyFields.length > 0) {
             errorMsg = errorMsg + `<div style='text-align:left;line-height:28px'><ul>${emptyFields.map(field => `<li>${field}</li>`).join('')}</ul></div>`;
             setModalText(errorMsg)
@@ -176,14 +174,13 @@ const LeftNavForDetails = () => {
 
         let emptyFields = []
 
-        if(details && details.IsExistingNHSNumber != "Yes")
-        {
-            for (const fieldName of treatmentMandatoryFields) {
-                if (!details.hasOwnProperty(fieldName) || details[fieldName] === "") {
-                    emptyFields.push(treatmentMFDN[fieldName])
-                }
+        //if(details && details.IsExistingNHSNumber != "Yes") {
+        for (const fieldName of treatmentMandatoryFields) {
+            if (!details.hasOwnProperty(fieldName) || details[fieldName] === "") {
+                emptyFields.push(treatmentMFDN[fieldName])
             }
         }
+        //}
         if (emptyFields.length > 0) {
             errorMsg = errorMsg + `<div style='text-align:left;line-height:28px'><ul>${emptyFields.map(field => `<li>${field}</li>`).join('')}</ul></div></div>`;
             setModalText(errorMsg)

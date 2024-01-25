@@ -31,7 +31,7 @@ const PatientDetails = () => {
     const nhsNumbers = useSelector(state => state.masterData.NHSNumbers)
     //const [enableRedBorder, setEnableRedBorder] = useState(false)
     const enableRedBorder = useSelector(state => state.sharedStrings.enablePatientMandatory)
-    const mandatoryFlag = useSelector(state => state.details.IsExistingNHSNumber === 'Yes' ? false : true)
+    const mandatoryFlag = true//useSelector(state => state.details.IsExistingNHSNumber === 'Yes' ? false : true)
     
     useEffect(() => {
         dispatch(setLeftNavClearLinkText("Patient"))
@@ -100,14 +100,14 @@ const PatientDetails = () => {
         var emptyFields = []
         var hasMFToFill = false
 
-        if(details && details.IsExistingNHSNumber != "Yes"){
-            for (const fieldName of patientMandatoryFields) {
-                if (!details.hasOwnProperty(fieldName) || details[fieldName] === "") {
-                    emptyFields.push(patientMFDN[fieldName])
-                    hasMFToFill = true
-                }
+        //if(details && details.IsExistingNHSNumber != "Yes"){
+        for (const fieldName of patientMandatoryFields) {
+            if (!details.hasOwnProperty(fieldName) || details[fieldName] === "") {
+                emptyFields.push(patientMFDN[fieldName])
+                hasMFToFill = true
             }
         }
+        //}
 
         if(details.OverseasPatient == 'No'){
             if(!details.NHSNumber || details.NHSNumber == ""){

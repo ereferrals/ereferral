@@ -25,7 +25,7 @@ const DiagnosisDetails = () => {
     const enableRedBorder = useSelector(state => state.sharedStrings.enableTTCMandatory)
     const fixedOptions = [{label: "Not Required", value: "Not Required"}, 
     {label: "CCC to Assign", value:"CCC to Assign"}]
-    const mandatoryFlag = useSelector(state => state.details.IsExistingNHSNumber === 'Yes' ? false : true)
+    const mandatoryFlag = true//useSelector(state => state.details.IsExistingNHSNumber === 'Yes' ? false : true)
 
     useEffect(() => {
         dispatch(setLeftNavClearLinkText("Treatment & Target Category"))
@@ -106,7 +106,7 @@ const DiagnosisDetails = () => {
     }
 
     const handleNext = () => {
-        if (details && details.IsExistingNHSNumber != "Yes" && checkFieldsValidation()){
+        if (details && /*details.IsExistingNHSNumber != "Yes" && */checkFieldsValidation()){
             openModal()
             return
         }
