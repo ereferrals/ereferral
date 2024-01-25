@@ -221,7 +221,7 @@ const Reports = () => {
       const tempReports = reportslist.filter((report) => report.ReportName == "IPT Form")
       if(tempReports.length > 0){
         const iptFormFile = files.some((file) => file.ReportName === "IPT Form")
-        if(!iptFormFile){
+        if(!iptFormFile && details.IsExistingNHSNumber != "Yes"){
           setModalText("Please upload IPT Form report.")
           setShowCloseButton(true)
           setIsConfirmation(false)
