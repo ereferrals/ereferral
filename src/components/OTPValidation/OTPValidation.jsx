@@ -106,7 +106,7 @@ const OTPValidation = () => {
                 }
               }
               else if(error.message.includes('OTP has expired')){
-                setModalText("Invalid verification code expired.")
+                setModalText("Verification code has expired.")
               }
               else {
                   setModalText(error.message)
