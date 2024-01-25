@@ -92,7 +92,7 @@ const LeftNavForDetails = () => {
         nextofKinMFDN["RelationshiptoPatient"] = "Relationship to Patient"
         var emptyFields = []
 
-        if(!details["NoNextOfKin"] && /*details && details.IsExistingNHSNumber != "Yes"*/){
+        if(!details["NoNextOfKin"] /*&& details && details.IsExistingNHSNumber != "Yes"*/){
             for (const fieldName of nextofKinMandatoryFields) {
                 if (!details.hasOwnProperty(fieldName) || details[fieldName] === "") {
                     emptyFields.push(nextofKinMFDN[fieldName])
