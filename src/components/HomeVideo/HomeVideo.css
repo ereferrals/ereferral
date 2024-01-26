@@ -1,9 +1,9 @@
 .video-container {
     /*border-radius: 12px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);*/
-    height:600px;width: 600px;
+    /*height:600px;*/width: 1100px;
     margin: 0 auto;
   }
-video{height:600px;width: 600px;}
+video{/*height:600px;*/width: 1100px;margin-top: 50px;}
 .rightbtn{float: right;background: transparent;border: 0px;cursor: pointer;font-weight: 600;font-size: 18px;margin-top: 5px;}
 .leftbtn{float: left;}
