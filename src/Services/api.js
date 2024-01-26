@@ -72,7 +72,7 @@ export const saveData = async (data) => {
     console.error(error);
     throw new Error("Request failed: " + error.message);
   }
-};
+}
 
 export const generateOTP = async () => {
   //const formData = new FormData();
@@ -416,7 +416,35 @@ export const uploadFilesTest = async (files) => {
   } catch (error) {
     throw new Error("Failed to upload file");
   }
-};
+}
+
+export const resetSession = async () => {debugger
+  try {
+    const response = await fetch(`${BASE_URL}/Token/ResetSession`, {
+      method: "POST",
+      credentials: "include"
+    });
+
+    if (response.ok) {
+      const responseBody = await response.text();
+      console.log("Response:", responseBody);
+      return responseBody;
+    } else if (response.status === 400) {
+      const errorResponse = await response.text();
+      console.error("Bad Request:", errorResponse);
+      throw new Error(`Bad Request (Status Code: ${response.status}): ${errorResponse}`);
+    } else if (response.status === 500) {
+      const errorResponse = await response.text();
+      console.error("Internal Server Error:", errorResponse);
+      throw new Error(`Internal Server Error (Status Code: ${response.status}): ${errorResponse}`);
+    } else {
+      throw new Error("Unexpected error: " + response.status);
+    }
+  } catch (error) {
+    console.error(error);
+    throw new Error("Request failed: " + error.message);
+  }
+}
 
 const transformData = (data) => {
   const transformed = {};

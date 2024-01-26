@@ -1,0 +1,8 @@
+.timer-button {
+  padding: 6px 10px;
+  border: 0px solid green;
+  background-color: #005cbb;
+  color: white;
+  border-radius: 5px;
+  font-size: 16px;
+}

@@ -167,7 +167,7 @@ const PatientDetails = () => {
 
                 value = "Yes"
                 setShowCloseButton(true)
-                setModalText("<span style='line-height:28px'>The NHS number has been recognised as not needing all the reports specified. <br/>Please complete as many of the fields as you can and attach the reports you have available.</span>")
+                setModalText("<span style='line-height:28px'>The NHS number used has been recognised as being accepted by a Clatterbridge Cancer Centre Consultant. <br/>Please attach as many reports as you have available for the patient.</span>")
                 openModal()
             }
             else

@@ -4,6 +4,7 @@ import UserValidation from './components/UserValidation/UserValidation';
 import ReferralTypeSelection from './components/ReferralTypeSelection/ReferralTypeSelection';
 import ReferralSubmission from './components/ReferralSubmission/ReferralSubmission';
 import { useSelector } from 'react-redux';
+import SessionTimer from './components/SessionTimer/SessionTimer';
 
 function App() {
   const currentStep = useSelector(state => state.appStep)
@@ -17,7 +18,9 @@ function App() {
 
   return (
     <div className="App">
+      {/*<SessionTimer/>*/}
       {currentStep === 0 && <UserValidation />}
+      {(currentStep === 1 || currentStep === 2) && <SessionTimer/>}
       {currentStep === 1 && <ReferralTypeSelection />}
       {currentStep === 2 && <ReferralSubmission />}
     </div>
