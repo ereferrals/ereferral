@@ -1,5 +1,5 @@
 import React from "react"
-import videoSrc from "../../Images/NHSVideo.m4v"
+import videoSrc from "../../Images/NHSVideo.mp4"
 import "./HomeVideo.css"
 import { useDispatch, useSelector } from "react-redux"
 import { setReferralTypeStageStep } from "../ReferralTypeSlice"
