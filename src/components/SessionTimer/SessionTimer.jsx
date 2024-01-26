@@ -8,8 +8,10 @@ import { setReferralTypeStageStep } from "../ReferralTypeSlice"
 import { resetDetails } from "../DetailsSlice"
 import { setStage } from "../ChooseStages/StagesSlice"
 import { resetMandatory } from "../SharedStringsSlice"
+import { useDispatch } from "react-redux"
 
 const SessionTimer = () => {
+    const dispatch = useDispatch()
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [countdown, setCountdown] = useState(120)
     const [startCountdown, setStartCountdown] = useState(false)
