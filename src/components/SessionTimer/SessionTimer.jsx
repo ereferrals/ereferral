@@ -2,6 +2,12 @@ import React, { useEffect, useState } from "react"
 import ModalDialog from "../ModalDialog/ModalDialog"
 import "./SessionTimer.css"
 import { resetSession } from "../../Services/api"
+import { setAppStep } from "../AppSlice"
+import { setUserValidationStep } from "../UserValidation/UserValidationSlice"
+import { setReferralTypeStageStep } from "../ReferralTypeSlice"
+import { resetDetails } from "../DetailsSlice"
+import { setStage } from "../ChooseStages/StagesSlice"
+import { resetMandatory } from "../SharedStringsSlice"
 
 const SessionTimer = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -69,6 +75,12 @@ const SessionTimer = () => {
 
     const handleCloseSession = () => {
         setStartCountdown(false)
+        dispatch(setAppStep(0))
+        dispatch(setUserValidationStep(0))
+        dispatch(setReferralTypeStageStep(0))
+        dispatch(resetDetails())
+        dispatch(setStage(null))
+        dispatch(resetMandatory())
         closeModal()
     }
 
