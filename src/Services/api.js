@@ -420,7 +420,7 @@ export const uploadFilesTest = async (files) => {
 
 export const resetSession = async () => {debugger
   try {
-    const response = await fetch(`${BASE_URL}/Token/ResetSession`, {
+    const response = await fetch(`${BASE_URL}/Session/ResetSession`, {
       method: "POST",
       credentials: "include"
     });
