@@ -11,8 +11,8 @@ const SessionTimer = () => {
 
     let timer
     let timer2
-    const sessionTimeout = 2 * 60 * 1000
-    const warningTimeout = 1.1 * 60 * 1000
+    const sessionTimeout = 5 * 60 * 1000
+    const warningTimeout = 2 * 60 * 1000
  
     useEffect(() => {
         if(startCountdown)
