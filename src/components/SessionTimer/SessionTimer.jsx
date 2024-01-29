@@ -102,6 +102,7 @@ const SessionTimer = () => {
 
     const handleExtendSession = async () => {
         resetSessionTimeout()
+        setStartCountdown(false)
         closeModal()
     }
 
