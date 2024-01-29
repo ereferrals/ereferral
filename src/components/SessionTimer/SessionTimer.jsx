@@ -9,6 +9,7 @@ import { resetDetails } from "../DetailsSlice"
 import { setStage } from "../ChooseStages/StagesSlice"
 import { resetMandatory } from "../SharedStringsSlice"
 import { useDispatch } from "react-redux"
+import { useIdleTimer } from 'react-idle-timer'
 
 const SessionTimer = () => {
     const dispatch = useDispatch()
@@ -16,19 +17,52 @@ const SessionTimer = () => {
     const [countdown, setCountdown] = useState(120)
     const [startCountdown, setStartCountdown] = useState(false)
     const [countdownover, setCountdownover] = useState(false)
+    const [systemState, setSystemState] = useState("active")
 
-    let timer
-    let timer2
-    const sessionTimeout = 20 * 60 * 1000
+    let sessionInterval
+    let countDownTimer
+    let idleTimer
+    const sessionTimeout = 5 * 60 * 1000
     const warningTimeout = 2 * 60 * 1000
  
+    const { start, pause, reset } = useIdleTimer({
+        timeout: 300000,//5mins
+        onIdle: () => {
+          setSystemState('idle')
+          startIdleTimer()
+        },
+        onActive: () => {
+            setSystemState('active')
+        },
+    })
+
+    const resetSessionTimeout = async () => {
+        await resetSession()
+    }
+
+    //In Idle state, track the time to popup user about session expire.
+    const startIdleTimer = () => {
+        idleTimer = setTimeout(() => {
+            setCountdown(120)
+            setStartCountdown(true)
+            openModal()
+        },sessionTimeout - warningTimeout)
+    }
+
+    useEffect(() => {
+        start()
+        return () => {
+          pause()
+          reset()
+        };
+    }, [start, pause, reset])
+
     useEffect(() => {
         if(startCountdown)
         {
-            timer2 = setTimeout(() => {
+            countDownTimer = setTimeout(() => {
                 if (countdown > 0) {
                     setCountdown(countdown - 1)
-                    console.log(countdown)
                 }
                 else{
                     openModal()
@@ -38,29 +72,25 @@ const SessionTimer = () => {
             }, 1000)
         }
         return () => {
-            clearTimeout(timer2)
+            clearTimeout(countDownTimer)
         }
         
     },[countdown, startCountdown])
 
+    //session will reset before expire to let user continue.
     useEffect(() => {
-        startTimer()
-    },[])
-
-    const resetTimer = () => {
-        clearTimeout(timer)
-        startTimer()
-        setCountdown(120)
-        setStartCountdown(false)
-        closeModal()
-    }  
-
-    const startTimer = () => {
-        timer = setTimeout(() => {
-            setStartCountdown(true)
-            openModal()
+        //startTimer()
+        sessionInterval = setInterval(() => {
+            if(systemState == "active")
+            {
+                resetSessionTimeout()
+            }
         }, sessionTimeout - warningTimeout)
-    }
+
+        return () => {
+            clearInterval(sessionInterval)
+        }
+    },[])
 
     const openModal = () => {
         setIsModalOpen(true)
@@ -71,8 +101,7 @@ const SessionTimer = () => {
     }
 
     const handleExtendSession = async () => {
-        await resetSession()
-        resetTimer()
+        resetSessionTimeout()
     }
 
     const handleCloseSession = () => {

@@ -5,6 +5,7 @@ import ReferralTypeSelection from './components/ReferralTypeSelection/ReferralTy
 import ReferralSubmission from './components/ReferralSubmission/ReferralSubmission';
 import { useSelector } from 'react-redux';
 import SessionTimer from './components/SessionTimer/SessionTimer';
+import { IdleTimerProvider } from 'react-idle-timer';
 
 function App() {
   const currentStep = useSelector(state => state.appStep)
@@ -18,11 +19,13 @@ function App() {
 
   return (
     <div className="App">
-      {/*<SessionTimer/>*/}
-      {currentStep === 0 && <UserValidation />}
-      {(currentStep === 1 || currentStep === 2) && <SessionTimer/>}
-      {currentStep === 1 && <ReferralTypeSelection />}
-      {currentStep === 2 && <ReferralSubmission />}
+      <IdleTimerProvider>
+        {/*<SessionTimer/>*}*/}
+        {currentStep === 0 && <UserValidation />}
+        {(currentStep === 1 || currentStep === 2) && <SessionTimer/>}
+        {currentStep === 1 && <ReferralTypeSelection />}
+        {currentStep === 2 && <ReferralSubmission />}
+      </IdleTimerProvider>
     </div>
   );
 }
