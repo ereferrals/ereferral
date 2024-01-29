@@ -122,7 +122,7 @@ const SessionTimer = () => {
     return (<div>
         {!countdownover && 
             <ModalDialog isOpen={isModalOpen} onClose={closeModal} showCloseButton={false}>
-                Current session going to be expired in {Math.floor(countdown / 60)}:{(countdown % 60).toString().padStart(2, '0')} mins
+                Your session will end in {Math.floor(countdown / 60)}:{(countdown % 60).toString().padStart(2, '0')} minutes. To ensure you do not loose any data you have entered and to be able to still submit a referral, please click on the 'extend' option.
             <br/><br/>
             <button className="timer-button" onClick={handleExtendSession} style={{marginRight: "5px"}}>Extend session</button>
             <button className="timer-button" onClick={handleClosePopup} style={{marginLeft: "5px"}}>Close</button>
