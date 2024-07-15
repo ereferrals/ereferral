@@ -1,4 +1,5 @@
 export const ReferralTypes = {
     Breast: "Breast",
-    Lung: "Lung"
+    Lung: "Lung",
+    Lung: "CNS"
 }
