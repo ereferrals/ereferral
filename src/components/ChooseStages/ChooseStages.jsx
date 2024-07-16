@@ -193,7 +193,7 @@ const ChooseStages = () => {
     return(
         <div>
             <div className="choosestage-header" style={{margin: '40px',width: 'calc(100% - 80px - 10%)', paddingLeft: '10%'}}>
-                    <div style={{float: 'left'}}>Please choose a {selectedReferralType} Cancer stage</div>
+                    <div style={{float: 'left'}}>Please choose a {selectedReferralType} Cancer {selectedReferralType!="CNS" && "stage"}{selectedReferralType="CNS" && "referral type"}</div>
                     <div style={{float: 'right'}}>
                         <button onClick={handleNext} className="buttonCtrl">Next</button>
                         <button onClick={handleBack} className="buttonCtrl" style={{marginRight: '10px'}}>Back</button>
